@@ -55,28 +55,28 @@ schedule:
 platforms:
   enabled: true                         # 是否启用热榜平台抓取（true=启用, false=关闭）
   sources:
-    - id: "toutiao"
-      name: "今日头条"
-    - id: "baidu"
-      name: "百度热搜"
+    # - id: "toutiao"
+    #   name: "今日头条"
+    # - id: "baidu"
+    #   name: "百度热搜"
     - id: "wallstreetcn-hot"
       name: "华尔街见闻"
     - id: "thepaper"
       name: "澎湃新闻"
-    - id: "bilibili-hot-search"
-      name: "bilibili 热搜"
-    - id: "cls-hot"
-      name: "财联社热门"
-    - id: "ifeng"
-      name: "凤凰网"
-    - id: "tieba"
-      name: "贴吧"
-    - id: "weibo"
-      name: "微博"
-    - id: "douyin"
-      name: "抖音"
-    - id: "zhihu"
-      name: "知乎"
+    # - id: "bilibili-hot-search"
+    #   name: "bilibili 热搜"
+    # - id: "cls-hot"
+    #   name: "财联社热门"
+    # - id: "ifeng"
+    #   name: "凤凰网"
+    # - id: "tieba"
+    #   name: "贴吧"
+    # - id: "weibo"
+    #   name: "微博"
+    # - id: "douyin"
+    #   name: "抖音"
+    # - id: "zhihu"
+    #   name: "知乎"
 
 
 
@@ -115,9 +115,9 @@ rss:
       enabled: false                  # 禁用
       # max_age_days: 3               # 示例：推送 3 天内的文章（更新较慢的博客）
      
-    - id: "yahoo-finance"
-      name: "雅虎财经"
-      url: "https://finance.yahoo.com/news/rssindex"
+    # - id: "yahoo-finance"
+    #   name: "雅虎财经"
+    #   url: "https://finance.yahoo.com/news/rssindex"
 
     - id: "supercomputing-ai-infrastructure-high-performance-computing"
       name: "Supercomputing, AI Infrastructure, High Performance Computing"
@@ -215,9 +215,9 @@ rss:
       name: "Google 黑板报"
       url: "https://feeds.feedburner.com/googlechinablog/hESp"
 
-    - id: "虎嗅网"
-      name: "虎嗅网"
-      url: "http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Fwww.huxiu.com%2Frss%2F0.xml&max=3"
+    # - id: "虎嗅网"
+    #   name: "虎嗅网"
+    #   url: "http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Fwww.huxiu.com%2Frss%2F0.xml&max=3"
 
     - id: "v2ex"
       name: "V2EX"
@@ -247,9 +247,9 @@ rss:
       name: "BMPI"
       url: "https://www.bmpi.dev/index.xml"
 
-    - id: "36氪"
-      name: "36氪"
-      url: "http://www.36kr.com/feed"
+    # - id: "36氪"
+    #   name: "36氪"
+    #   url: "http://www.36kr.com/feed"
 
     - id: "我没有三颗心脏的博客"
       name: "我没有三颗心脏的博客"
@@ -287,9 +287,9 @@ rss:
       name: "The New Stack"
       url: "http://thenewstack.io/feed/"
 
-    - id: "钛媒体引领未来商业与生活新知"
-      name: "钛媒体：引领未来商业与生活新知"
-      url: "https://plink.anyfeeder.com/tmtpost"
+    # - id: "钛媒体引领未来商业与生活新知"
+    #   name: "钛媒体：引领未来商业与生活新知"
+    #   url: "https://plink.anyfeeder.com/tmtpost"
 
     - id: "geekplux"
       name: "GeekPlux"
@@ -343,9 +343,9 @@ rss:
       name: "云风的 BLOG"
       url: "http://blog.codingnow.com/atom.xml"
 
-    - id: "商业-财富中文网"
-      name: "商业 - 财富中文网"
-      url: "https://plink.anyfeeder.com/fortunechina/shangye"
+    # - id: "商业-财富中文网"
+    #   name: "商业 - 财富中文网"
+    #   url: "https://plink.anyfeeder.com/fortunechina/shangye"
 
     - id: "酷-壳-coolshell"
       name: "酷 壳 – CoolShell"
