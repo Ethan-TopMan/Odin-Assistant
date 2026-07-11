@@ -215,6 +215,23 @@ jobs:
           command: pages deploy cloudflare_dist --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
 
       # --------------------------------------------------------------------------------
+      # 🔍 诊断：打印阿里云盘 Token 状态（帮助排查）
+      # --------------------------------------------------------------------------------
+      - name: 🩺 诊断 - 阿里云盘 Token 状态
+        if: success()
+        run: |
+          if [ -n "${{ secrets.ALIYUNPAN_REFRESH_TOKEN }}" ]; then
+            echo "✅ [诊断] ALIYUNPAN_REFRESH_TOKEN 已配置（长度: $(echo -n "${{ secrets.ALIYUNPAN_REFRESH_TOKEN }}" | wc -c) 位）"
+          else
+            echo "❌ [诊断] ALIYUNPAN_REFRESH_TOKEN 未配置或为空！请检查 GitHub Secrets"
+          fi
+          if [ -n "${{ secrets.ALIYUNPAN_DRIVE_ID }}" ]; then
+            echo "✅ [诊断] ALIYUNPAN_DRIVE_ID 已配置"
+          else
+            echo "ℹ️ [诊断] ALIYUNPAN_DRIVE_ID 未配置（使用默认 drive）"
+          fi
+
+      # --------------------------------------------------------------------------------
       # ☁️ UPLOAD TO 阿里云盘 / 上传到阿里云盘（可选）
       # --------------------------------------------------------------------------------
       # 将生成的 HTML 报告自动上传到阿里云盘，方便在手机上直接打开查看。
@@ -242,6 +259,7 @@ jobs:
           fi
 
       - name: Upload HTML report to 阿里云盘
+        id: aliyunpan_upload
         if: success() && steps.aliyunpan_check.outputs.enabled == 'true'
         env:
           REFRESH_TOKEN: ${{ secrets.ALIYUNPAN_REFRESH_TOKEN }}
@@ -276,3 +294,16 @@ jobs:
           fi
 
           echo "✅ 上传完成，请在阿里云盘 App 中查看 /TrendRadar 文件夹"
+
+      # --------------------------------------------------------------------------------
+      # 📋 最终诊断汇总（即使前面失败也能看到）
+      # --------------------------------------------------------------------------------
+      - name: 📋 最终状态汇总
+        if: always()
+        run: |
+          echo "═══════════════════════════════════════"
+          echo "  本次运行状态汇总"
+          echo "═══════════════════════════════════════"
+          echo "Cloudflare Pages: ${{ steps.cf_check.outputs.enabled == 'true' && '✅ 已部署' || '⏭️ 跳过（未配置）' }}"
+          echo "阿里云盘上传:    ${{ steps.aliyunpan_check.outputs.enabled == 'true' && (steps.aliyunpan_upload.outcome == 'success' && '✅ 已上传' || '❌ 上传失败') || '⏭️ 跳过（未配置）' }}"
+          echo "═══════════════════════════════════════"
