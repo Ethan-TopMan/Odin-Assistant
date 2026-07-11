@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+⚠️ 已废弃 — 推荐使用 upload_to_cos.py（腾讯云 COS）
+
 阿里云盘上传工具（使用 Open API）
 用法：
     python upload_to_aliyunpan.py <本地文件或目录路径> <refresh_token> [drive_id]
