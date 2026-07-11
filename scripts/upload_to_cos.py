@@ -105,7 +105,7 @@ def guess_content_type(file_path: str) -> str:
 
 
 def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> bool:
-    """上传单个文件"""
+    """上传单个文件（使用 upload_file 避免 aws-chunked 编码）"""
     if not os.path.isfile(local_path):
         print(f"  ❌ 文件不存在: {local_path}")
         return False
@@ -113,13 +113,13 @@ def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> boo
     content_type = guess_content_type(local_path)
 
     try:
-        with open(local_path, "rb") as f:
-            body = f.read()
-        s3_client.put_object(
-            Bucket=bucket,
-            Key=remote_key,
-            Body=body,
-            ContentType=content_type,
+        s3_client.upload_file(
+            local_path,
+            bucket,
+            remote_key,
+            ExtraArgs={
+                "ContentType": content_type,
+            },
         )
         print(f"  ✅ {local_path} → {remote_key} ({content_type})")
         return True
