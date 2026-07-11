@@ -105,7 +105,7 @@ def guess_content_type(file_path: str) -> str:
 
 
 def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> bool:
-    """上传单个文件"""
+    """上传单个文件，并强制设置 Content-Type"""
     if not os.path.isfile(local_path):
         print(f"  ❌ 文件不存在: {local_path}")
         return False
@@ -115,6 +115,8 @@ def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> boo
     try:
         with open(local_path, "rb") as f:
             body = f.read()
+
+        # 1) 上传文件
         s3_client.put_object(
             Bucket=bucket,
             Key=remote_key,
@@ -122,6 +124,15 @@ def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> boo
             ContentType=content_type,
         )
         print(f"  ✅ {local_path} → {remote_key} ({content_type})")
+
+        # 2) 复制到自身，强制覆盖 Content-Type 元数据（COS 兼容性修复）
+        s3_client.copy_object(
+            Bucket=bucket,
+            Key=remote_key,
+            CopySource={"Bucket": bucket, "Key": remote_key},
+            ContentType=content_type,
+            MetadataDirective="REPLACE",
+        )
         return True
     except ClientError as e:
         error_code = e.response["Error"]["Code"]
