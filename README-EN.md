@@ -6,15 +6,22 @@
 
 Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only see the news you truly care about
 
+<a href="https://trendradar.sandev.cc/en/" title="TrendRadar Official Website"><strong>🌐 Official Website</strong></a> · <a href="https://trendradar.sandev.cc/en/docs/quick-start/" title="TrendRadar Docs"><strong>📖 Documentation</strong></a>
+
 <a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FTrendRadar | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 [![GitHub Stars](https://img.shields.io/github/stars/sansan0/TrendRadar?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/TrendRadar/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/sansan0/TrendRadar?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/TrendRadar/network/members)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v6.8.1-blue.svg)](https://github.com/sansan0/TrendRadar)
-[![MCP](https://img.shields.io/badge/MCP-v4.0.4-green.svg)](https://github.com/sansan0/TrendRadar)
-[![RSS](https://img.shields.io/badge/RSS-Feed_Support-orange.svg?style=flat-square&logo=rss&logoColor=white)](https://github.com/sansan0/TrendRadar)
-[![AI Translation](https://img.shields.io/badge/AI-Multi--Language-purple.svg?style=flat-square)](https://github.com/sansan0/TrendRadar)
+[![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/TrendRadar)
+[![MCP](https://img.shields.io/badge/MCP-v4.1.0-green.svg)](https://github.com/sansan0/TrendRadar)
+[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar?style=flat-square&logo=docker&logoColor=white&label=TrendRadar%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar)
+[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar-mcp?style=flat-square&logo=docker&logoColor=white&label=MCP%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar-mcp)
+[![RSS](https://img.shields.io/badge/RSS-Feed_Support-orange.svg?style=flat-square&logo=rss&logoColor=white)](#rss-feed-support-v450-new)
+[![AI Translation](https://img.shields.io/badge/AI-Multi--Language-purple.svg?style=flat-square)](#ai-multi-language-translation-v520-new)
+[![MCP Support](https://img.shields.io/badge/MCP-AI_Analysis-FF6B6B?style=flat-square&logo=ai&logoColor=white)](#-mcp-clients)
+[![AI Analysis Push](https://img.shields.io/badge/AI-Analysis_Push-FF6B6B?style=flat-square&logo=openai&logoColor=white)](#ai-analysis-push-v500-new)
+[![AI Smart Filter](https://img.shields.io/badge/AI-Smart_News_Filter-9B59B6?style=flat-square&logo=openai&logoColor=white)](#ai-smart-news-filtering-v650-new)
 
 [![WeWork](https://img.shields.io/badge/WeWork-Notification-00D4AA?style=flat-square)](https://work.weixin.qq.com/)
 [![WeChat](https://img.shields.io/badge/WeChat-Notification-00D4AA?style=flat-square)](https://weixin.qq.com/)
@@ -28,12 +35,11 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 [![Generic Webhook](https://img.shields.io/badge/Generic-Webhook-607D8B?style=flat-square&logo=webhook&logoColor=white)](#)
 
 
-[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat-square&logo=github-actions&logoColor=white)](https://github.com/sansan0/TrendRadar)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat-square&logo=github-actions&logoColor=white)](#-quick-start)
 [![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Deployment-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/TrendRadar)
-[![Docker](https://img.shields.io/badge/Docker-Deployment-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/wantcat/trendradar)
-[![MCP Support](https://img.shields.io/badge/MCP-AI_Analysis-FF6B6B?style=flat-square&logo=ai&logoColor=white)](https://modelcontextprotocol.io/)
-[![AI Analysis Push](https://img.shields.io/badge/AI-Analysis_Push-FF6B6B?style=flat-square&logo=openai&logoColor=white)](#)
-[![AI Smart Filter](https://img.shields.io/badge/AI-Smart_News_Filter-9B59B6?style=flat-square&logo=openai&logoColor=white)](#)
+[![Docker](https://img.shields.io/badge/Docker-Deployment-2496ED?style=flat-square&logo=docker&logoColor=white)](#6-docker-deployment)
+[![Local Deploy](https://img.shields.io/badge/Local-Deployment-28A745?style=flat-square&logo=python&logoColor=white)](#local-deploy)
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-Deployment-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#cloudflare-deploy)
 
 </div>
 
@@ -56,7 +62,7 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 |   |   |   |
 |:---:|:---:|:---:|
 | [🚀 **Quick Start**](#-quick-start) | [AI Analysis](#-ai-analysis) | [⚙️ **Configuration Guide**](#configuration-guide) |
-| [Docker Deployment](#6-docker-deployment) | [MCP Clients](#-mcp-clients) | [📝 **Changelog**](#-changelog) |
+| [Docker Deployment](#6-docker-deployment) / [Local Deploy](#local-deploy) | [MCP Clients](#-mcp-clients) | [📝 **Changelog**](#-changelog) |
 | [🎯 **Core Features**](#-core-features) | [☕ **Support Project**](#-support-project) | [📚 **Related Projects**](#-related-projects) |
 
 </div>
@@ -139,6 +145,8 @@ After communication, the author indicated no concerns about server pressure, but
 <div align="center">
 
 > **Sponsorship Open**
+>
+> Interested in sponsoring? Trigger the auto-reply in my WeChat Official Account to get my contact details
 
 </div>
 
@@ -193,13 +201,11 @@ This contributes to the sustainable maintenance of the project and the growth of
 - **Tip**: Check [Changelog] to understand specific [Features]
 
 
-### 2026/05/23 - v6.8.0
+### 2026/06/19 - v6.10.0
 
-- **HTML Report Major Enhancement**: Added report metadata display (generation time, data sources, version), dark mode auto-adaptation, improved Tab bar interaction, and trend arrow visualization for a significantly better browser reading experience
-- **Version Check CDN Multi-Source Fallback**: Version check API now supports automatic fallback across GitHub → jsDelivr → Cloudflare CDN sources, ensuring reliable update notifications even in restricted network environments
-- **Display Region Toggles**: HTML reports and emails now properly respect `display.regions.ai_analysis` and `display.regions.standalone` switches — disabled regions are no longer rendered
-- **Export Button Fix**: Fixed dropdown menu icons disappearing after clicking the export button
-- **Markdown Export Fix**: Fixed JS newline character escaping error in HTML report Markdown export
+- **AI Translation Batch Processing**: Automatically splits large translation requests into batches, preventing single-request overflow failures
+- **Module Refactoring**: Split context.py and \_\_main\_\_.py, extracted AI filter pipeline into a standalone module for clearer responsibilities and easier maintenance
+- **Fixed Feishu Source Label Display**: Fixed source labels and AI standalone source overview being swallowed by CommonMark rendering in Feishu cards
 
 ### 2026/02/09 - mcp-v4.0.0
 
@@ -212,6 +218,19 @@ This contributes to the sustainable maintenance of the project and the growth of
 
 <details>
 <summary>👉 Click to expand: <strong>Historical Updates</strong></summary>
+
+### 2026/06/02 - v6.9.0
+
+- **Platform Domain Safety Validation**: New `expected_domain` config option validates returned data link domains — mismatched data is automatically discarded with a warning, effectively preventing link hijacking or data tampering
+- **Custom Platform API URL**: Support self-hosting newsnow and configuring `api_url` to use your own data source
+
+### 2026/05/23 - v6.8.0
+
+- **HTML Report Major Enhancement**: Added report metadata display (generation time, data sources, version), dark mode auto-adaptation, improved Tab bar interaction, and trend arrow visualization for a significantly better browser reading experience
+- **Version Check CDN Multi-Source Fallback**: Version check API now supports automatic fallback across GitHub → jsDelivr → Cloudflare CDN sources, ensuring reliable update notifications even in restricted network environments
+- **Display Region Toggles**: HTML reports and emails now properly respect `display.regions.ai_analysis` and `display.regions.standalone` switches — disabled regions are no longer rendered
+- **Export Button Fix**: Fixed dropdown menu icons disappearing after clicking the export button
+- **Markdown Export Fix**: Fixed JS newline character escaping error in HTML report Markdown export
 
 ### 2026/05/15 - v6.7.0
 
@@ -1134,6 +1153,37 @@ After running, the `index.html` generated in the root directory is the complete 
 >
 > ⚠️ The GitHub Actions auto-storage feature has been discontinued (this approach caused excessive load on GitHub servers, affecting platform stability).
 
+<a id="cloudflare-deploy"></a>
+
+### ☁️ Auto-Deploy to Cloudflare Pages (Optional · Faster Access in China)
+
+GitHub Pages can be slow to access from mainland China, while [Cloudflare Pages](https://pages.cloudflare.com/) offers more friendly access speeds. Once configured, GitHub Actions will automatically push the latest `index.html` to Cloudflare Pages on every run — no manual operation needed.
+
+> **Prerequisite**: You have completed the [GitHub Actions deployment](#-quick-start) and can generate the web report normally.
+
+**① Create a Cloudflare Pages project**
+
+Log in to the [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → choose **Upload assets**, enter a project name (e.g. `trendradar`, remember it), and upload any file to complete the initial creation (it will be overwritten by Actions later).
+
+**② Get your API Token and Account ID**
+
+- **API Token**: Top-right avatar → **My Profile** → **API Tokens** → **Create Token** → **Create Custom Token**, set permissions to `Account` → `Cloudflare Pages` → `Edit`, then copy the token after creation (shown only once).
+- **Account ID**: Found in the right sidebar of the **Workers & Pages** page (or at the bottom-right of any domain's **Overview** page).
+
+**③ Add 3 Secrets to your GitHub repository**
+
+Go to `Settings` → `Secrets and variables` → `Actions` → `New repository secret`, and add the following:
+
+| Name | Secret (Value) |
+|:---|:---|
+| `CLOUDFLARE_API_TOKEN` | The API Token created above |
+| `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare Account ID |
+| `CLOUDFLARE_PROJECT_NAME` | Your Cloudflare Pages project name (e.g. `trendradar`) |
+
+Once configured, the next GitHub Actions run will deploy automatically, accessible at `https://<project-name>.pages.dev`.
+
+> 💡 **Note**: If any of the three secrets is missing, Cloudflare deployment is skipped automatically without affecting news push or other features. To bind a custom domain, configure it under **Custom domains** in your Pages project.
+
 ### **Reduce APP Dependencies**
 
 Transform from "algorithm recommendation captivity" to "actively getting the information you want"
@@ -1156,18 +1206,51 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
 
 ### Choose the Deployment Method That Fits You
 
-#### 🅰️ Option A: Docker Deployment (Recommended 🔥)
+#### Ⓐ Option A: Docker Deployment (Recommended 🔥)
 
 * **Features**: More stable than GitHub Actions
 * **Best for**: Users with their own server, NAS, or an always-on PC
 
 👉 **[Jump to Docker Deployment Tutorial](#6-docker-deployment)**
 
-#### 🅱️ Option B: GitHub Actions Deployment (This Chapter ⬇️)
+#### Ⓑ Option B: GitHub Actions Deployment (This Chapter ⬇️)
 
 * **Features**: Data is stored in **Remote Cloud Storage** (no longer written to Git repo)
 * **Storage**: Configure cloud storage service (e.g. Cloudflare R2, Alibaba Cloud OSS, Tencent Cloud COS, etc.)
 * **Note**: Requires periodic check-in renewal (every 7 days)
+
+<a id="local-deploy"></a>
+
+#### Ⓒ Option C: Local Deployment (uv)
+
+* **Features**: Run directly on your machine, no Docker needed, great for development or Docker-free environments
+* **Best for**: Windows / Mac / Linux users (no Python required, uv manages it automatically)
+* **Steps**:
+
+   **1. Install uv** (skip if already installed, no Python required)
+
+   ```bash
+   # macOS / Linux
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+
+   # Windows (PowerShell)
+   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+   ```
+
+   **2. Clone and run**
+
+   ```bash
+   git clone https://github.com/sansan0/TrendRadar.git
+   cd TrendRadar
+   uv sync          # Automatically installs Python and project dependencies
+   uv run python -m trendradar
+   ```
+
+   > 💡 **Tips**:
+   > - uv automatically manages Python versions, no manual Python installation needed
+   > - Windows users can also double-click `setup-windows.bat` (or `setup-windows-en.bat`) for one-click setup
+   > - Mac users can use `bash setup-mac.sh`
+   > - Before running, edit `config/config.yaml` to set up push channels and other settings, refer to the basic configuration flow below
 
 ### 1️⃣ Step 1: Get project code
 
@@ -1256,84 +1339,45 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
 <summary> <strong>👉 Click to expand: Feishu Bot</strong> (Message display is relatively friendly)</summary>
 <br>
 
+> **Note**: The original "Feishu BotBuilder" will be discontinued on June 30, 2026. Please use the **Custom Group Bot** method below. Existing BotBuilder webhook URLs will no longer work and need to be reconfigured.
+
 **Note**: If **AI Analysis** is enabled, Feishu push notifications may occasionally (approx. 5% probability) experience a few minutes of delay. This is likely due to the platform's internal compliance auditing for AI-generated content.
 
 **GitHub Secret Configuration (⚠️ Name must match exactly):**
 - **Name**: `FEISHU_WEBHOOK_URL` (Please copy and paste this name, do not type manually)
-- **Secret (Value)**: Your Feishu bot Webhook address (link starts with https://www.feishu.cn/flow/api/trigger-webhook/********)
-<br>
+- **Secret (Value)**: Your Feishu custom bot Webhook address (format: `https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxxxx`)
 
-Two methods available, **Method 1** is simpler, **Method 2** is more complex (but stable push)
+**Configuration Steps:**
 
-Method 1 discovered and suggested by **ziventian**, thanks to them. Default is personal push, group push can be configured via [#97](https://github.com/sansan0/TrendRadar/issues/97)
+1. Enter the target group, click the **More** button at the top right of the group, and click **Settings**.
 
-**Method 1:**
+![Group Settings](_image/feishu-bot/step1-group-settings.png)
 
-> For some users, additional operations needed to avoid "System Error". Need to search for the bot on mobile and enable Feishu bot application (suggestion from community, can refer)
+2. In the **Settings** panel on the right, click **Group Bots**.
 
-1. Open in PC browser https://botbuilder.feishu.cn/home/my-command
+![Group Bots](_image/feishu-bot/step2-group-bot.png)
 
-2. Click "New Bot Command"
+3. In the **Group Bots** panel, click **Add Bot**.
 
-3. Click "Select Trigger", scroll down, click "Webhook Trigger"
+4. In the **Add Bot** dialog, find and click **Custom Bot**.
 
-4. Now you'll see "Webhook Address", copy this link to local notepad temporarily, continue with next steps
+![Select Custom Bot](_image/feishu-bot/step3-custom-bot.png)
 
-5. In "Parameters" put the following content, then click "Done"
+5. Set the custom bot's avatar, name (e.g., "TrendRadar Trending Monitor") and description, then click **Add**.
 
-```json
-{
-  "message_type": "text",
-  "content": {
-    "text": "{{Content}}"
-  }
-}
-```
+![Set Bot Info](_image/feishu-bot/step4-set-name.png)
 
-6. Click "Select Action" > "Send via Official Bot"
+6. Copy the custom bot's **webhook address**, and click **Done**.
 
-7. Message title fill "TrendRadar Trending Monitor"
+> ⚠️ Please keep this webhook address safe. Do not publish it on GitHub, blogs, or any publicly accessible websites to prevent unauthorized use.
 
-8. Most critical part, click + button, select "Webhook Trigger", then arrange as shown in image
+![Copy Webhook URL](_image/feishu-bot/step5-webhook-url.png)
 
-![Feishu Bot Config Example](_image/feishu.png)
+7. Configure the copied Webhook address in GitHub Secrets as `FEISHU_WEBHOOK_URL`.
 
-9. After configuration, put Webhook address from step 4 into GitHub Secrets `FEISHU_WEBHOOK_URL`
-
-<br>
-
-**Method 2:**
-
-1. Open in PC browser https://botbuilder.feishu.cn/home/my-app
-
-2. Click "New Bot Application"
-
-3. After entering the created application, click "Process Design" > "Create Process" > "Select Trigger"
-
-4. Scroll down, click "Webhook Trigger"
-
-5. Now you'll see "Webhook Address", copy this link to local notepad temporarily, continue with next steps
-
-6. In "Parameters" put the following content, then click "Done"
-
-```json
-{
-  "message_type": "text",
-  "content": {
-    "text": "{{Content}}"
-  }
-}
-```
-
-7. Click "Select Action" > "Send Feishu Message", check "Group Message", then click the input box below, click "Groups I Manage" (if no group, you can create one in Feishu app)
-
-8. Message title fill "TrendRadar Trending Monitor"
-
-9. Most critical part, click + button, select "Webhook Trigger", then arrange as shown in image
-
-![Feishu Bot Config Example](_image/feishu.png)
-
-10. After configuration, put Webhook address from step 5 into GitHub Secrets `FEISHU_WEBHOOK_URL`
+> 💡 After configuration, you can click the bot avatar next to the group name to enter the custom bot details page and manage its settings.
+>
+> 📖 Official documentation: [Custom Bot Guide](https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot)
 
 </details>
 
