@@ -35,13 +35,14 @@ app:
 #   morning_evening → 全天推送 + 晚间当日汇总（推荐）
 #   office_hours    → 工作日三段式（到岗→午间→收工），周末增量自由推
 #   night_owl       → 午后速览 + 深夜全天汇总
+#   twice_daily     → 早晚各推一次，其余时间完全静默
 #   custom          → 完全自定义，详见 timeline.yaml
 #
 # 详细时间线图请查看 config/timeline.yaml
 # ===============================================================
 schedule:
-  enabled: false                        # 是否启用调度系统（true=启用, false=关闭，默认关闭）
-  preset: "morning_evening"             # 预设模板名称（见上方说明）
+  enabled: true                         # 是否启用调度系统（true=启用, false=关闭，默认关闭）
+  preset: "twice_daily"                 # 预设模板：早晚 8:00 和 21:20 各推一次
 
 
 # ===============================================================

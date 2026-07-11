@@ -350,9 +350,67 @@ presets:
       7: "all_day"
 
 
+  # ───────────────────────────────────────────────────────────
+  # 5️⃣ twice_daily - 早晚定点推送
+  #
+  # 只在早上 8:00 和晚上 9:20 各推一次，其他时间完全不采集/分析/推送。
+  # 适合：不想被打扰、只需早晚看两次消息的用户。
+  #
+  # 默认（其他时间）：采集 ✗ | 分析 ✗ | 推送 ✗
+  # 早间推送 08:00：采集 ✓ | 分析 ✓ | 推送 ✓ | 只做一次
+  # 晚间推送 21:20：采集 ✓ | 分析 ✓ | 推送 ✓ | 只做一次
+  # ───────────────────────────────────────────────────────────
+  twice_daily:
+    name: "早晚定点推送"
+    description: "只在早上 8:00 和晚上 9:20 各采集+分析+推送一次。"
+
+    default:
+      collect: false
+      analyze: false
+      ai_mode: "daily"
+      push: false
+      report_mode: "daily"
+      once:
+        analyze: true
+        push: true
+
+    periods:
+      morning_push:
+        name: "早间推送"
+        start: "07:30"
+        end: "08:30"
+        collect: true
+        analyze: true
+        ai_mode: "daily"
+        push: true
+        report_mode: "daily"
+
+      evening_push:
+        name: "晚间推送"
+        start: "21:00"
+        end: "22:00"
+        collect: true
+        analyze: true
+        ai_mode: "daily"
+        push: true
+        report_mode: "daily"
+
+    day_plans:
+      all_day:
+        periods: ["morning_push", "evening_push"]
+    week_map:
+      1: "all_day"
+      2: "all_day"
+      3: "all_day"
+      4: "all_day"
+      5: "all_day"
+      6: "all_day"
+      7: "all_day"
+
+
 # ═══════════════════════════════════════════════════════════════
 #
-# 5️⃣ 自定义模式
+# 6️⃣ 自定义模式
 #
 # 当 config.yaml 中设置 schedule.preset: "custom" 时，
 # 系统会读取下面这段配置。

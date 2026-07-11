@@ -40,8 +40,8 @@ app:
 # For the detailed timeline diagram see config/timeline.yaml
 # ===============================================================
 schedule:
-  enabled: false                        # Enable the schedule system (true=on, false=off, default off)
-  preset: "morning_evening"             # Preset template name (see above)
+  enabled: true                         # Enable the schedule system (true=on, false=off, default off)
+  preset: "twice_daily"                 # Preset: push at 8:00 AM and 9:20 PM daily
 
 
 # ===============================================================
