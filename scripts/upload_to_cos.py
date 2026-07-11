@@ -105,7 +105,7 @@ def guess_content_type(file_path: str) -> str:
 
 
 def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> bool:
-    """上传单个文件，并强制设置 Content-Type"""
+    """上传单个文件"""
     if not os.path.isfile(local_path):
         print(f"  ❌ 文件不存在: {local_path}")
         return False
@@ -115,8 +115,6 @@ def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> boo
     try:
         with open(local_path, "rb") as f:
             body = f.read()
-
-        # 1) 上传文件
         s3_client.put_object(
             Bucket=bucket,
             Key=remote_key,
@@ -124,15 +122,6 @@ def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> boo
             ContentType=content_type,
         )
         print(f"  ✅ {local_path} → {remote_key} ({content_type})")
-
-        # 2) 复制到自身，强制覆盖 Content-Type 元数据（COS 兼容性修复）
-        s3_client.copy_object(
-            Bucket=bucket,
-            Key=remote_key,
-            CopySource={"Bucket": bucket, "Key": remote_key},
-            ContentType=content_type,
-            MetadataDirective="REPLACE",
-        )
         return True
     except ClientError as e:
         error_code = e.response["Error"]["Code"]
@@ -145,8 +134,12 @@ def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> boo
         return False
 
 
+# 上传目录时跳过的文件后缀（大文件由 S3 远程存储后端处理，无需重复上传）
+SKIP_EXTENSIONS = {".db", ".sqlite", ".sqlite3"}
+
+
 def upload_directory(s3_client, bucket: str, local_dir: str, remote_prefix: str):
-    """递归上传目录"""
+    """递归上传目录（跳过数据库文件）"""
     if not os.path.isdir(local_dir):
         print(f"❌ 目录不存在: {local_dir}")
         return False
@@ -156,8 +149,11 @@ def upload_directory(s3_client, bucket: str, local_dir: str, remote_prefix: str)
     for root, dirs, files in os.walk(local_dir):
         for file in files:
             local_file = os.path.join(root, file)
-            # 计算相对路径作为 remote key
-            rel_path = os.path.relpath(local_file, local_dir)
+            ext = os.path.splitext(file)[1].lower()
+
+            # 跳过数据库文件（大文件，已由 S3 远程存储处理）
+            if ext in SKIP_EXTENSIONS:
+                continue
             remote_key = f"{remote_prefix}/{rel_path}".replace("\\", "/")
             if not upload_file(s3_client, bucket, local_file, remote_key):
                 success = False
