@@ -205,11 +205,11 @@ display:
   # To reorder: just cut and paste whole lines
   # A region shows only when: 1. it is in this list AND 2. its toggle below is true
   region_order:
-    - new_items                           # 1️⃣ New-items region
-    - hotlist                             # 2️⃣ Hot-list region (keyword match / AI smart filter)
-    - rss                                 # 3️⃣ RSS region
-    - standalone                          # 4️⃣ Standalone region
-    - ai_analysis                         # 5️⃣ AI analysis region
+    - ai_analysis                         # 1️⃣ AI analysis summary (placed first)
+    - new_items                           # 2️⃣ New-items region
+    - hotlist                             # 3️⃣ Hot-list region (keyword match / AI smart filter)
+    - rss                                 # 4️⃣ RSS region
+    - standalone                          # 5️⃣ Standalone region
 
   # Push region toggles (used together with region_order above)
   regions:

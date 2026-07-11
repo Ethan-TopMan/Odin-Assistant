@@ -48,7 +48,7 @@ def render_html_content(
         渲染后的 HTML 字符串
     """
     # 默认区域顺序
-    default_region_order = ["hotlist", "rss", "new_items", "standalone", "ai_analysis"]
+    default_region_order = ["ai_analysis", "new_items", "hotlist", "rss", "standalone"]
     if region_order is None:
         region_order = default_region_order
 
