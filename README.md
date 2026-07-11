@@ -1239,7 +1239,36 @@ GitHub Pages 在国内访问较慢，[Cloudflare Pages](https://pages.cloudflare
 
 > 💡 **说明**：三个 Secret 缺任意一个都会自动跳过 Cloudflare 部署，不会影响新闻推送等其它功能；如需绑定自定义域名，可在 Pages 项目的 **Custom domains** 中设置。
 
-### **减少 APP 依赖**
+### ☁️ 上传到阿里云盘（可选 · 手机直接查看报告）
+
+每次运行后自动将生成的 HTML 报告上传到阿里云盘，手机打开阿里云盘 App 即可查看，无需额外配置。
+
+#### ① 获取阿里云盘 Refresh Token（只需做一次）
+
+```bash
+# 1. 下载 aliyunpan CLI（Windows / Mac / Linux 均可）
+#    下载地址: https://github.com/tickstep/aliyunpan/releases
+
+# 2. 登录（会弹出二维码，用阿里云盘 App 扫码）
+aliyunpan login
+
+# 3. 查看并复制 refresh_token
+aliyunpan token update
+# 输出中会有 refresh_token 字段，复制它的值
+```
+
+#### ② 添加 GitHub Secrets
+
+进入仓库 `Settings` → `Secrets and variables` → `Actions` → `New repository secret`：
+
+| Name（名称） | Secret（值） | 必填 |
+|:---|:---|---:|
+| `ALIYUNPAN_REFRESH_TOKEN` | 上一步获取的 refresh_token | ✅ 必填 |
+| `ALIYUNPAN_DRIVE_ID` | 阿里云盘 drive id（不填则使用默认） | ❌ 选填 |
+
+配置完成后，下次 GitHub Actions 运行时：
+- 热榜数据抓取 → AI 分析 → 推送通知 → **自动上传报告到阿里云盘**
+- 手机打开阿里云盘 App → 进入 **/TrendRadar** 文件夹即可查看 HTML 报告
 
 从"被算法推荐绑架"变成"主动获取自己想要的信息"
 

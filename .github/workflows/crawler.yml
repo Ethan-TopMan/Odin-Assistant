@@ -213,3 +213,66 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy cloudflare_dist --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+
+      # --------------------------------------------------------------------------------
+      # ☁️ UPLOAD TO 阿里云盘 / 上传到阿里云盘（可选）
+      # --------------------------------------------------------------------------------
+      # 将生成的 HTML 报告自动上传到阿里云盘，方便在手机上直接打开查看。
+      # 仅当 ALIYUNPAN_REFRESH_TOKEN 配置时才执行，缺省则自动跳过。
+      #
+      # 配置步骤：
+      #   1. 在本地安装 aliyunpan CLI: https://github.com/tickstep/aliyunpan
+      #   2. 运行 aliyunpan login 扫码登录
+      #   3. 运行 aliyunpan token update 获取 refresh_token
+      #   4. 将 refresh_token 添加到 GitHub Secrets: ALIYUNPAN_REFRESH_TOKEN
+      #   5. （可选）设置 ALIYUNPAN_DRIVE_ID 指定网盘，不填则使用默认 drive
+      # --------------------------------------------------------------------------------
+      - name: Check 阿里云盘 config
+        if: success()
+        id: aliyunpan_check
+        env:
+          REFRESH_TOKEN: ${{ secrets.ALIYUNPAN_REFRESH_TOKEN }}
+        run: |
+          if [ -n "$REFRESH_TOKEN" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "✅ 检测到阿里云盘配置，准备上传报告"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "ℹ️ 未配置 ALIYUNPAN_REFRESH_TOKEN，跳过阿里云盘上传"
+          fi
+
+      - name: Upload HTML report to 阿里云盘
+        if: success() && steps.aliyunpan_check.outputs.enabled == 'true'
+        env:
+          REFRESH_TOKEN: ${{ secrets.ALIYUNPAN_REFRESH_TOKEN }}
+          DRIVE_ID: ${{ secrets.ALIYUNPAN_DRIVE_ID }}
+        run: |
+          # 下载并安装 aliyunpan CLI
+          ALIYUNPAN_VERSION="v3.9.4"
+          wget -q "https://github.com/tickstep/aliyunpan/releases/download/${ALIYUNPAN_VERSION}/aliyunpan-linux-amd64.zip"
+          unzip -q aliyunpan-linux-amd64.zip -d aliyunpan_dir
+          chmod +x aliyunpan_dir/aliyunpan-linux-amd64/aliyunpan
+          sudo mv aliyunpan_dir/aliyunpan-linux-amd64/aliyunpan /usr/local/bin/aliyunpan
+          rm -rf aliyunpan_dir aliyunpan-linux-amd64.zip
+
+          # 登录
+          if [ -n "$DRIVE_ID" ]; then
+            aliyunpan token update --refreshtoken "$REFRESH_TOKEN" --adriveid "$DRIVE_ID"
+          else
+            aliyunpan token update --refreshtoken "$REFRESH_TOKEN"
+          fi
+
+          # 创建远程目录并上传
+          aliyunpan mkdir /TrendRadar 2>/dev/null || true
+          echo "📤 上传 HTML 报告到阿里云盘 /TrendRadar/ ..."
+
+          # 上传 output 下的所有 HTML 报告
+          if [ -d output ]; then
+            aliyunpan upload output/ /TrendRadar/ -np 3
+          fi
+          # 也上传根目录的 index.html（如果有）
+          if [ -f index.html ]; then
+            aliyunpan upload index.html /TrendRadar/ -np 3
+          fi
+
+          echo "✅ 上传完成，请在阿里云盘 App 中查看 /TrendRadar 文件夹"
