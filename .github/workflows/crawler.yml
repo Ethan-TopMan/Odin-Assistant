@@ -267,20 +267,37 @@ jobs:
         run: |
           # 下载并安装 aliyunpan CLI
           ALIYUNPAN_VERSION="v3.9.4"
+          echo "⬇️ 下载 aliyunpan CLI v${ALIYUNPAN_VERSION} ..."
           wget -q "https://github.com/tickstep/aliyunpan/releases/download/${ALIYUNPAN_VERSION}/aliyunpan-linux-amd64.zip"
+          echo "📦 解压中..."
           unzip -q aliyunpan-linux-amd64.zip -d aliyunpan_dir
           chmod +x aliyunpan_dir/aliyunpan-linux-amd64/aliyunpan
           sudo mv aliyunpan_dir/aliyunpan-linux-amd64/aliyunpan /usr/local/bin/aliyunpan
           rm -rf aliyunpan_dir aliyunpan-linux-amd64.zip
+          echo "✅ aliyunpan CLI 安装完成"
 
-          # 登录
+          # 登录（捕获错误信息）
+          echo "🔑 正在用 refresh_token 登录..."
+          set +e
           if [ -n "$DRIVE_ID" ]; then
-            aliyunpan token update --refreshtoken "$REFRESH_TOKEN" --adriveid "$DRIVE_ID"
+            LOGIN_OUTPUT=$(aliyunpan token update --refreshtoken "$REFRESH_TOKEN" --adriveid "$DRIVE_ID" 2>&1)
+            LOGIN_EXIT_CODE=$?
           else
-            aliyunpan token update --refreshtoken "$REFRESH_TOKEN"
+            LOGIN_OUTPUT=$(aliyunpan token update --refreshtoken "$REFRESH_TOKEN" 2>&1)
+            LOGIN_EXIT_CODE=$?
           fi
+          echo "$LOGIN_OUTPUT"
+          if [ $LOGIN_EXIT_CODE -ne 0 ]; then
+            echo "❌ 登录失败（错误码: $LOGIN_EXIT_CODE）"
+            echo "  可能原因：refresh_token 已过期、格式不对、或网络问题"
+            echo "  请重新获取 token：aliyunpan token update"
+            exit $LOGIN_EXIT_CODE
+          fi
+          echo "✅ 登录成功"
+          set -e
 
           # 创建远程目录并上传
+          echo "📁 创建远程目录 /TrendRadar ..."
           aliyunpan mkdir /TrendRadar 2>/dev/null || true
           echo "📤 上传 HTML 报告到阿里云盘 /TrendRadar/ ..."
 
