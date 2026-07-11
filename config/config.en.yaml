@@ -341,11 +341,11 @@ ai:
   #   - ollama/llama3 (local Ollama)
   # Full list: https://docs.litellm.ai/docs/providers
 
-  model: "deepseek/deepseek-v4-flash"
+  model: "ollama/qwen3:8b"
 
   api_key: ""                       # API Key (prefer using the AI_API_KEY environment variable)
 
-  api_base: ""                      # Custom API URL (optional; leave empty in most cases)
+  api_base: "http://localhost:11434"  # Ollama local service URL
                                     #
                                     # ❓ When do you need this?
                                     #    When your AI provider is not in the supported list above.
