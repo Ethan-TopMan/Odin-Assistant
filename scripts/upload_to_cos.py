@@ -54,11 +54,28 @@ def normalize_endpoint(endpoint: str, bucket: str) -> str:
     """修复 endpoint 格式：
     - 如果 endpoint 中包含了 bucket 名（例如 xxx.cos.region.myqcloud.com），
       则去掉 bucket 前缀，只保留 cos.region.myqcloud.com
+    - 检测是否误用了 cos-website 域名（只读），提醒用户修正
     """
     if not endpoint:
         return endpoint
-    # 如果 endpoint 以 bucket 开头（如 https://trendradar-xxx.cos.ap-guangzhou.myqcloud.com）
+
     import re
+
+    # 检测是否用了 cos-website 域名
+    if "cos-website" in endpoint:
+        print(f"  ❌ 检测到 endpoint 使用了 cos-website 域名！")
+        print(f"     cos-website 是静态网站域名，只支持读取，不支持上传")
+        print(f"     请修改 GitHub Secret: S3_ENDPOINT_URL")
+        print(f"     当前值: {endpoint}")
+        # 尝试自动修正: cos-website → cos
+        corrected = endpoint.replace("cos-website", "cos")
+        if corrected != endpoint:
+            print(f"     已自动修正为: {corrected}")
+            print(f"     (但仍建议去 GitHub Secrets 中更新)")
+            return corrected
+        return endpoint
+
+    # 如果 endpoint 以 bucket 开头（如 https://trendradar-xxx.cos.ap-guangzhou.myqcloud.com）
     pattern = re.compile(
         r"^(https?://)" + re.escape(bucket) + r"\.(.+)$", re.IGNORECASE
     )
@@ -66,6 +83,7 @@ def normalize_endpoint(endpoint: str, bucket: str) -> str:
     if match:
         corrected = match.group(1) + match.group(2)
         print(f"  ⚠️  Endpoint 中包含了 bucket 名称，已自动修正为: {corrected}")
+        print(f"     (建议去 GitHub Secrets 中更新 S3_ENDPOINT_URL)")
         return corrected
     return endpoint
 
@@ -110,9 +128,9 @@ def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> boo
         error_msg = e.response["Error"]["Message"]
         print(f"  ❌ 上传失败 [{error_code}] {error_msg}")
         if error_code == "MethodNotAllowed":
-            print(f"  💡 提示: 请检查 S3_ENDPOINT_URL 的格式")
+            print(f"  💡 提示: 使用了只读域名（如 cos-website），不支持上传")
             print(f"     正确示例: https://cos.ap-guangzhou.myqcloud.com")
-            print(f"     当前值:   {s3_client._endpoint._endpoint_prefix}")
+            print(f"     请修改 GitHub Secret: S3_ENDPOINT_URL")
         return False
 
 
