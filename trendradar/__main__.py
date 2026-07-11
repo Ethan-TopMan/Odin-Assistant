@@ -1658,6 +1658,8 @@ def main():
     parser.add_argument("--show-schedule", action="store_true", help="显示当前调度状态")
     parser.add_argument("--doctor", action="store_true", help="运行环境与配置体检")
     parser.add_argument("--test-notification", action="store_true", help="发送测试通知到已配置渠道")
+    parser.add_argument("--debug", action="store_true", help="开启调试模式，便于快速查看排版和热点命中")
+    parser.add_argument("--debug-rss-limit", type=int, default=None, help="调试模式下限制 RSS 源数量，默认 10")
 
     args = parser.parse_args()
 
@@ -1669,7 +1671,11 @@ def main():
                 raise SystemExit(1)
             return
 
-        config = load_config()
+        enable_debug = bool(args.debug or (args.debug_rss_limit is not None))
+        rss_limit = args.debug_rss_limit if args.debug_rss_limit is not None else (10 if enable_debug else None)
+        config = load_config(debug_mode=enable_debug, rss_feed_limit=rss_limit)
+        if enable_debug:
+            print(f"[DEBUG] 已启用调试模式，RSS 将仅使用前 {rss_limit} 个源")
 
         if args.show_schedule:
             handle_status_commands(config)

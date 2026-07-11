@@ -6,6 +6,8 @@
 """
 
 import os
+import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Dict, Any, Optional
 
@@ -37,6 +39,47 @@ def _get_env_int_or_none(key: str) -> Optional[int]:
 def _get_env_str(key: str, default: str = "") -> str:
     """从环境变量获取字符串值"""
     return os.environ.get(key, "").strip() or default
+
+
+def _slugify(value: str) -> str:
+    """将文本转成适合做 RSS feed id 的 slug"""
+    value = re.sub(r"[^\w\u4e00-\u9fff]+", "-", value.lower()).strip("-")
+    return value or "feed"
+
+
+def _load_opml_feeds(opml_path: Path) -> list[Dict[str, Any]]:
+    """从 OPML 文件中提取 RSS/Atom 源列表"""
+    if not opml_path.exists():
+        print(f"[RSS] OPML 文件不存在: {opml_path}")
+        return []
+
+    try:
+        tree = ET.parse(opml_path)
+    except ET.ParseError as exc:
+        print(f"[RSS] 解析 OPML 文件失败: {opml_path} ({exc})")
+        return []
+
+    feeds: list[Dict[str, Any]] = []
+    root = tree.getroot()
+    for outline in root.findall(".//outline"):
+        outline_type = (outline.attrib.get("type") or "").strip().lower()
+        if outline_type not in {"rss", "atom", "rdf"}:
+            continue
+
+        url = (outline.attrib.get("xmlUrl") or outline.attrib.get("xmlurl") or "").strip()
+        if not url:
+            continue
+
+        title = (outline.attrib.get("title") or outline.attrib.get("text") or "RSS").strip() or "RSS"
+        feed_id = _slugify(outline.attrib.get("id") or title)
+        feeds.append({
+            "id": feed_id,
+            "name": title,
+            "url": url,
+            "enabled": True,
+        })
+
+    return feeds
 
 
 def _load_app_config(config_data: Dict) -> Dict:
@@ -173,7 +216,12 @@ def _load_weight_config(config_data: Dict) -> Dict:
     }
 
 
-def _load_rss_config(config_data: Dict) -> Dict:
+def _load_rss_config(
+    config_data: Dict,
+    config_dir: Optional[Path | str] = None,
+    debug_mode: bool = False,
+    rss_feed_limit: Optional[int] = None,
+) -> Dict:
     """加载 RSS 配置"""
     rss = config_data.get("rss", {})
     advanced = config_data.get("advanced", {})
@@ -197,6 +245,27 @@ def _load_rss_config(config_data: Dict) -> Dict:
         print(f"[警告] RSS freshness_filter.max_age_days 格式错误 ({raw_max_age})，使用默认值 3")
         max_age_days = 3
 
+    base_dir = Path(config_dir) if config_dir else Path("config")
+    opml_file = rss.get("opml_file") or rss.get("opml")
+    feeds = rss.get("feeds", [])
+
+    if opml_file:
+        opml_path = Path(opml_file)
+        if not opml_path.is_absolute():
+            opml_path = base_dir / opml_path
+        opml_feeds = _load_opml_feeds(opml_path)
+        if opml_feeds:
+            feeds = opml_feeds
+            print(f"[RSS] 已从 OPML 文件加载 {len(feeds)} 个 RSS 源: {opml_path}")
+        else:
+            print(f"[RSS] 未从 OPML 文件加载到 RSS 源，回退到配置中的 feeds: {opml_path}")
+
+    if debug_mode:
+        effective_limit = rss_feed_limit if rss_feed_limit is not None else 10
+        if effective_limit is not None and effective_limit > 0 and len(feeds) > effective_limit:
+            feeds = feeds[:effective_limit]
+            print(f"[RSS][DEBUG] 调试模式下仅使用前 {effective_limit} 个 RSS 源")
+
     # RSS 配置直接从 config.yaml 读取，不再支持环境变量
     return {
         "ENABLED": rss.get("enabled", False),
@@ -204,7 +273,7 @@ def _load_rss_config(config_data: Dict) -> Dict:
         "TIMEOUT": advanced_rss.get("timeout", 15),
         "USE_PROXY": advanced_rss.get("use_proxy", False),
         "PROXY_URL": rss_proxy_url,
-        "FEEDS": rss.get("feeds", []),
+        "FEEDS": feeds,
         "FRESHNESS_FILTER": {
             "ENABLED": freshness_filter.get("enabled", True),  # 默认启用
             "MAX_AGE_DAYS": max_age_days,
@@ -521,12 +590,18 @@ def _print_notification_sources(config: Dict) -> None:
         print("未配置任何通知渠道")
 
 
-def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
+def load_config(
+    config_path: Optional[str] = None,
+    debug_mode: bool = False,
+    rss_feed_limit: Optional[int] = None,
+) -> Dict[str, Any]:
     """
     加载配置文件
 
     Args:
         config_path: 配置文件路径，默认从环境变量 CONFIG_PATH 获取或使用 config/config.yaml
+        debug_mode: 是否启用调试模式
+        rss_feed_limit: 调试模式下限制 RSS 源数量的上限
 
     Returns:
         包含所有配置的字典
@@ -550,6 +625,8 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
 
     # 应用配置
     config.update(_load_app_config(config_data))
+    if debug_mode:
+        config["DEBUG"] = True
 
     # 爬虫配置
     config.update(_load_crawler_config(config_data))
@@ -574,7 +651,12 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
     config["PLATFORMS"] = [p for p in platforms_config.get("sources", []) if p.get("enabled", True)]
 
     # RSS 配置
-    config["RSS"] = _load_rss_config(config_data)
+    config["RSS"] = _load_rss_config(
+        config_data,
+        Path(config_path).parent if config_path else "config",
+        debug_mode=debug_mode,
+        rss_feed_limit=rss_feed_limit,
+    )
 
     # AI 模型共享配置
     config["AI"] = _load_ai_config(config_data)

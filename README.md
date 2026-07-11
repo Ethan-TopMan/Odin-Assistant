@@ -1306,6 +1306,18 @@ GitHub Pages 在国内访问较慢，[Cloudflare Pages](https://pages.cloudflare
    > - Mac 用户可使用 `bash setup-mac.sh`
    > - 运行前请先编辑 `config/config.yaml` 填写推送渠道等配置，参考下方的基础配置流程
 
+   **调试模式（快速查看排版与热点命中）**
+
+   ```bash
+   # 只读取前 10 个 RSS 源，方便快速预览排版和热点命中
+   uv run python -m trendradar --debug
+
+   # 也可以手动指定 RSS 源上限
+   uv run python -m trendradar --debug --debug-rss-limit 5
+   ```
+
+   适合在调整配置、关键词或模板后，快速确认结果是否符合预期，而不用一次性拉取全部 RSS 源。
+
 ### 1️⃣ 第一步：获取项目代码
 
    点击本仓库页面右上角的绿色 **[Use this template]** 按钮 → 选择 "Create a new repository"。

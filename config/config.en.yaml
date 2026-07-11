@@ -113,6 +113,7 @@ platforms:
 # ===============================================================
 rss:
   enabled: true                       # Enable RSS crawling (true=on, false=off)
+  opml_file: "rss/feedly-2026-06-01.opml"  # Import feeds from an OPML file
 
   # Article freshness filter (filters out stale articles to avoid duplicate pushes)
   # Filtering happens only at push time; all articles are still stored in the database.
@@ -123,31 +124,8 @@ rss:
                                       # - Positive integer: push only articles within N days
                                       # - 0: disable filtering, push all articles
 
-  # A single feed may set max_age_days to override the global setting:
-  # - Not set: use global freshness_filter.max_age_days (default 3 days)
-  # - Positive integer: override the global setting, push only articles within this many days
-  # - 0: disable freshness filtering for this feed, push all articles
-  feeds:
-    - id: "hacker-news"
-      name: "Hacker News"
-      url: "https://hnrss.org/frontpage"
-
-    - id: "ruanyifeng"
-      name: "Ruan Yi Feng's Blog"
-      url: "http://www.ruanyifeng.com/blog/atom.xml"
-      enabled: false                  # Disabled
-      # max_age_days: 3               # Example: push articles within 3 days (slower-updating blogs)
-
-    - id: "yahoo-finance"
-      name: "Yahoo Finance"
-      url: "https://finance.yahoo.com/news/rssindex"
-
-    # Custom feed example
-    # - id: "custom-feed"
-    #   name: "Custom Feed"
-    #   url: "https://example.com/feed.xml"
-    #   enabled: false
-    #   max_age_days: 0               # Example: disable filtering, push all articles
+  # If you don't want to use OPML, you can list feeds here directly; OPML takes precedence
+  feeds: []
 
 
 # ===============================================================
