@@ -1318,6 +1318,15 @@ GitHub Pages 在国内访问较慢，[Cloudflare Pages](https://pages.cloudflare
 
    适合在调整配置、关键词或模板后，快速确认结果是否符合预期，而不用一次性拉取全部 RSS 源。
 
+   **RSS 板块映射管理**
+
+   ```bash
+   # 查看当前 RSS 订阅源所属板块并导出可编辑的配置文件
+   uv run python -m trendradar --rss-categories
+   ```
+
+   运行后会生成 `config/rss_categories.yaml`，你可以手动调整每个订阅源所属的板块，修改后重新运行即可生效。
+
 ### 1️⃣ 第一步：获取项目代码
 
    点击本仓库页面右上角的绿色 **[Use this template]** 按钮 → 选择 "Create a new repository"。
@@ -2128,6 +2137,24 @@ GitHub Pages 在国内访问较慢，[Cloudflare Pages](https://pages.cloudflare
 ## ⚙️ 配置详解
 
 > **📖 提醒**：本章节提供详细的配置说明，建议先完成 [快速开始](#-快速开始) 的基础配置，再根据需要回来查看详细选项。
+
+### 0. 命令行参数速查
+
+本地运行时可通过命令行参数快速调用各种功能：
+
+```bash
+uv run python -m trendradar                    # 正常运行
+uv run python -m trendradar --help              # 查看完整帮助
+
+uv run python -m trendradar --show-schedule    # 查看当前调度状态
+uv run python -m trendradar --doctor           # 运行环境与配置体检
+uv run python -m trendradar --test-notification # 测试通知渠道连通性
+
+uv run python -m trendradar --debug            # 调试模式（只取前10个RSS源）
+uv run python -m trendradar --debug --debug-rss-limit 5  # 指定RSS源数量
+
+uv run python -m trendradar --rss-categories   # 查看RSS板块映射并导出配置文件
+```
 
 ### 1. 我要看哪些平台？
 

@@ -61,23 +61,25 @@ def _load_opml_feeds(opml_path: Path) -> list[Dict[str, Any]]:
 
     feeds: list[Dict[str, Any]] = []
     root = tree.getroot()
-    for outline in root.findall(".//outline"):
-        outline_type = (outline.attrib.get("type") or "").strip().lower()
-        if outline_type not in {"rss", "atom", "rdf"}:
-            continue
-
-        url = (outline.attrib.get("xmlUrl") or outline.attrib.get("xmlurl") or "").strip()
-        if not url:
-            continue
-
-        title = (outline.attrib.get("title") or outline.attrib.get("text") or "RSS").strip() or "RSS"
-        feed_id = _slugify(outline.attrib.get("id") or title)
-        feeds.append({
-            "id": feed_id,
-            "name": title,
-            "url": url,
-            "enabled": True,
-        })
+    # 第一层 outline 是分类文件夹，第二层才是订阅源
+    for folder in root.findall(".//body/outline"):
+        category = (folder.attrib.get("text") or folder.attrib.get("title") or "").strip()
+        for outline in folder.findall("outline"):
+            outline_type = (outline.attrib.get("type") or "").strip().lower()
+            if outline_type not in {"rss", "atom", "rdf"}:
+                continue
+            url = (outline.attrib.get("xmlUrl") or outline.attrib.get("xmlurl") or "").strip()
+            if not url:
+                continue
+            title = (outline.attrib.get("title") or outline.attrib.get("text") or "RSS").strip() or "RSS"
+            feed_id = _slugify(outline.attrib.get("id") or title)
+            feeds.append({
+                "id": feed_id,
+                "name": title,
+                "url": url,
+                "enabled": True,
+                "category": category,
+            })
 
     return feeds
 

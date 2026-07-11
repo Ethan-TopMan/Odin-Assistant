@@ -62,12 +62,14 @@ def test_load_rss_config_reads_feeds_from_opml(tmp_path):
             "name": "Example Tech",
             "url": "https://example.com/tech.xml",
             "enabled": True,
+            "category": "Tech",
         },
         {
             "id": "example-news",
             "name": "Example News",
             "url": "https://example.com/news.xml",
             "enabled": True,
+            "category": "News",
         },
     ]
 
@@ -78,10 +80,11 @@ def test_load_rss_config_limits_feeds_in_debug_mode(tmp_path):
         """<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <opml version=\"1.0\">
   <body>
+    <outline text=\"Tech\" title=\"Tech\">
 """ + "\n".join(
-            f'<outline type="rss" text="Feed {i}" title="Feed {i}" xmlUrl="https://example.com/{i}.xml"/>'
+            f'      <outline type="rss" text="Feed {i}" title="Feed {i}" xmlUrl="https://example.com/{i}.xml"/>'
             for i in range(12)
-        ) + "\n  </body>\n</opml>",
+        ) + "\n    </outline>\n  </body>\n</opml>",
         encoding="utf-8",
     )
 
@@ -99,3 +102,4 @@ def test_load_rss_config_limits_feeds_in_debug_mode(tmp_path):
     assert len(result["FEEDS"]) == 10
     assert result["FEEDS"][0]["url"] == "https://example.com/0.xml"
     assert result["FEEDS"][-1]["url"] == "https://example.com/9.xml"
+    assert result["FEEDS"][0].get("category") == "Tech"

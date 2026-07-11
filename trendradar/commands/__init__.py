@@ -9,10 +9,12 @@ from .doctor import run_doctor
 from .test_notification import run_test_notification
 from .status import handle_status_commands
 from .version import check_all_versions
+from .rss_categories import show_rss_categories
 
 __all__ = [
     "run_doctor",
     "run_test_notification",
     "handle_status_commands",
     "check_all_versions",
+    "show_rss_categories",
 ]

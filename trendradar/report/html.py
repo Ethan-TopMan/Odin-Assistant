@@ -467,6 +467,36 @@ def render_html_content(
                 border-top: 2px solid #e5e7eb;
             }
 
+            /* 板块分类头样式 */
+            .report-category {
+                margin-top: 32px;
+                padding-top: 8px;
+            }
+            .report-category:first-child {
+                margin-top: 0;
+                padding-top: 0;
+            }
+            .category-header {
+                margin-bottom: 16px;
+                padding: 10px 14px;
+                background: linear-gradient(135deg, #f0f4ff 0%, #eef2ff 100%);
+                border-radius: 10px;
+                border-left: 4px solid #6366f1;
+            }
+            .category-icon {
+                font-size: 16px;
+                font-weight: 700;
+                color: #4338ca;
+                letter-spacing: 0.3px;
+            }
+            body.dark-mode .category-header {
+                background: linear-gradient(135deg, #1e1b4b 0%, #1a1a3e 100%);
+                border-left-color: #818cf8;
+            }
+            body.dark-mode .category-icon {
+                color: #a5b4fc;
+            }
+
             /* 热榜统计区样式 */
             .hotlist-section {
                 /* 默认无边框，由 section-divider 动态添加 */
@@ -1573,6 +1603,32 @@ def render_html_content(
                     </ul>
                 </div>"""
 
+    # ── 板块分类定义（与 frequency_words.txt / ai_interests.txt 对齐） ──
+    _CATEGORY_GROUPS = [
+        ("🇺🇸🇪🇺  中美欧政策与外交", {"美国政策", "欧盟与欧洲", "国际关系"}),
+        ("🏛️  国内政策与监管",     {"国内政策", "宏观政策"}),
+        ("🏢  美股重点公司与明星股", {
+            "英伟达", "苹果", "特斯拉/马斯克", "微软", "谷歌",
+            "亚马逊", "Meta", "英特尔", "AMD", "AI明星公司",
+            "台积电", "芯片股",
+        }),
+        ("📈  A 股与板块", {
+            "A股大盘", "资金与板块", "半导体芯片", "新能源",
+            "医药板块", "消费板块", "金融板块", "AI板块",
+        }),
+        ("🏭  国内产业与经济", {
+            "国内产业", "宏观经济", "智能汽车", "房地产", "稀土",
+            "机器人", "航天", "前沿科技", "能源", "算力与云",
+        }),
+    ]
+
+    def _find_category(word: str) -> int:
+        """返回 word 所属的板块索引，未匹配时返回 -1 表示未分类"""
+        for ci, (_cat_name, cat_keywords) in enumerate(_CATEGORY_GROUPS):
+            if word in cat_keywords:
+                return ci
+        return -1
+
     # 生成热点词汇统计部分的HTML
     stats_html = ""
     tab_bar_html = ""
@@ -1589,8 +1645,24 @@ def render_html_content(
             tab_bar_html += f'<button class="tab-btn" data-tab-index="{tab_i}">{escaped_tab_word}<span class="tab-count">{tab_count}</span></button>'
         tab_bar_html += '</div></div>'
 
+        prev_category = -2  # 保证第一个板块一定输出
         for i, stat in enumerate(report_data["stats"], 1):
             count = stat["count"]
+            word = stat["word"]
+            curr_cat = _find_category(word)
+
+            # 当板块切换时插入板块分割头
+            if curr_cat != prev_category:
+                if prev_category != -2:
+                    # 关闭上一个板块包装
+                    stats_html += """\n                </div>"""
+                cat_name = _CATEGORY_GROUPS[curr_cat][0] if curr_cat >= 0 else "📋  其他"
+                stats_html += f"""
+                <div class="report-category" data-category-index="{curr_cat}">
+                    <div class="category-header">
+                        <div class="category-icon">{cat_name}</div>
+                    </div>"""
+                prev_category = curr_cat
 
             # 确定热度等级
             if count >= 10:
@@ -1600,7 +1672,7 @@ def render_html_content(
             else:
                 count_class = ""
 
-            escaped_word = html_escape(stat["word"])
+            escaped_word = html_escape(word)
 
             stats_html += f"""
                 <div class="word-group" data-tab-index="{i - 1}">
@@ -1701,6 +1773,10 @@ def render_html_content(
                         </div>
                     </div>"""
 
+            stats_html += """
+                </div>"""
+        # 关闭最后一个板块包装
+        if prev_category != -2:
             stats_html += """
                 </div>"""
 

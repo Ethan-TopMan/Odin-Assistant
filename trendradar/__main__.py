@@ -21,7 +21,7 @@ from trendradar.storage import convert_crawl_results_to_news_data
 from trendradar.utils.time import DEFAULT_TIMEZONE, is_within_days, calculate_days_old
 from trendradar.ai import AIAnalyzer, AIAnalysisResult
 from trendradar.core.scheduler import ResolvedSchedule
-from trendradar.commands import check_all_versions, run_doctor, run_test_notification, handle_status_commands
+from trendradar.commands import check_all_versions, run_doctor, run_test_notification, handle_status_commands, show_rss_categories
 from trendradar.commands.version import _fetch_remote_version, _parse_version
 
 
@@ -1087,47 +1087,60 @@ class NewsAnalyzer:
             print(f"[RSS] 抓取失败: {e}")
             return None, None, None, set()
 
+    def _load_rss_category_map(self) -> Dict[str, str]:
+        """加载 feed_id → 板块名 映射（优先使用自定义配置文件）"""
+        from pathlib import Path
+        import yaml as yaml_lib
+
+        # 默认从 OPML 分类构建
+        default_map: Dict[str, str] = {
+            feed["id"]: feed.get("category", "未分类")
+            for feed in self.ctx.rss_feeds
+        }
+
+        custom_path = Path("config/rss_categories.yaml")
+        if custom_path.exists():
+            try:
+                with open(custom_path, "r", encoding="utf-8") as f:
+                    data = yaml_lib.safe_load(f)
+                if data and isinstance(data, dict) and "feed_categories" in data:
+                    overrides = data["feed_categories"]
+                    # 合并：自定义映射覆盖默认
+                    default_map.update(overrides)
+                    print(f"[RSS] 已加载自定义板块映射: {custom_path}")
+            except Exception as exc:
+                print(f"[RSS] 加载自定义映射失败: {exc}")
+
+        return default_map
+
     def _process_rss_data_by_mode(self, rss_data) -> Tuple[Optional[List[Dict]], Optional[List[Dict]], Optional[List[Dict]], set]:
         """
-        按报告模式处理 RSS 数据，返回与热榜相同格式的统计结构
+        按报告模式处理 RSS 数据，返回按板块分组的热榜格式统计结构
 
-        三种模式：
-        - daily: 当日汇总，统计=当天所有条目，新增=本次新增条目
-        - current: 当前榜单，统计=当前榜单条目，新增=本次新增条目
-        - incremental: 增量模式，统计=新增条目，新增=无
+        三种模式：daily / current / incremental
 
         Args:
             rss_data: 当前抓取的 RSSData 对象
 
         Returns:
-            (rss_stats, rss_new_stats, raw_rss_items, rss_new_urls) 元组：
-            - rss_stats: RSS 关键词统计列表（与热榜 stats 格式一致）
-            - rss_new_stats: RSS 新增关键词统计列表（与热榜 stats 格式一致）
-            - raw_rss_items: 原始 RSS 条目列表（用于独立展示区）
-            - rss_new_urls: 原始新增 RSS 条目的 URL 集合（未经关键词过滤，用于 AI 模式 is_new 检测）
+            (rss_stats, rss_new_stats, raw_rss_items, rss_new_urls)
         """
-        from trendradar.core.analyzer import count_rss_frequency
+        from trendradar.core.analyzer import group_rss_by_feed_category
 
-        # 从 display.regions.rss 统一控制 RSS 分析和展示
+        # 构建 feed_id → 板块名 映射（优先使用 rss_categories.yaml）
+        feed_category_map: Dict[str, str] = self._load_rss_category_map()
+
+        # 从 display.regions.rss 统一控制
         rss_display_enabled = self.ctx.config.get("DISPLAY", {}).get("REGIONS", {}).get("RSS", True)
 
-        # 加载关键词配置
-        try:
-            word_groups, filter_words, global_filters = self.ctx.load_frequency_words(self.frequency_file)
-        except FileNotFoundError:
-            word_groups, filter_words, global_filters = [], [], []
-
         timezone = self.ctx.timezone
-        max_news_per_keyword = self.ctx.config.get("MAX_NEWS_PER_KEYWORD", 0)
-        sort_by_position_first = self.ctx.config.get("SORT_BY_POSITION_FIRST", False)
 
         rss_stats = None
         rss_new_stats = None
-        raw_rss_items = None  # 原始 RSS 条目列表（用于独立展示区）
-        rss_new_urls = set()  # 原始新增 RSS URLs（未经关键词过滤）
+        raw_rss_items = None
+        rss_new_urls: set = set()
 
-        # 1. 首先获取原始条目（用于独立展示区，不受 display.regions.rss 影响）
-        # 根据模式获取原始条目
+        # 1. 获取原始条目（用于独立展示区，不受 display.regions.rss 影响）
         if self.report_mode == "incremental":
             new_items_dict = self.storage_manager.detect_new_rss_items(rss_data)
             if new_items_dict:
@@ -1141,120 +1154,72 @@ class NewsAnalyzer:
             if all_data:
                 raw_rss_items = self._convert_rss_items_to_list(all_data.items, all_data.id_to_name)
 
-        # 如果 RSS 展示未启用，跳过关键词分析，只返回原始条目用于独立展示区
         if not rss_display_enabled:
             return None, None, raw_rss_items, rss_new_urls
 
-        # 2. 获取新增条目（用于统计）
+        # 2. 获取新增条目
         new_items_dict = self.storage_manager.detect_new_rss_items(rss_data)
         new_items_list = None
         if new_items_dict:
             new_items_list = self._convert_rss_items_to_list(new_items_dict, rss_data.id_to_name)
             if new_items_list:
                 print(f"[RSS] 检测到 {len(new_items_list)} 条新增")
-                # 收集原始新增 URLs（未经关键词过滤，用于 AI 模式 is_new 检测）
                 rss_new_urls = {item["url"] for item in new_items_list if item.get("url")}
 
-        # 3. 根据模式获取统计条目
+        # 3. 按板块分组（替代关键词分组）
         if self.report_mode == "incremental":
-            # 增量模式：统计条目就是新增条目
             if not new_items_list:
                 print("[RSS] 增量模式：没有新增 RSS 条目")
                 return None, None, raw_rss_items, rss_new_urls
-
-            rss_stats, total = count_rss_frequency(
+            rss_stats, total = group_rss_by_feed_category(
                 rss_items=new_items_list,
-                word_groups=word_groups,
-                filter_words=filter_words,
-                global_filters=global_filters,
-                new_items=new_items_list,  # 增量模式所有都是新增
-                max_news_per_keyword=max_news_per_keyword,
-                sort_by_position_first=sort_by_position_first,
+                feed_category_map=feed_category_map,
                 timezone=timezone,
-                rank_threshold=self.rank_threshold,
-                quiet=False,
+                new_urls=rss_new_urls,
             )
             if not rss_stats:
-                print("[RSS] 增量模式：关键词匹配后没有内容")
-                # 即使关键词匹配为空，也返回原始条目用于独立展示区
                 return None, None, raw_rss_items, rss_new_urls
 
         elif self.report_mode == "current":
-            # 当前榜单模式：统计=当前榜单所有条目
-            # raw_rss_items 已在前面获取
             if not raw_rss_items:
                 print("[RSS] 当前榜单模式：没有 RSS 数据")
                 return None, None, None, rss_new_urls
-
-            rss_stats, total = count_rss_frequency(
+            rss_stats, total = group_rss_by_feed_category(
                 rss_items=raw_rss_items,
-                word_groups=word_groups,
-                filter_words=filter_words,
-                global_filters=global_filters,
-                new_items=new_items_list,  # 标记新增
-                max_news_per_keyword=max_news_per_keyword,
-                sort_by_position_first=sort_by_position_first,
+                feed_category_map=feed_category_map,
                 timezone=timezone,
-                rank_threshold=self.rank_threshold,
-                quiet=False,
+                new_urls=rss_new_urls,
             )
             if not rss_stats:
-                print("[RSS] 当前榜单模式：关键词匹配后没有内容")
-                # 即使关键词匹配为空，也返回原始条目用于独立展示区
                 return None, None, raw_rss_items, rss_new_urls
 
-            # 生成新增统计
             if new_items_list:
-                rss_new_stats, _ = count_rss_frequency(
+                rss_new_stats, _ = group_rss_by_feed_category(
                     rss_items=new_items_list,
-                    word_groups=word_groups,
-                    filter_words=filter_words,
-                    global_filters=global_filters,
-                    new_items=new_items_list,
-                    max_news_per_keyword=max_news_per_keyword,
-                    sort_by_position_first=sort_by_position_first,
+                    feed_category_map=feed_category_map,
                     timezone=timezone,
-                    rank_threshold=self.rank_threshold,
-                    quiet=True,
+                    new_urls=rss_new_urls,
                 )
 
-        else:
-            # daily 模式：统计=当天所有条目
-            # raw_rss_items 已在前面获取
+        else:  # daily
             if not raw_rss_items:
                 print("[RSS] 当日汇总模式：没有 RSS 数据")
                 return None, None, None, rss_new_urls
-
-            rss_stats, total = count_rss_frequency(
+            rss_stats, total = group_rss_by_feed_category(
                 rss_items=raw_rss_items,
-                word_groups=word_groups,
-                filter_words=filter_words,
-                global_filters=global_filters,
-                new_items=new_items_list,  # 标记新增
-                max_news_per_keyword=max_news_per_keyword,
-                sort_by_position_first=sort_by_position_first,
+                feed_category_map=feed_category_map,
                 timezone=timezone,
-                rank_threshold=self.rank_threshold,
-                quiet=False,
+                new_urls=rss_new_urls,
             )
             if not rss_stats:
-                print("[RSS] 当日汇总模式：关键词匹配后没有内容")
-                # 即使关键词匹配为空，也返回原始条目用于独立展示区
                 return None, None, raw_rss_items, rss_new_urls
 
-            # 生成新增统计
             if new_items_list:
-                rss_new_stats, _ = count_rss_frequency(
+                rss_new_stats, _ = group_rss_by_feed_category(
                     rss_items=new_items_list,
-                    word_groups=word_groups,
-                    filter_words=filter_words,
-                    global_filters=global_filters,
-                    new_items=new_items_list,
-                    max_news_per_keyword=max_news_per_keyword,
-                    sort_by_position_first=sort_by_position_first,
+                    feed_category_map=feed_category_map,
                     timezone=timezone,
-                    rank_threshold=self.rank_threshold,
-                    quiet=True,
+                    new_urls=rss_new_urls,
                 )
 
         self._rss_total_count = total
@@ -1660,6 +1625,7 @@ def main():
     parser.add_argument("--test-notification", action="store_true", help="发送测试通知到已配置渠道")
     parser.add_argument("--debug", action="store_true", help="开启调试模式，便于快速查看排版和热点命中")
     parser.add_argument("--debug-rss-limit", type=int, default=None, help="调试模式下限制 RSS 源数量，默认 10")
+    parser.add_argument("--rss-categories", action="store_true", help="显示 RSS 订阅源板块映射表并导出可编辑配置文件")
 
     args = parser.parse_args()
 
@@ -1685,6 +1651,10 @@ def main():
             ok = run_test_notification(config)
             if not ok:
                 raise SystemExit(1)
+            return
+
+        if args.rss_categories:
+            show_rss_categories()
             return
 
         version_url = config.get("VERSION_CHECK_URL", "")

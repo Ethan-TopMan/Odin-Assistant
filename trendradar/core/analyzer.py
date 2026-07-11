@@ -709,6 +709,124 @@ def count_rss_frequency(
     return stats, total_items
 
 
+# ── RSS 板块名称映射（OPML 分类 → 报告展示名） ──
+RSS_CATEGORY_DISPLAY_NAMES = {
+    "HPC": "🖥️  科技与前沿",
+    "AI": "🤖  AI 与科技前沿",
+    "News": "📰  综合新闻",
+    "Tech": "🖥️  科技与前沿",
+    "Technology": "🖥️  科技与前沿",
+    "Finance": "📈  财经与市场",
+    "Policy": "🏛️  政策与大事",
+    "Politics": "🏛️  政策与大事",
+    "Business": "🏢  商业与产业",
+    "Science": "🔬  科技与前沿",
+}
+
+
+def group_rss_by_feed_category(
+    rss_items: List[Dict],
+    feed_category_map: Dict[str, str],
+    *,
+    timezone: str = DEFAULT_TIMEZONE,
+    max_per_category: int = 0,
+    new_urls: Optional[set] = None,
+) -> Tuple[List[Dict], int]:
+    """按 RSS 源所属板块分组（替代关键词分组）
+
+    Args:
+        rss_items: RSS 条目列表（含 feed_id、title、url、published_at 等）
+        feed_category_map: feed_id → OPML 分类名 的映射
+        timezone: 时区
+        max_per_category: 每个板块最多显示条数
+        new_urls: 新增条目 URL 集合
+
+    Returns:
+        (stats, total) — 与 count_rss_frequency 格式一致
+            stats: [{ "word": 板块名, "count": N, "titles": [...] }, ...]
+            total: 总条目数
+    """
+    from trendradar.utils.time import format_iso_time_friendly
+
+    if not rss_items:
+        return [], 0
+
+    # feed_id → 板块名（OPML 分类名）
+    def _get_category(feed_id: str) -> str:
+        raw = feed_category_map.get(feed_id, "未分类")
+        return RSS_CATEGORY_DISPLAY_NAMES.get(raw, raw)
+
+    # 按板块分组
+    category_buckets: Dict[str, list] = {}
+    total = 0
+    seen_urls: set = set()
+
+    for item in rss_items:
+        url = item.get("url", "")
+        if url and url in seen_urls:
+            continue
+        if url:
+            seen_urls.add(url)
+
+        cat = _get_category(item.get("feed_id", ""))
+        category_buckets.setdefault(cat, []).append(item)
+        total += 1
+
+    # 构建统计结果（与 count_rss_frequency 格式一致）
+    stats: List[Dict] = []
+    for cat_display, items in category_buckets.items():
+        # 按发布时间倒序
+        sorted_items = sorted(
+            items,
+            key=lambda x: x.get("published_at", ""),
+            reverse=True,
+        )
+
+        if max_per_category > 0:
+            sorted_items = sorted_items[:max_per_category]
+
+        titles = []
+        for rank, item in enumerate(sorted_items, 1):
+            published_at = item.get("published_at", "")
+            time_display = (
+                format_iso_time_friendly(published_at, timezone, include_date=True)
+                if published_at else ""
+            )
+            is_new = bool(url and new_urls and url in new_urls) if (url := item.get("url")) else False
+
+            titles.append({
+                "title": item.get("title", ""),
+                "source_name": item.get("feed_name", item.get("feed_id", "RSS")),
+                "time_display": time_display,
+                "count": 1,
+                "ranks": [rank],
+                "rank_threshold": 50,
+                "url": item.get("url", ""),
+                "mobile_url": "",
+                "is_new": is_new,
+            })
+
+        stats.append({
+            "word": cat_display,
+            "count": len(sorted_items),
+            "titles": titles,
+            "percentage": round(len(sorted_items) / total * 100, 2) if total > 0 else 0,
+        })
+
+    # 按板块顺序排序：科技/AI 在前，综合其次
+    category_order = [
+        "🤖  AI 与科技前沿",
+        "🖥️  科技与前沿",
+        "📈  财经与市场",
+        "🏢  商业与产业",
+        "🏛️  政策与大事",
+        "📰  综合新闻",
+    ]
+    stats.sort(key=lambda s: category_order.index(s["word"]) if s["word"] in category_order else 999)
+
+    return stats, total
+
+
 def convert_keyword_stats_to_platform_stats(
     keyword_stats: List[Dict],
     weight_config: Dict,
