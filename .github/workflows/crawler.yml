@@ -249,30 +249,50 @@ jobs:
         if: success()
         id: aliyunpan_check
         env:
-          REFRESH_TOKEN: ${{ secrets.ALIYUNPAN_REFRESH_TOKEN }}
+          CONFIG_JSON: ${{ secrets.ALIYUNPAN_CONFIG_JSON }}
         run: |
-          if [ -n "$REFRESH_TOKEN" ]; then
+          if [ -n "$CONFIG_JSON" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
             echo "✅ 检测到阿里云盘配置，准备上传报告"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "ℹ️ 未配置 ALIYUNPAN_REFRESH_TOKEN，跳过阿里云盘上传"
+            echo "ℹ️ 未配置 ALIYUNPAN_CONFIG_JSON，跳过阿里云盘上传"
           fi
 
       - name: Upload HTML report to 阿里云盘
         id: aliyunpan_upload
         if: success() && steps.aliyunpan_check.outputs.enabled == 'true'
         env:
-          REFRESH_TOKEN: ${{ secrets.ALIYUNPAN_REFRESH_TOKEN }}
+          ALIYUNPAN_CONFIG_JSON: ${{ secrets.ALIYUNPAN_CONFIG_JSON }}
           DRIVE_ID: ${{ secrets.ALIYUNPAN_DRIVE_ID }}
         run: |
-          echo "📤 上传 HTML 报告到阿里云盘 ..."
+          # 下载并安装 aliyunpan CLI
+          ALIYUNPAN_VERSION="v0.4.0"
+          echo "⬇️ 下载 aliyunpan CLI ${ALIYUNPAN_VERSION} ..."
+          wget -q "https://github.com/tickstep/aliyunpan/releases/download/${ALIYUNPAN_VERSION}/aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64.zip"
+          unzip -q aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64.zip -d aliyunpan_dir
+          sudo mv aliyunpan_dir/aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64/aliyunpan /usr/local/bin/aliyunpan
+          rm -rf aliyunpan_dir aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64.zip
+          echo "✅ aliyunpan CLI 安装完成"
+
+          # 恢复登录配置
+          export ALIYUNPAN_CONFIG_DIR="$HOME/.aliyunpan"
+          mkdir -p "$ALIYUNPAN_CONFIG_DIR"
+          echo "$ALIYUNPAN_CONFIG_JSON" | base64 -d > "$ALIYUNPAN_CONFIG_DIR/aliyunpan_config.json"
+          echo "✅ 登录配置已恢复"
+
+          # 验证登录
+          aliyunpan who
+
+          # 上传文件
+          echo "📤 上传 HTML 报告到阿里云盘 /TrendRadar/ ..."
           if [ -d output ]; then
-            python scripts/upload_to_aliyunpan.py output "$REFRESH_TOKEN" "$DRIVE_ID"
+            aliyunpan upload output/ /TrendRadar/ -np 3
           fi
           if [ -f index.html ]; then
-            python scripts/upload_to_aliyunpan.py index.html "$REFRESH_TOKEN" "$DRIVE_ID"
+            aliyunpan upload index.html /TrendRadar/ -np 3
           fi
+          echo "✅ 上传完成"
 
           echo "✅ 上传完成，请在阿里云盘 App 中查看 /TrendRadar 文件夹"
 

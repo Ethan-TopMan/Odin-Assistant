@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 阿里云盘上传工具（使用 Open API）
 用法：
@@ -11,6 +11,9 @@ import sys
 import time
 import requests
 
+# 阿里云盘 Open API 的默认 client_id（与 aliyunpan CLI 一致）
+ALIYUNPAN_CLIENT_ID = "cf9f70e8fc61430f8ec5ab5cadf31375"
+
 
 def get_access_token(refresh_token: str) -> tuple:
     """用 refresh_token 换取 access_token"""
@@ -18,6 +21,7 @@ def get_access_token(refresh_token: str) -> tuple:
     resp = requests.post(url, json={
         "grant_type": "refresh_token",
         "refresh_token": refresh_token,
+        "client_id": ALIYUNPAN_CLIENT_ID,
     }, timeout=30)
     data = resp.json()
     if "access_token" not in data:
