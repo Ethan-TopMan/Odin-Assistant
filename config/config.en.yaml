@@ -399,6 +399,8 @@ ai_analysis:
                                     # daily / current / incremental = force the specified mode
 
   max_news_for_analysis: 150        # Max number of news items for analysis (key to controlling token cost)
+
+  max_age_hours: 24                 # News freshness filter (hours): only analyze RSS news within this window, 0=disabled
                                     # Hot lists take the quota first; RSS uses the remainder; standalone is not limited
 
   include_rss: false                # Include RSS content in analysis (true=include, false=exclude)

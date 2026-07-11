@@ -798,6 +798,7 @@ def group_rss_by_feed_category(
                 "title": item.get("title", ""),
                 "source_name": item.get("feed_name", item.get("feed_id", "RSS")),
                 "time_display": time_display,
+                "published_at": published_at,
                 "count": 1,
                 "ranks": [rank],
                 "rank_threshold": 50,

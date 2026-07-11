@@ -89,6 +89,7 @@ class AIAnalyzer:
 
         # 从分析配置获取功能参数
         self.max_news = analysis_config.get("MAX_NEWS_FOR_ANALYSIS", 50)
+        self.max_age_hours = analysis_config.get("MAX_AGE_HOURS", 0)  # 0 = 不过滤
         self.include_rss = analysis_config.get("INCLUDE_RSS", True)
         self.include_rank_timeline = analysis_config.get("INCLUDE_RANK_TIMELINE", False)
         self.include_standalone = analysis_config.get("INCLUDE_STANDALONE", False)
@@ -99,6 +100,31 @@ class AIAnalyzer:
             analysis_config.get("PROMPT_FILE", "ai_analysis_prompt.txt"),
             label="AI",
         )
+
+    def _filter_old_titles(self, titles: List[Dict]) -> List[Dict]:
+        """过滤掉超出 max_age_hours 的陈旧条目"""
+        if self.max_age_hours <= 0 or not titles:
+            return titles
+        now = self.get_time_func()
+        filtered = []
+        skipped = 0
+        for t in titles:
+            published_at = t.get("published_at", "")
+            if not published_at:
+                filtered.append(t)
+                continue
+            try:
+                from trendradar.utils.time import calculate_days_old
+                days = calculate_days_old(published_at)
+                if days is not None and days * 24 > self.max_age_hours:
+                    skipped += 1
+                    continue
+            except Exception:
+                pass
+            filtered.append(t)
+        if skipped:
+            print(f"[AI] 时间过滤：跳过 {skipped} 条超过 {self.max_age_hours} 小时的旧新闻")
+        return filtered
 
     def analyze(
         self,
@@ -328,6 +354,10 @@ class AIAnalyzer:
                     break
                 word = stat.get("word", "")
                 titles = stat.get("titles", [])
+
+                # 时间过滤：只保留时效内的条目
+                titles = self._filter_old_titles(titles)
+
                 if word and titles:
                     rss_lines.append(f"\n**{word}** ({len(titles)}条)")
                     for t in titles:

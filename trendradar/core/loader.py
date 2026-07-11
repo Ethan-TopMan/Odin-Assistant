@@ -357,6 +357,7 @@ def _load_ai_analysis_config(config_data: Dict) -> Dict:
         "PROMPT_FILE": ai_config.get("prompt_file", "ai_analysis_prompt.txt"),
         "MODE": ai_config.get("mode", "follow_report"),
         "MAX_NEWS_FOR_ANALYSIS": ai_config.get("max_news_for_analysis", 50),
+        "MAX_AGE_HOURS": ai_config.get("max_age_hours", 0),  # 0 = 不过滤
         "INCLUDE_RSS": ai_config.get("include_rss", True),
         "INCLUDE_RANK_TIMELINE": ai_config.get("include_rank_timeline", False),
         "INCLUDE_STANDALONE": ai_config.get("include_standalone", False),
