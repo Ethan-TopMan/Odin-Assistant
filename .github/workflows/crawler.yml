@@ -283,10 +283,10 @@ jobs:
           echo "🔑 正在用 refresh_token 登录..."
           set +e
           if [ -n "$DRIVE_ID" ]; then
-            LOGIN_OUTPUT=$(aliyunpan token update --refreshtoken "$REFRESH_TOKEN" --adriveid "$DRIVE_ID" 2>&1)
+            LOGIN_OUTPUT=$(aliyunpan login -RefreshToken="$TOKEN" --adriveid "$DRIVE_ID" 2>&1)
             LOGIN_EXIT_CODE=$?
           else
-            LOGIN_OUTPUT=$(aliyunpan token update --refreshtoken "$REFRESH_TOKEN" 2>&1)
+            LOGIN_OUTPUT=$(aliyunpan login -RefreshToken="$TOKEN" 2>&1)
             LOGIN_EXIT_CODE=$?
           fi
           echo "$LOGIN_OUTPUT"
