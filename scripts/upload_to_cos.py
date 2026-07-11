@@ -50,6 +50,26 @@ def get_config() -> dict:
     }
 
 
+def normalize_endpoint(endpoint: str, bucket: str) -> str:
+    """修复 endpoint 格式：
+    - 如果 endpoint 中包含了 bucket 名（例如 xxx.cos.region.myqcloud.com），
+      则去掉 bucket 前缀，只保留 cos.region.myqcloud.com
+    """
+    if not endpoint:
+        return endpoint
+    # 如果 endpoint 以 bucket 开头（如 https://trendradar-xxx.cos.ap-guangzhou.myqcloud.com）
+    import re
+    pattern = re.compile(
+        r"^(https?://)" + re.escape(bucket) + r"\.(.+)$", re.IGNORECASE
+    )
+    match = pattern.match(endpoint)
+    if match:
+        corrected = match.group(1) + match.group(2)
+        print(f"  ⚠️  Endpoint 中包含了 bucket 名称，已自动修正为: {corrected}")
+        return corrected
+    return endpoint
+
+
 def guess_content_type(file_path: str) -> str:
     """根据文件扩展名推断 Content-Type"""
     content_type, _ = mimetypes.guess_type(file_path)
@@ -67,32 +87,32 @@ def guess_content_type(file_path: str) -> str:
 
 
 def upload_file(s3_client, bucket: str, local_path: str, remote_key: str) -> bool:
-    """上传单个文件并设置公共读"""
+    """上传单个文件"""
     if not os.path.isfile(local_path):
         print(f"  ❌ 文件不存在: {local_path}")
         return False
 
     content_type = guess_content_type(local_path)
-    extra_args = {
-        "ContentType": content_type,
-        "ACL": "public-read",
-    }
-
-    # HTML 文件强制 UTF-8
-    if content_type == "text/html; charset=utf-8":
-        extra_args["ContentType"] = "text/html; charset=utf-8"
 
     try:
-        s3_client.upload_file(
-            local_path,
-            bucket,
-            remote_key,
-            ExtraArgs=extra_args,
+        with open(local_path, "rb") as f:
+            body = f.read()
+        s3_client.put_object(
+            Bucket=bucket,
+            Key=remote_key,
+            Body=body,
+            ContentType=content_type,
         )
         print(f"  ✅ {local_path} → {remote_key} ({content_type})")
         return True
     except ClientError as e:
-        print(f"  ❌ 上传失败 {local_path}: {e}")
+        error_code = e.response["Error"]["Code"]
+        error_msg = e.response["Error"]["Message"]
+        print(f"  ❌ 上传失败 [{error_code}] {error_msg}")
+        if error_code == "MethodNotAllowed":
+            print(f"  💡 提示: 请检查 S3_ENDPOINT_URL 的格式")
+            print(f"     正确示例: https://cos.ap-guangzhou.myqcloud.com")
+            print(f"     当前值:   {s3_client._endpoint._endpoint_prefix}")
         return False
 
 
@@ -151,6 +171,9 @@ def main():
         print(f"  ❌ 路径不存在: {local_path}")
         sys.exit(1)
 
+    # 自动修正 endpoint（去掉可能嵌入的 bucket 名）
+    endpoint = normalize_endpoint(endpoint, bucket)
+
     print(f"  ✅ 配置检查通过")
     print(f"  🌐 存储桶: {bucket}")
     print(f"  🔗 Endpoint: {endpoint}")
@@ -158,12 +181,13 @@ def main():
         print(f"  📍 Region: {region}")
     print(f"  ─────────────────────────────────────────")
 
-    # 创建 S3 客户端
+    # 创建 S3 客户端（使用 path 风格以兼容 COS）
     boto_config = BotoConfig(
         signature_version="s3v4",
         connect_timeout=10,
         read_timeout=60,
         retries={"max_attempts": 3},
+        s3={"addressing_style": "virtual"},
     )
     s3_client = boto3.client(
         "s3",
