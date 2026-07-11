@@ -111,11 +111,14 @@ class AIClient:
         if not self.model:
             return False, "未配置 AI 模型（model）"
 
-        if not self.api_key:
-            return False, "未配置 AI API Key，请在 config.yaml 或环境变量 AI_API_KEY 中设置"
-
         # 验证模型格式（应该包含 provider/model）
         if "/" not in self.model:
             return False, f"模型格式错误: {self.model}，应为 'provider/model' 格式（如 'deepseek/deepseek-chat'）"
+
+        # 本地模型（ollama 等）不需要 API Key
+        provider = self.model.split("/")[0].lower()
+        if provider not in ("ollama", "ollama_chat"):
+            if not self.api_key:
+                return False, "未配置 AI API Key，请在 config.yaml 或环境变量 AI_API_KEY 中设置"
 
         return True, ""
