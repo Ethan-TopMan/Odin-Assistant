@@ -269,13 +269,18 @@ jobs:
           # 下载并安装 aliyunpan CLI
           ALIYUNPAN_VERSION="v0.4.0"
           echo "⬇️ 下载 aliyunpan CLI ${ALIYUNPAN_VERSION} ..."
-          wget -q "https://github.com/tickstep/aliyunpan/releases/download/${ALIYUNPAN_VERSION}/aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64.zip"
+          if ! wget -q "https://github.com/tickstep/aliyunpan/releases/download/${ALIYUNPAN_VERSION}/aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64.zip"; then
+            echo "❌ 下载失败！请检查版本 ${ALIYUNPAN_VERSION} 是否存在"
+            exit 1
+          fi
+          echo "📦 解压中..."
           unzip -q aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64.zip -d aliyunpan_dir
+          chmod +x aliyunpan_dir/aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64/aliyunpan
           sudo mv aliyunpan_dir/aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64/aliyunpan /usr/local/bin/aliyunpan
           rm -rf aliyunpan_dir aliyunpan-${ALIYUNPAN_VERSION}-linux-amd64.zip
           echo "✅ aliyunpan CLI 安装完成"
 
-          # 恢复登录配置
+          # 恢复登录配置（通过 base64 编码的 JSON 配置文件）
           export ALIYUNPAN_CONFIG_DIR="$HOME/.aliyunpan"
           mkdir -p "$ALIYUNPAN_CONFIG_DIR"
           echo "$ALIYUNPAN_CONFIG_JSON" | base64 -d > "$ALIYUNPAN_CONFIG_DIR/aliyunpan_config.json"
