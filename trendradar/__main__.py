@@ -8,6 +8,7 @@ TrendRadar 主程序
 
 import argparse
 import os
+import sys
 import webbrowser
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -666,6 +667,7 @@ class NewsAnalyzer:
         standalone_data: Optional[Dict] = None,
         schedule: ResolvedSchedule = None,
         rss_new_urls: Optional[set] = None,
+        raw_rss_entries: Optional[List[Dict]] = None,
     ) -> Tuple[List[Dict], Optional[str], Optional[AIAnalysisResult], Optional[List[Dict]], Optional[Dict], Optional[List[Dict]]]:
         """统一的分析流水线：数据处理 → 统计计算（关键词/AI筛选）→ AI分析 → HTML生成"""
 
@@ -706,6 +708,71 @@ class NewsAnalyzer:
             )
 
         self._hotlist_total_count = total_titles
+
+        # ── RSS AI 聚合摘要（对白名单源去重+分组摘要） ──
+        agg_config = self.ctx.config.get("RSS_AGGREGATOR", {})
+        if agg_config.get("ENABLED", False) and raw_rss_entries and rss_items:
+            from trendradar.ai.rss_aggregator import RSSAggregator
+            ai_cfg = self.ctx.config.get("AI", {})
+            agg = RSSAggregator(ai_cfg, debug=self.ctx.config.get("DEBUG", False))
+            feed_cat_map = self._load_rss_category_map()
+
+            agg_result = agg.aggregate(raw_rss_entries, feed_cat_map)
+            if agg_result.success and agg_result.categories:
+                # 用聚合结果替换 rss_items/rss_new_items
+                agg_rss_items = []
+                agg_rss_new_items = []
+                seen_titles: set = set()
+                for cat in agg_result.categories:
+                    if not cat.items:
+                        continue
+                    # 为每个分类构建 stat 条目
+                    titles = []
+                    for item in cat.items:
+                        t = item.get("title", "")
+                        if t in seen_titles:
+                            continue
+                        seen_titles.add(t)
+                        titles.append(item)
+                    if titles:
+                        group_word = f"✨ {cat.category}"
+                        summary_note = f"📌 {cat.summary}" if cat.summary else ""
+                        agg_rss_items.append({
+                            "word": group_word,
+                            "count": len(titles),
+                            "position": 9997,
+                            "summary": summary_note,
+                            "titles": titles,
+                        })
+                        # 新增条目过滤
+                        new_t = [t for t in titles if t.get("is_new")]
+                        if new_t:
+                            agg_rss_new_items.append({
+                                "word": group_word,
+                                "count": len(new_t),
+                                "position": 9997,
+                                "summary": summary_note,
+                                "titles": new_t,
+                            })
+                if agg_rss_items:
+                    total_before = agg_result.total_before
+                    total_after = agg_result.total_after
+                    print(f"[RSS聚合] 替换推送 RSS 数据: {total_before} 条 → {total_after} 条 (去重后)")
+                    # 与已有的 AI 分类 RSS 条目合并（非白名单的 AI 分类结果保留）
+                    ai_rss = [s for s in (rss_items or []) if not s.get("word", "").startswith("🔥")]
+                    rss_items = ai_rss + agg_rss_items
+                    if agg_rss_new_items:
+                        ai_rss_new = [s for s in (rss_new_items or []) if not s.get("word", "").startswith("🔥")]
+                        rss_new_items = ai_rss_new + agg_rss_new_items
+
+        # ── 热榜 AI 聚合摘要（对同一标签下的新闻去重+摘要） ──
+        if agg_config.get("ENABLED", False) and stats:
+            from trendradar.ai.rss_aggregator import HotlistAggregator
+            ai_cfg = self.ctx.config.get("AI", {})
+            hot_agg = HotlistAggregator(ai_cfg, debug=self.ctx.config.get("DEBUG", False))
+            hot_result = hot_agg.aggregate(stats)
+            if hot_result.success and hot_result.stats:
+                stats = hot_result.stats
 
         # 如果是 platform 模式，转换数据结构
         if self.ctx.display_mode == "platform" and stats:
@@ -1386,10 +1453,16 @@ class NewsAnalyzer:
         # 使用 schedule 决定的 AI 筛选兴趣文件覆盖默认值
         self.interests_file = schedule.interests_file
 
-        # 如果调度器说不采集，则直接跳过
+        # 本地手动触发时忽略调度限制，始终执行完整流水线
         if not schedule.collect:
-            print("[调度] 当前时间段不执行数据采集，跳过分析流水线")
-            return None
+            if self.is_github_actions:
+                print("[调度] 当前时间段不执行数据采集，跳过分析流水线")
+                return None
+            else:
+                print("[调度] 本地手动触发：强制执行完整流水线")
+                schedule.collect = True
+                schedule.analyze = True
+                schedule.push = True
         # 获取当前监控平台ID列表
         current_platform_ids = self.ctx.platform_ids
 
@@ -1441,6 +1514,7 @@ class NewsAnalyzer:
                     standalone_data=standalone_data,
                     schedule=schedule,
                     rss_new_urls=rss_new_urls,
+                    raw_rss_entries=raw_rss_items,
                 )
 
                 combined_id_to_name = {**historical_id_to_name, **id_to_name}
@@ -1485,6 +1559,7 @@ class NewsAnalyzer:
                     standalone_data=standalone_data,
                     schedule=schedule,
                     rss_new_urls=rss_new_urls,
+                    raw_rss_entries=raw_rss_items,
                 )
 
                 combined_id_to_name = {**historical_id_to_name, **id_to_name}
@@ -1513,6 +1588,7 @@ class NewsAnalyzer:
                     standalone_data=standalone_data,
                     schedule=schedule,
                     rss_new_urls=rss_new_urls,
+                    raw_rss_entries=raw_rss_items,
                 )
         else:
             # incremental 模式：只使用当前抓取的数据
@@ -1535,6 +1611,7 @@ class NewsAnalyzer:
                 standalone_data=standalone_data,
                 schedule=schedule,
                 rss_new_urls=rss_new_urls,
+                raw_rss_entries=raw_rss_items,
             )
 
         if html_file:
@@ -1612,12 +1689,16 @@ def main():
 诊断命令:
   --doctor               运行环境与配置体检
   --test-notification    发送测试通知到已配置渠道
+服务器命令:
+  serve                  启动报告 HTTP 服务器（支持外网访问）
 
 示例:
   python -m trendradar                    # 正常运行
   python -m trendradar --show-schedule    # 查看当前调度状态
   python -m trendradar --doctor           # 运行一键体检
   python -m trendradar --test-notification # 测试通知渠道连通性
+  python -m trendradar serve              # 启动报告 HTTP 服务器
+  python -m trendradar serve --tunnel ngrok  # 启动服务器并创建外网隧道
 """
     )
     parser.add_argument("--show-schedule", action="store_true", help="显示当前调度状态")
@@ -1627,7 +1708,26 @@ def main():
     parser.add_argument("--debug-rss-limit", type=int, default=None, help="调试模式下限制 RSS 源数量，默认 10")
     parser.add_argument("--rss-categories", action="store_true", help="显示 RSS 订阅源板块映射表并导出可编辑配置文件")
 
-    args = parser.parse_args()
+    args, remaining = parser.parse_known_args()
+
+    # 处理 serve 子命令
+    if len(sys.argv) > 1 and sys.argv[1] == "serve":
+        from trendradar.server import run_server
+        # 解析 serve 子命令的参数
+        serve_parser = argparse.ArgumentParser(description="TrendRadar 报告服务器")
+        serve_parser.add_argument("serve", nargs="?", help="启动报告 HTTP 服务器")
+        serve_parser.add_argument("--host", default="0.0.0.0", help="监听地址 (默认: 0.0.0.0)")
+        serve_parser.add_argument("--port", type=int, default=0, help="端口号 (默认: 0=自动选择)")
+        serve_parser.add_argument("--tunnel", choices=["ngrok", "cloudflared", ""], default="", help="创建外网隧道")
+        serve_parser.add_argument("--open", action="store_true", help="自动打开浏览器")
+        serve_args = serve_parser.parse_args()
+        run_server(
+            host=serve_args.host,
+            port=serve_args.port,
+            tunnel=serve_args.tunnel,
+            open_browser=serve_args.open,
+        )
+        return
 
     debug_mode = False
     try:

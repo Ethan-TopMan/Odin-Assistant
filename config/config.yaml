@@ -127,6 +127,137 @@ rss:
   # 如果不想使用 OPML，也可以在这里直接写入 feeds；OPML 优先级更高
   feeds: []
 
+  # 白名单源：这些源的条目不受 AI 分数/关键词过滤，24小时内的一律推送
+  # 填入 RSS 源的 feed ID（即 OPML 中各条目的 text 属性生成的 ID）
+  # 搭配 freshness_filter.max_age_days 使用
+  whitelist_feeds:
+    # ═══════════════════════════════════════════════
+    # 🖥️  科技与前沿（原 HPC 类）
+    # ═══════════════════════════════════════════════
+    - "ornl-news-releases"
+    - "ieee-transactions-on-parallel-distributed-systems"
+    - "nvidia-technical-blog"
+    - "acm-queue-all-queue-content"
+    - "amd-rocm-blogs"
+    - "inside-hpc-ai-news-high-performance-computing-artificial-intelligence"
+    - "hpcwire"
+
+    # ═══════════════════════════════════════════════
+    # 🤖  AI 与科技前沿（原 AI 类）
+    # ═══════════════════════════════════════════════
+    - "小红书技术redtech"
+    - "openai-news"
+    - "karpathy"
+    - "import-ai"
+    - "the-cloudflare-blog"
+    - "the-keyword"
+    - "tai-s-blog"
+    - "美团技术团队"
+    - "ngrok-news"
+    - "theia-vogel-s-website-blog"
+    - "google-deepmind-news"
+    - "sebastian-raschka-phd"
+
+    # ═══════════════════════════════════════════════
+    # 📰  综合新闻（原 News 类）
+    # ═══════════════════════════════════════════════
+    # ── 财经与市场 ──
+    - "华尔街见闻"
+    - "财新网-最新文章"
+    - "bloomberg-markets"
+    - "yahoo-finance"
+    - "marketwatch-com-top-stories"
+    - "wsj-com-markets"
+    - "global-economy"
+    - "all-news"
+    - "forbes-business"
+    - "fortune-fortune"
+    - "all-articles-on-seeking-alpha"
+    - "breaking-news-on-seeking-alpha"
+
+    # ── 政策与大事 ──
+    - "联合早报-国际-即时"
+    - "press-releases-u-s-department-of-the-treasury"
+    - "playbook"
+    - "world"
+    - "world-nation"
+    - "world-news"
+
+    # ── 商业与产业 ──
+    - "36氪"
+    - "虎嗅网"
+    - "虎嗅"
+    - "钛媒体-引领未来商业与生活新知"
+    - "吴晓波频道"
+    - "棱镜"
+    - "yicai-press-releases"
+    - "techcrunch"
+    - "venture-capital-news-techcrunch"
+    - "商业-财富中文网"
+
+    # ── 个人博客 ──
+    - "阮一峰的网络日志"
+    - "daniel-miessler"
+    - "bmpi"
+    - "我没有三颗心脏的博客"
+    - "geekplux"
+    - "太隐"
+    - "土木坛子"
+    - "槽边往事"
+    - "肖恩聊技术"
+    - "少数派"
+    - "月光博客"
+    - "云风的-blog"
+    - "hi-diygod"
+    - "莫比乌斯"
+    - "martin-fowler"
+    - "david-oks"
+    - "小道消息"
+
+    # ── 综合科技与资讯 ──
+    - "money-crashers"
+    - "this-week-in-tech-audio"
+    - "晚点聊-latetalk"
+    - "the-hacker-news"
+    - "yahoo-news-latest-news-headlines"
+    - "香港新聞rss-香港經濟日報-hket-com"
+    - "gizmodo"
+    - "slashdot"
+    - "今日话题-雪球"
+    - "fox-news"
+    - "the-github-blog"
+    - "the-new-stack"
+    - "us-top-news-and-analysis"
+    - "product-hunt-the-best-new-products-every-day"
+    - "hacker-news-best"
+    - "quanta-magazine"
+    - "ars-technica-all-content"
+    - "idaily-每日环球视野"
+    - "afford-anything"
+    - "v2ex"
+    - "十大热门话题"
+    - "etf-trends"
+    - "daily-express-news-feed"
+    - "readhub"
+    - "the-verge"
+    - "mit-technology-review"
+    - "wired"
+    - "lifehacker"
+    - "engineering-at-meta"
+    - "奇客solidot-传递最新科技情报"
+
+
+# ===============================================================
+# 3.5 RSS AI 聚合摘要（仅 whitelist_feeds 模式生效）
+#
+# 对白名单 RSS 内容按分类（科技/AI/财经等）进行 AI 去重、聚合，
+# 并为每个分类生成一段摘要。避免白名单推送变成信息轰炸。
+# ===============================================================
+rss_aggregator:
+  enabled: true                     # 是否启用 AI 去重聚合摘要（true=启用, false=关闭）
+                                    # 启用后：每个分类先出摘要，再列出去重后的文章
+                                    # 关闭后：直接列出所有白名单文章
+
 
 # ===============================================================
 # 4. 报告模式
@@ -342,11 +473,11 @@ ai:
   # 完整列表: https://docs.litellm.ai/docs/providers
   # 如果你对于看英文文档比较头疼，那么可以点击页面右下角的 【Ask AI】 ,用中文询问怎么配置
 
-  model: "ollama/qwen3:8b"
+  model: "deepseek/deepseek-v4-flash"
 
-  api_key: ""                       # API Key（建议使用环境变量 AI_API_KEY）
+  api_key: ""                       # API Key（建议使用环境变量 BOSS_AI_API_KEY）
 
-  api_base: "http://localhost:11434"  # Ollama 本地服务地址
+  api_base: ""                       # 使用 DeepSeek 默认接口
                                     #
                                     # ❓ 什么时候需要填？
                                     #    当你使用的 AI 服务商不在上方支持列表中时。

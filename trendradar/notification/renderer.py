@@ -63,6 +63,11 @@ def render_feishu_content(
             else:
                 stats_content += f"📌 {sequence_display} **{word}** : {count} 条\n\n"
 
+            # 显示 AI 摘要（如有）
+            summary = stat.get("summary", "")
+            if summary:
+                stats_content += f"<font color='grey'>{summary}</font>\n\n"
+
             for j, title_data in enumerate(stat["titles"], 1):
                 formatted_title = format_title_for_platform(
                     "feishu", title_data, show_source=True
@@ -200,6 +205,11 @@ def render_dingtalk_content(
                 stats_content += f"📈 {sequence_display} **{word}** : **{count}** 条\n\n"
             else:
                 stats_content += f"📌 {sequence_display} **{word}** : {count} 条\n\n"
+
+            # 显示 AI 摘要（如有）
+            summary = stat.get("summary", "")
+            if summary:
+                stats_content += f"> {summary}\n\n"
 
             for j, title_data in enumerate(stat["titles"], 1):
                 formatted_title = format_title_for_platform(

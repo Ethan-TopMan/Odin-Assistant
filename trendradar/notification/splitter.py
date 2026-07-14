@@ -1124,6 +1124,19 @@ def _process_rss_stats_section(
             else:
                 word_header = f"📌 {sequence_display} *{word}* : {count} 条\n\n"
 
+        # RSS 摘要（如有）
+        summary_line = ""
+        summary = stat.get("summary", "")
+        if summary:
+            if format_type == "feishu":
+                summary_line = f"<font color='grey'>{summary}</font>\n\n"
+            elif format_type == "dingtalk":
+                summary_line = f"> {summary}\n\n"
+            elif format_type == "telegram":
+                summary_line = f"_{summary}_\n\n"
+            else:
+                summary_line = f"> {summary}\n\n"
+
         # 构建第一条新闻（使用 format_title_for_platform）
         first_news_line = ""
         if stat["titles"]:
@@ -1147,8 +1160,8 @@ def _process_rss_stats_section(
             if len(stat["titles"]) > 1:
                 first_news_line += "\n"
 
-        # 原子性检查：关键词标题 + 第一条新闻必须一起处理
-        word_with_first_news = word_header + first_news_line
+        # 原子性检查：关键词标题 + 摘要 + 第一条新闻必须一起处理
+        word_with_first_news = word_header + summary_line + first_news_line
         test_content = current_batch + word_with_first_news
 
         if len(test_content.encode("utf-8")) + len(base_footer.encode("utf-8")) >= max_bytes:
@@ -1192,7 +1205,7 @@ def _process_rss_stats_section(
                 if current_batch_has_content:
                     _safe_append_batch(batches, current_batch, base_footer, max_bytes, base_header)
                 current_batch = _safe_new_batch(
-                    base_header + rss_header + word_header + news_line,
+                    base_header + rss_header + word_header + summary_line + news_line,
                     base_footer, max_bytes, base_header, batches
                 )
                 current_batch_has_content = True

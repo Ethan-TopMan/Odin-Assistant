@@ -6,7 +6,7 @@ AI 筛选流水线
 标签管理 → 待分类新闻收集 → 批量 AI 分类 → 结果保存 → 报告数据转换
 """
 
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from trendradar.ai.filter import AIFilter, AIFilterResult
 from trendradar.utils.time import (
@@ -48,6 +48,9 @@ class AIFilterPipeline:
         self._max_news = config.get("MAX_NEWS_PER_KEYWORD", 0)
 
         self._feed_max_age_map = self._build_feed_max_age_map()
+
+        # 白名单源：这些源的 RSS 条目不受 AI 分数过滤，一律推送
+        self._whitelist_feeds: List[str] = rss_config.get("WHITELIST_FEEDS", []) or []
 
     def _build_feed_max_age_map(self) -> Dict[str, int]:
         result = {}
@@ -616,6 +619,31 @@ class AIFilterPipeline:
                 parts.append(f"RSS {rss_kept} 条")
             print(f"[AI筛选] 分数过滤：min_score={min_score}，保留 {total_kept} 条 score≥{min_score} ({', '.join(parts)})")
 
+        # ── 白名单源：无条件追加（不受 AI 分数/过滤影响） ──
+        if self._whitelist_feeds:
+            whitelist_stats, whitelist_new = self._get_whitelist_rss_items(mode, rss_new_urls)
+            if whitelist_stats:
+                print(f"[AI筛选] 白名单源追加 {sum(s['count'] for s in whitelist_stats)} 条 (不受 min_score 过滤)")
+                # 合并到 rss_stats，同名 word 合并
+                whitelist_word_map = {s["word"]: s for s in whitelist_stats}
+                for existing in list(rss_stats):
+                    w = existing["word"]
+                    if w in whitelist_word_map:
+                        wl = whitelist_word_map.pop(w)
+                        existing["titles"].extend(wl["titles"])
+                        existing["count"] = len(existing["titles"])
+                rss_stats.extend(whitelist_word_map.values())
+
+            if whitelist_new:
+                whitelist_new_map = {s["word"]: s for s in whitelist_new}
+                for existing in list(rss_new_stats):
+                    w = existing["word"]
+                    if w in whitelist_new_map:
+                        wl = whitelist_new_map.pop(w)
+                        existing["titles"].extend(wl["titles"])
+                        existing["count"] = len(existing["titles"])
+                rss_new_stats.extend(whitelist_new_map.values())
+
         sort_key_priority = lambda x: (x.get("position", 9999), -x["count"], x["word"])
         sort_key_count = lambda x: (-x["count"], x.get("position", 9999), x["word"])
         sort_key = sort_key_priority if self._priority_sort_enabled else sort_key_count
@@ -624,6 +652,94 @@ class AIFilterPipeline:
         rss_new_stats.sort(key=sort_key)
 
         return hotlist_stats, rss_stats, rss_new_stats
+
+    def _get_whitelist_rss_items(self, mode: str = "daily", rss_new_urls: Optional[set] = None) -> Tuple[List[Dict], List[Dict]]:
+        """
+        获取白名单源的最新 RSS 条目（不受 AI 分数过滤，24h 内的一律返回）
+
+        Returns:
+            (whitelist_stats, whitelist_new_stats) — 与 rss_stats/rss_new_stats 格式一致
+        """
+        if not self._whitelist_feeds:
+            return [], []
+
+        try:
+            rss_data = self.storage.get_rss_data()
+        except Exception as e:
+            print(f"[AI筛选] 白名单: 获取 RSS 数据失败: {e}")
+            return [], []
+
+        if not rss_data or not rss_data.items:
+            return [], []
+
+        whitelist_set = set(self._whitelist_feeds)
+        stats: List[Dict] = []
+        new_stats: List[Dict] = []
+
+        for feed_id, items in rss_data.items.items():
+            if feed_id not in whitelist_set:
+                continue
+
+            feed_name = rss_data.id_to_name.get(feed_id, feed_id)
+            # 用 feed 名作为分组 word，带 🔥 标识
+            group_word = f"🔥 {feed_name}"
+
+            titles = []
+            new_titles = []
+
+            for item in items:
+                # 新鲜度过滤
+                if self._freshness_enabled and item.published_at:
+                    max_days = self._feed_max_age_map.get(feed_id, self._default_max_age_days)
+                    if max_days > 0 and not is_within_days(item.published_at, max_days, self._timezone):
+                        continue
+
+                published_at = item.published_at or ""
+                time_display = format_iso_time_friendly(published_at, self._timezone, include_date=True) if published_at else ""
+
+                is_new = False
+                if rss_new_urls and item.url:
+                    is_new = item.url in rss_new_urls
+
+                if mode == "incremental" and not is_new:
+                    continue
+
+                title_entry = {
+                    "title": item.title,
+                    "source_name": feed_name,
+                    "url": item.url or "",
+                    "mobile_url": "",
+                    "ranks": [],
+                    "rank_threshold": self._rank_threshold,
+                    "count": 1,
+                    "is_new": is_new,
+                    "time_display": time_display,
+                    "matched_keyword": group_word,
+                }
+                titles.append(title_entry)
+                if is_new:
+                    new_titles.append(title_entry)
+
+            if titles:
+                stats.append({
+                    "word": group_word,
+                    "count": len(titles),
+                    "position": 9998,  # 白名单排在 AI 分类结果之后
+                    "titles": titles,
+                })
+            if new_titles:
+                new_stats.append({
+                    "word": group_word,
+                    "count": len(new_titles),
+                    "position": 9998,
+                    "titles": new_titles,
+                })
+
+        if stats:
+            total = sum(s["count"] for s in stats)
+            print(f"[AI筛选] 白名单源 {len(stats)} 个组, 共 {total} 条 (新鲜度 ≤{self._default_max_age_days}天)")
+
+        return stats, new_stats
 
 
 class _TagExtractionError(Exception):

@@ -17,6 +17,10 @@ from .formatter import (
     render_ai_analysis_html_rich,
     render_ai_analysis_plain,
 )
+from .rss_aggregator import (
+    RSSAggregator, RSSAggregateResult, AggregatedCategory,
+    HotlistAggregator, HotlistAggregateResult,
+)
 
 __all__ = [
     # 分析器
@@ -26,6 +30,13 @@ __all__ = [
     "AIFilter",
     "AIFilterResult",
     "AIFilterPipeline",
+    # RSS 聚合摘要
+    "RSSAggregator",
+    "RSSAggregateResult",
+    "AggregatedCategory",
+    # 热榜聚合摘要
+    "HotlistAggregator",
+    "HotlistAggregateResult",
     # 翻译器
     "AITranslator",
     "TranslationResult",
