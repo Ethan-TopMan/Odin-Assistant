@@ -368,6 +368,7 @@ def render_html_content(
 
             .news-item.new .news-content {
                 padding-right: 40px;
+            }
 
             .news-header {
                 display: flex;
@@ -1575,14 +1576,23 @@ def render_html_content(
     if report_data["stats"]:
         total_count = len(report_data["stats"])
 
-        # 生成 Tab 栏 HTML
+        # 生成 Tab 栏 HTML（含合并的 RSS 数量）
         total_news_count = sum(s["count"] for s in report_data["stats"])
+        # 为每个关键词加上 RSS 数量
+        rss_counts = {}
+        if rss_items:
+            for rs in rss_items:
+                word = rs.get("word", "")
+                rss_counts[word] = len(rs.get("titles", []))
+        total_rss_count = sum(rss_counts.values())
         tab_bar_html = '<div class="tab-bar-wrapper"><div class="tab-bar">'
-        tab_bar_html += f'<button class="tab-btn" data-tab-index="all">全部<span class="tab-count">{total_news_count}</span></button>'
+        tab_bar_html += f'<button class="tab-btn" data-tab-index="all">全部<span class="tab-count">{total_news_count + total_rss_count}</span></button>'
         for tab_i, tab_stat in enumerate(report_data["stats"]):
             escaped_tab_word = html_escape(tab_stat["word"])
-            tab_count = tab_stat["count"]
-            tab_bar_html += f'<button class="tab-btn" data-tab-index="{tab_i}">{escaped_tab_word}<span class="tab-count">{tab_count}</span></button>'
+            hot_count = tab_stat["count"]
+            rss_count = rss_counts.get(tab_stat["word"], 0)
+            total_count = hot_count + rss_count
+            tab_bar_html += f'<button class="tab-btn" data-tab-index="{tab_i}">{escaped_tab_word}<span class="tab-count">{total_count}</span></button>'
         tab_bar_html += '</div></div>'
 
         prev_category = -2  # 保证第一个板块一定输出
@@ -1604,22 +1614,24 @@ def render_html_content(
                     </div>"""
                 prev_category = curr_cat
 
-            # 确定热度等级
-            if count >= 10:
+            # 确定热度等级（含 RSS 合并数量）
+            total_item_count = count + rss_counts.get(word, 0)
+            if total_item_count >= 10:
                 count_class = "hot"
-            elif count >= 5:
+            elif total_item_count >= 5:
                 count_class = "warm"
             else:
                 count_class = ""
 
             escaped_word = html_escape(word)
+            word_rss_count = rss_counts.get(word, 0)
 
             stats_html += f"""
                 <div class="word-group" data-tab-index="{i - 1}">
                     <div class="word-header">
                         <div class="word-info">
                             <div class="word-name">{escaped_word}</div>
-                            <div class="word-count {count_class}">{count} 条</div>
+                            <div class="word-count {count_class}">{total_item_count} 条</div>
                         </div>
                         <div class="word-index"><span class="collapse-icon">▼</span>{i}/{total_count}</div>
                     </div>"""
