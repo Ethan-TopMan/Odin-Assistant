@@ -174,6 +174,7 @@ class NewsAnalyzer:
                 cfg["BARK_URL"],
                 cfg["SLACK_WEBHOOK_URL"],
                 cfg["GENERIC_WEBHOOK_URL"],
+                (cfg["WECHAT_MP_APPID"] and cfg["WECHAT_MP_SECRET"]),
             ]
         )
 

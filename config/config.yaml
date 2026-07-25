@@ -426,6 +426,12 @@ notification:
                                       # 示例：{"content": "{content}"}
                                       # 留空则使用默认格式：{"title": "{title}", "content": "{content}"}
 
+    wechat_mp:
+      app_id: ""                      # 微信公众号 AppID
+      app_secret: ""                  # 微信公众号 AppSecret
+      template_id: ""                 # 模板消息 ID（需先在公众号后台配置模板）
+      open_ids: ""                    # 接收用户的 OpenID，多个用分号分隔
+
 
 # ===============================================================
 # 7. 存储配置

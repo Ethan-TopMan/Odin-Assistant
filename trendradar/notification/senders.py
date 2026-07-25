@@ -1325,3 +1325,91 @@ def send_to_generic_webhook(
     print(f"{log_prefix}所有 {len(batches)} 批次发送完成 [{report_type}]")
 
     return True
+
+
+def send_to_wechat_mp(
+    app_id: str,
+    app_secret: str,
+    template_id: str,
+    open_ids: str,
+    report_data: Dict,
+    report_type: str,
+    update_info: Optional[Dict] = None,
+    proxy_url: Optional[str] = None,
+    mode: str = "daily",
+    account_label: str = "",
+    *,
+    batch_size: int = 4000,
+    batch_interval: float = 1.0,
+    split_content_func: Optional[Callable] = None,
+    rss_items: Optional[list] = None,
+    rss_new_items: Optional[list] = None,
+    ai_analysis: Any = None,
+    display_regions: Optional[Dict] = None,
+    standalone_data: Optional[Dict] = None,
+) -> bool:
+    """
+    发送到微信公众号（模板消息）
+    需先在公众号后台申请模板消息权限并创建模板。
+    """
+    log_prefix = f"公众号{account_label}" if account_label else "公众号"
+    proxies = None
+    if proxy_url:
+        proxies = {"http": proxy_url, "https": proxy_url}
+
+    if not app_id or not app_secret:
+        print(f"{log_prefix} 未配置 AppID 或 AppSecret")
+        return False
+
+    # 1. 获取 access_token
+    token_url = f"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={app_id}&secret={app_secret}"
+    try:
+        resp = requests.get(token_url, proxies=proxies, timeout=15)
+        data = resp.json()
+        if "access_token" not in data:
+            print(f"{log_prefix} 获取 access_token 失败: {data.get('errmsg', '未知错误')}")
+            return False
+        access_token = data["access_token"]
+    except Exception as e:
+        print(f"{log_prefix} 获取 access_token 请求出错: {e}")
+        return False
+
+    # 2. 构造消息
+    hot_count = sum(s.get("count", 0) for s in report_data.get("stats", []))
+    rss_count = sum(len(s.get("titles", [])) for s in (rss_items or []))
+    first = report_data["stats"][0] if report_data.get("stats") else None
+    first_title = first["titles"][0]["title"][:60] if first and first.get("titles") else ""
+
+    from datetime import datetime
+    now_str = datetime.now().strftime("%m-%d %H:%M")
+
+    template_data = {
+        "touser": "",
+        "template_id": template_id,
+        "data": {
+            "first": {"value": f"📊 {report_type} 热点分析报告", "color": "#173177"},
+            "keyword1": {"value": f"{hot_count + rss_count} 条", "color": "#173177"},
+            "keyword2": {"value": f"热榜{hot_count} + RSS{rss_count}", "color": "#173177"},
+            "keyword3": {"value": now_str, "color": "#173177"},
+            "remark": {"value": f"热点: {first_title}", "color": "#4f46e5"},
+        }
+    }
+
+    recipients = [oid.strip() for oid in open_ids.split(";") if oid.strip()]
+    send_url = f"https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}"
+    success_count = 0
+    for oid in recipients:
+        template_data["touser"] = oid
+        try:
+            resp = requests.post(send_url, json=template_data, proxies=proxies, timeout=15)
+            result = resp.json()
+            if result.get("errcode") == 0:
+                success_count += 1
+            else:
+                print(f"{log_prefix} 发送给 {oid[:8]}... 失败: {result.get('errmsg', '未知错误')}")
+        except Exception as e:
+            print(f"{log_prefix} 发送给 {oid[:8]}... 出错: {e}")
+
+    print(f"{log_prefix} 发送完成: {success_count}/{len(recipients)} [{report_type}]")
+    return success_count > 0
+
