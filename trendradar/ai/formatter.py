@@ -310,7 +310,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content = _format_list_content(result.core_trends)
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
-                    <div class="ai-block">
+                    <div class="ai-block" data-block="trends" style="background:#fff7ed;">
                         <div class="ai-block-title">🔥 核心热点态势</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
@@ -319,7 +319,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content = _format_list_content(result.sentiment_controversy)
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
-                    <div class="ai-block">
+                    <div class="ai-block" data-block="sentiment" style="background:#f0f9ff;">
                         <div class="ai-block-title">💬 舆论风向争议</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
@@ -328,7 +328,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content = _format_list_content(result.signals)
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
-                    <div class="ai-block">
+                    <div class="ai-block" data-block="signals" style="background:#f0fdf4;">
                         <div class="ai-block-title">📡 异动与弱信号</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
@@ -337,7 +337,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content = _format_list_content(result.rss_insights)
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
-                    <div class="ai-block">
+                    <div class="ai-block" data-block="rss" style="background:#faf5ff;">
                         <div class="ai-block-title">📰 RSS 深度洞察</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
@@ -346,7 +346,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content = _format_list_content(result.outlook_strategy)
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
-                    <div class="ai-block">
+                    <div class="ai-block" data-block="outlook" style="background:#fefce8;">
                         <div class="ai-block-title">💡 研判策略建议</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
@@ -356,7 +356,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         if summaries_text:
             summaries_html = _escape_html(summaries_text).replace("\n", "<br>")
             ai_html += f"""
-                    <div class="ai-block">
+                    <div class="ai-block" data-block="standalone" style="background:#fdf2f8;">
                         <div class="ai-block-title">🔍 独立源点速览</div>
                         <div class="ai-block-content">{summaries_html}</div>
                     </div>"""

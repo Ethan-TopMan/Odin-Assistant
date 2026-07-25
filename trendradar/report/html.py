@@ -421,6 +421,7 @@ def render_html_content(
                 color: #059669;
                 font-size: 10px;
                 font-weight: 500;
+                margin-left: 4px;
             }
 
             .news-title {
@@ -851,7 +852,6 @@ def render_html_content(
             .ai-block {
                 margin-bottom: 16px;
                 padding: 16px;
-                background: white;
                 border-radius: 8px;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             }
@@ -1309,10 +1309,15 @@ def render_html_content(
             body.dark-mode .ai-section-title { color: #a5b4fc; }
             body.dark-mode .ai-section-badge { background: #4f46e5; }
             body.dark-mode .ai-block {
-                background: #1e293b;
                 border-color: #334155;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.2);
             }
+            body.dark-mode .ai-block[data-block="trends"] { background: #2d1f0e; }
+            body.dark-mode .ai-block[data-block="sentiment"] { background: #0f1f2e; }
+            body.dark-mode .ai-block[data-block="signals"] { background: #0f1f14; }
+            body.dark-mode .ai-block[data-block="rss"] { background: #1f0f2e; }
+            body.dark-mode .ai-block[data-block="outlook"] { background: #2d2d0e; }
+            body.dark-mode .ai-block[data-block="standalone"] { background: #2d0f1a; }
             body.dark-mode .ai-block-title { color: #a5b4fc; }
             body.dark-mode .ai-block-content { color: #cbd5e1; }
             body.dark-mode .ai-warning {
