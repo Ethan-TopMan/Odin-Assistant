@@ -3,7 +3,7 @@ chcp 65001 >nul
 setlocal enabledelayedexpansion
 
 echo ==========================================
-echo   TrendRadar MCP 一键部署 (Windows)
+echo   Odin-Assistant MCP 一键部署 (Windows)
 echo ==========================================
 echo.
 

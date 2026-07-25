@@ -1,5 +1,5 @@
 # ═══════════════════════════════════════════════════════════════
-#                   TrendRadar Timeline Configuration
+#                   Odin-Assistant Timeline Configuration
 #                      Version: 1.2.0
 # ═══════════════════════════════════════════════════════════════
 #
@@ -12,7 +12,7 @@
 #     preset: "morning_evening"    ← change it here
 #
 #
-# Visual config editor: https://sansan0.github.io/TrendRadar/
+# Visual config editor: https://Ethan-TopMan.github.io/Odin-Assistant/
 #
 #
 # ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─
@@ -22,7 +22,7 @@
 #
 # 🔁 How does the program run?
 #
-#   TrendRadar doesn't run in the background constantly; it's woken up periodically by a "timer alarm":
+#   Odin-Assistant doesn't run in the background constantly; it's woken up periodically by a "timer alarm":
 #
 #     GitHub Actions users → triggered by the cron in .github/workflows/crawler.yml
 #                           runs once per hour by default (e.g. at minute 33 of each hour)

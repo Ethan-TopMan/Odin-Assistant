@@ -1,21 +1,21 @@
 <div align="center" id="trendradar">
 
-<a href="https://github.com/sansan0/TrendRadar" title="TrendRadar">
-  <img src="/_image/banner.webp" alt="TrendRadar Banner" width="80%">
+<a href="https://github.com/sansan0/Odin-Assistant" title="Odin-Assistant">
+  <img src="/_image/banner.webp" alt="Odin-Assistant Banner" width="80%">
 </a>
 
 Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only see the news you truly care about
 
-<a href="https://trendradar.sandev.cc/en/" title="TrendRadar Official Website"><strong>🌐 Official Website</strong></a> · <a href="https://trendradar.sandev.cc/en/docs/quick-start/" title="TrendRadar Docs"><strong>📖 Documentation</strong></a>
+<a href="https://trendradar.sandev.cc/en/" title="Odin-Assistant Official Website"><strong>🌐 Official Website</strong></a> · <a href="https://trendradar.sandev.cc/en/docs/quick-start/" title="Odin-Assistant Docs"><strong>📖 Documentation</strong></a>
 
-<a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FTrendRadar | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FOdin-Assistant | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-[![GitHub Stars](https://img.shields.io/github/stars/sansan0/TrendRadar?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/TrendRadar/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/sansan0/TrendRadar?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/TrendRadar/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/sansan0/Odin-Assistant?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/Odin-Assistant/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/sansan0/Odin-Assistant?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/Odin-Assistant/network/members)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/TrendRadar)
-[![MCP](https://img.shields.io/badge/MCP-v4.1.0-green.svg)](https://github.com/sansan0/TrendRadar)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar?style=flat-square&logo=docker&logoColor=white&label=TrendRadar%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar)
+[![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/Odin-Assistant)
+[![MCP](https://img.shields.io/badge/MCP-v4.1.0-green.svg)](https://github.com/sansan0/Odin-Assistant)
+[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar?style=flat-square&logo=docker&logoColor=white&label=Odin-Assistant%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar-mcp?style=flat-square&logo=docker&logoColor=white&label=MCP%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar-mcp)
 [![RSS](https://img.shields.io/badge/RSS-Feed_Support-orange.svg?style=flat-square&logo=rss&logoColor=white)](#rss-feed-support-v450-new)
 [![AI Translation](https://img.shields.io/badge/AI-Multi--Language-purple.svg?style=flat-square)](#ai-multi-language-translation-v520-new)
@@ -36,7 +36,7 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 
 
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat-square&logo=github-actions&logoColor=white)](#-quick-start)
-[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Deployment-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/TrendRadar)
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Deployment-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/Odin-Assistant)
 [![Docker](https://img.shields.io/badge/Docker-Deployment-2496ED?style=flat-square&logo=docker&logoColor=white)](#6-docker-deployment)
 [![Local Deploy](https://img.shields.io/badge/Local-Deployment-28A745?style=flat-square&logo=python&logoColor=white)](#local-deploy)
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-Deployment-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#cloudflare-deploy)
@@ -81,7 +81,7 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 > 1. **About the List**: The table below records supporters from the early stage (Angel Round) of the project. Due to the manual nature of statistics in the early days, **there may be omissions or incomplete records. If anyone was missed, it was unintentional, and we ask for your kind understanding**.
 > 2. **Future Plan**: To focus limited energy back on code development and feature iteration, **this list will no longer be manually maintained as of today**.
 >
-> Whether your name is on the list or not, your every bit of support is the cornerstone that allows TrendRadar to be where it is today. 🙏
+> Whether your name is on the list or not, your every bit of support is the cornerstone that allows Odin-Assistant to be where it is today. 🙏
 
 ### Infrastructure Support
 
@@ -126,10 +126,10 @@ After communication, the author indicated no concerns about server pressure, but
 | *云 | 88 | 2025.11.13 | Good project |
 | *W | 6 | 2025.11.13 | |
 | *凯 | 1 | 2025.11.13 | |
-| 对*. | 1 | 2025.11.13 | Thanks for TrendRadar |
+| 对*. | 1 | 2025.11.13 | Thanks for Odin-Assistant |
 | s*y | 1 | 2025.11.13 | |
 | **翔 | 10 | 2025.11.13 | Wish I found it earlier |
-| *韦 | 9.9 | 2025.11.13 | TrendRadar is awesome |
+| *韦 | 9.9 | 2025.11.13 | Odin-Assistant is awesome |
 | h*p | 5 | 2025.11.12 | Support Chinese open source |
 | c*r | 6 | 2025.11.12 | |
 | a*n | 5 | 2025.11.12 | |
@@ -154,9 +154,9 @@ After communication, the author indicated no concerns about server pressure, but
 
 <a name="-support-project"></a>
 
-### ❤️ Find it useful? Support TrendRadar
+### ❤️ Find it useful? Support Odin-Assistant
 
-> If TrendRadar has captured value for you, give it some fuel to keep evolving
+> If Odin-Assistant has captured value for you, give it some fuel to keep evolving
 >
 > Any amount is welcome; even 1 RMB is a gesture of encouragement for open source. Feel free to leave a note with your donation (´▽`ʃ♡ƪ)
 
@@ -197,7 +197,7 @@ This contributes to the sustainable maintenance of the project and the growth of
 
 ## 📝 Changelog
 
->**📌 Check Latest Updates**: **[Original Repository Changelog](https://github.com/sansan0/TrendRadar?tab=readme-ov-file#-changelog)**:
+>**📌 Check Latest Updates**: **[Original Repository Changelog](https://github.com/sansan0/Odin-Assistant?tab=readme-ov-file#-changelog)**:
 - **Tip**: Check [Changelog] to understand specific [Features]
 
 
@@ -234,7 +234,7 @@ This contributes to the sustainable maintenance of the project and the growth of
 
 ### 2026/05/15 - v6.7.0
 
-- **Markdown Export**: New Markdown option in the report export dropdown — generate structured text with clickable links, perfect for LLM processing and cross-platform sharing ([#1121](https://github.com/sansan0/TrendRadar/issues/1121))
+- **Markdown Export**: New Markdown option in the report export dropdown — generate structured text with clickable links, perfect for LLM processing and cross-platform sharing ([#1121](https://github.com/sansan0/Odin-Assistant/issues/1121))
 - **RSS GUID Deduplication**: RSS storage now supports GUID field with priority order guid > url, preventing duplicate entries caused by URL changes for the same article
 - **Empty Title Protection**: Full-chain fallback logic across parser, renderer, and translation backfill ensures items without titles still display properly
 - **Translation Quality Enhancement**: Translation prompt now enforces numbered-item ordering preservation; empty translation results no longer overwrite original titles
@@ -291,7 +291,7 @@ This contributes to the sustainable maintenance of the project and the growth of
 
 > Like the MCP feature, I'm not creating a separate repo for this tool either — it's pure frontend, so bundling it together
 
-- Added visual configuration editor for TrendRadar
+- Added visual configuration editor for Odin-Assistant
 
 
 ### 2026/02/02 - mcp-v3.2.0
@@ -368,7 +368,7 @@ This contributes to the sustainable maintenance of the project and the growth of
 - **RSS Enhancement**: `get_latest_rss` supports multi-day queries (days param), cross-date URL deduplication
 - **Regex Matching Fix**: `get_trending_topics` supports `/pattern/` regex syntax and `display_name`
 - **Cache Optimization**: Added `make_cache_key()` function with param sorting + MD5 hash for consistency
-- **New check_version Tool**: Check TrendRadar and MCP Server version updates simultaneously
+- **New check_version Tool**: Check Odin-Assistant and MCP Server version updates simultaneously
 
 
 ### 2026/01/10 - v5.0.0
@@ -594,7 +594,7 @@ This update refactors the push message structure into five distinct core section
 > 📖 **Detailed Configuration Tutorial**: [Quick Start - Bark Push](#-quick-start)
 
 **🐛 Bug Fix**
-- Fixed issue where `ntfy_server_url` in `config.yaml` was ignored ([#345](https://github.com/sansan0/TrendRadar/issues/345))
+- Fixed issue where `ntfy_server_url` in `config.yaml` was ignored ([#345](https://github.com/sansan0/Odin-Assistant/issues/345))
 
 **🔧 Upgrade Instructions**:
 - **GitHub Fork Users**: Update `main.py`, `config/config.yaml`, `.github/workflows/crawler.yml`
@@ -710,7 +710,7 @@ This update refactors the push message structure into five distinct core section
 
 ### 2025/10/10 - v2.4.3
 
-> Thanks to [nidaye996](https://github.com/sansan0/TrendRadar/issues/98) for discovering the UX issue
+> Thanks to [nidaye996](https://github.com/sansan0/Odin-Assistant/issues/98) for discovering the UX issue
 
 - **Updates**:
   - Refactored "Silent Push Mode" naming to "Push Time Window Control", improving feature comprehension
@@ -752,7 +752,7 @@ This update refactors the push message structure into five distinct core section
 
 ### 2025/09/26 - v2.3.2
 
-- Fixed email notification config check being missed ([#88](https://github.com/sansan0/TrendRadar/issues/88))
+- Fixed email notification config check being missed ([#88](https://github.com/sansan0/Odin-Assistant/issues/88))
 
 **Fix Description**:
 - Solved the issue where system still prompted "No webhook configured" even with correct email notification setup
@@ -868,7 +868,7 @@ WeWork and Telegram push messages have length limits, I adopted splitting messag
 ### 2025/06/21 - v1.2.1
 
 Before this version, not only main.py needs copy replacement, crawler.yml also needs you to copy replacement
-https://github.com/sansan0/TrendRadar/blob/master/.github/workflows/crawler.yml
+https://github.com/sansan0/Odin-Assistant/blob/master/.github/workflows/crawler.yml
 
 
 ### 2025/06/19 - v1.2.0
@@ -969,7 +969,7 @@ Supports RSS/Atom feed crawling, keyword-based grouping and statistics (consiste
 
 A web-based graphical configuration interface — no need to manually edit YAML files. Complete all configuration changes and exports through simple forms.
 
-👉 **Try it online**: [https://sansan0.github.io/TrendRadar/](https://sansan0.github.io/TrendRadar/)
+👉 **Try it online**: [https://sansan0.github.io/Odin-Assistant/](https://sansan0.github.io/Odin-Assistant/)
 
 <img src="/_image/editor.png" alt="Visual Configuration Editor" width="80%">
 
@@ -1047,7 +1047,7 @@ Real-time tracking of news popularity changes helps you understand not just "wha
 
 ### **Personalized Trending Algorithm**
 
-No longer controlled by platform algorithms, TrendRadar reorganizes all trending searches
+No longer controlled by platform algorithms, Odin-Assistant reorganizes all trending searches
 
 > 💡 Weight adjustment guide: [Configuration Guide - Advanced Configuration](#4-advanced-configuration---hotspot-weight-adjustment)
 
@@ -1149,7 +1149,7 @@ After running, the `index.html` generated in the root directory is the complete 
 
 > **Deployment**: Click **Use this template** to create your repository, then deploy to Cloudflare Pages or GitHub Pages.
 >
-> **💡 Tip**: Enable GitHub Pages for an online URL. Go to Settings → Pages to enable. [Preview Effect](https://sansan0.github.io/TrendRadar/)
+> **💡 Tip**: Enable GitHub Pages for an online URL. Go to Settings → Pages to enable. [Preview Effect](https://sansan0.github.io/Odin-Assistant/)
 >
 > ⚠️ The GitHub Actions auto-storage feature has been discontinued (this approach caused excessive load on GitHub servers, affecting platform stability).
 
@@ -1202,7 +1202,7 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
 
 ## 🚀 Quick Start
 
-> **Reminder**: You should first **[check the latest official documentation](https://github.com/sansan0/TrendRadar?tab=readme-ov-file)** to ensure the configuration steps are up to date.
+> **Reminder**: You should first **[check the latest official documentation](https://github.com/sansan0/Odin-Assistant?tab=readme-ov-file)** to ensure the configuration steps are up to date.
 
 ### Choose the Deployment Method That Fits You
 
@@ -1240,8 +1240,8 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
    **2. Clone and run**
 
    ```bash
-   git clone https://github.com/sansan0/TrendRadar.git
-   cd TrendRadar
+   git clone https://github.com/sansan0/Odin-Assistant.git
+   cd Odin-Assistant
    uv sync          # Automatically installs Python and project dependencies
    uv run python -m trendradar
    ```
@@ -1258,7 +1258,7 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
 
    > ⚠️ Note:
    > - Any mention of "Fork" in this document can be understood as "Use this template"
-   > - Using Fork may cause runtime issues, see [Issue #606](https://github.com/sansan0/TrendRadar/issues/606)
+   > - Using Fork may cause runtime issues, see [Issue #606](https://github.com/sansan0/Odin-Assistant/issues/606)
 
    <br>
 
@@ -1298,7 +1298,7 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
 #### Mobile Setup:
 1. Open WeWork App → Enter target internal group chat
 2. Click "…" button at top right → Select "Message Push"
-3. Click "Add" → Name input "TrendRadar"
+3. Click "Add" → Name input "Odin-Assistant"
 4. Copy Webhook address, click save, paste the copied content into GitHub Secret above
 
 #### PC Setup Process Similar
@@ -1363,7 +1363,7 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
 
 ![Select Custom Bot](_image/feishu-bot/step3-custom-bot.png)
 
-5. Set the custom bot's avatar, name (e.g., "TrendRadar Trending Monitor") and description, then click **Add**.
+5. Set the custom bot's avatar, name (e.g., "Odin-Assistant Trending Monitor") and description, then click **Add**.
 
 ![Set Bot Info](_image/feishu-bot/step4-set-name.png)
 
@@ -1510,14 +1510,14 @@ Transform from "algorithm recommendation captivity" to "actively getting the inf
 > **Auto-detect**: When using above emails, no need to manually configure `EMAIL_SMTP_SERVER` and `EMAIL_SMTP_PORT`, system auto-detects.
 >
 > **Feedback Notice**:
-> - If you successfully test with **other email providers**, please open an [Issue](https://github.com/sansan0/TrendRadar/issues) to let us know, we'll add to support list
-> - If above email configurations are incorrect or unusable, please also open an [Issue](https://github.com/sansan0/TrendRadar/issues) for feedback to help improve the project
+> - If you successfully test with **other email providers**, please open an [Issue](https://github.com/sansan0/Odin-Assistant/issues) to let us know, we'll add to support list
+> - If above email configurations are incorrect or unusable, please also open an [Issue](https://github.com/sansan0/Odin-Assistant/issues) for feedback to help improve the project
 >
 > **Special Thanks**:
-> - Thanks to [@DYZYD](https://github.com/DYZYD) for contributing 189 Mail (189.cn) configuration and completing self-send-receive testing ([#291](https://github.com/sansan0/TrendRadar/issues/291))
-> - Thanks to [@longzhenren](https://github.com/longzhenren) for contributing Aliyun Mail (aliyun.com) configuration and completing testing ([#344](https://github.com/sansan0/TrendRadar/issues/344))
-> - Thanks to [@ACANX](https://github.com/ACANX) for contributing Yandex Mail (yandex.com) configuration and completing testing ([#663](https://github.com/sansan0/TrendRadar/issues/663))
-> - Thanks to [@Sleepy-Tianhao](https://github.com/Sleepy-Tianhao) for contributing iCloud Mail (icloud.com) configuration and completing testing ([#728](https://github.com/sansan0/TrendRadar/issues/728))
+> - Thanks to [@DYZYD](https://github.com/DYZYD) for contributing 189 Mail (189.cn) configuration and completing self-send-receive testing ([#291](https://github.com/sansan0/Odin-Assistant/issues/291))
+> - Thanks to [@longzhenren](https://github.com/longzhenren) for contributing Aliyun Mail (aliyun.com) configuration and completing testing ([#344](https://github.com/sansan0/Odin-Assistant/issues/344))
+> - Thanks to [@ACANX](https://github.com/ACANX) for contributing Yandex Mail (yandex.com) configuration and completing testing ([#663](https://github.com/sansan0/Odin-Assistant/issues/663))
+> - Thanks to [@Sleepy-Tianhao](https://github.com/Sleepy-Tianhao) for contributing iCloud Mail (icloud.com) configuration and completing testing ([#728](https://github.com/sansan0/Odin-Assistant/issues/728))
 
 **Common Email Settings:**
 
@@ -1620,7 +1620,7 @@ docker run -d \
   serve --cache-file /var/cache/ntfy/cache.db
 ```
 
-**Configure TrendRadar**:
+**Configure Odin-Assistant**:
 ```yaml
 NTFY_SERVER_URL: https://ntfy.yourdomain.com
 NTFY_TOPIC: trendradar-alerts  # Self-hosting can use simple name
@@ -1707,7 +1707,7 @@ docker run -d \
   finab/bark-server
 ```
 
-**Configure TrendRadar**:
+**Configure Odin-Assistant**:
 ```yaml
 BARK_URL: http://your-server-ip:8080/your_device_key
 ```
@@ -1753,7 +1753,7 @@ Slack is a team collaboration tool, Incoming Webhooks can push messages to Slack
    - Click **"From scratch"**
 
 3. **Fill in App Information**:
-   - **App Name**: Enter app name (e.g., `TrendRadar` or `Hot News Monitor`)
+   - **App Name**: Enter app name (e.g., `Odin-Assistant` or `Hot News Monitor`)
    - **Workspace**: Select your workspace from dropdown
    - Click **"Create App"** button
 
@@ -1793,7 +1793,7 @@ Slack is a team collaboration tool, Incoming Webhooks can push messages to Slack
    - Click **"Copy"** button on the right of URL
    - Or manually select and copy URL
 
-3. **Configure to TrendRadar**:
+3. **Configure to Odin-Assistant**:
    - **GitHub Actions**: Add URL to GitHub Secrets as `SLACK_WEBHOOK_URL`
    - **Local Testing**: Fill URL in `config/config.yaml` `slack_webhook_url` field
    - **Docker Deployment**: Add URL to `docker/.env` file as `SLACK_WEBHOOK_URL` variable
@@ -1878,7 +1878,7 @@ Templates support two placeholders:
 {"content": "{content}"}
 
 # Custom format
-{"text": "{content}", "username": "TrendRadar"}
+{"text": "{content}", "username": "Odin-Assistant"}
 ```
 
 ---
@@ -1907,16 +1907,16 @@ Templates support two placeholders:
    **How to find your Actions page**:
 
    - **Method 1**: Open your forked project homepage, click the **Actions** tab at the top
-   - **Method 2**: Direct access `https://github.com/YourUsername/TrendRadar/actions`
+   - **Method 2**: Direct access `https://github.com/YourUsername/Odin-Assistant/actions`
 
    **Example comparison**:
-   - ❌ Author's project: `https://github.com/sansan0/TrendRadar/actions`
-   - ✅ Your project: `https://github.com/YourUsername/TrendRadar/actions`
+   - ❌ Author's project: `https://github.com/sansan0/Odin-Assistant/actions`
+   - ✅ Your project: `https://github.com/YourUsername/Odin-Assistant/actions`
 
    **Testing steps**:
    1. Enter your project's Actions page
    2. Find **"Hot News Crawler"** and click in
-      - If you don't see this text, refer to [#109](https://github.com/sansan0/TrendRadar/issues/109) to solve
+      - If you don't see this text, refer to [#109](https://github.com/sansan0/Odin-Assistant/issues/109) to solve
    3. Click **"Run workflow"** button on the right to run
    4. Wait about 1 minute, messages will be pushed to your configured platform
 
@@ -2021,7 +2021,7 @@ Templates support two placeholders:
 
    **Configuration Method:**
    Add the following to GitHub Secrets (or `.env` / `config.yaml`):
-   - `AI_API_KEY`: Your API Key (Supports DeepSeek, OpenAI, etc.)
+   - `BOSS_AI_API_KEY`: Your API Key (Supports DeepSeek, OpenAI, etc.)
    - `AI_PROVIDER`: Provider name (e.g., `deepseek`, `openai`)
 
    That's it! No complex deployment needed. You'll see the smart analysis report in the next push.
@@ -2030,7 +2030,7 @@ Templates support two placeholders:
 
 ### 7️⃣ Step 7: 🎉 Deployment Success!
 
-   Congratulations! Now you can start enjoying the efficient information flow brought by TrendRadar.
+   Congratulations! Now you can start enjoying the efficient information flow brought by Odin-Assistant.
 
    💬 Many users are sharing their experiences on the official account, we look forward to your insights~
 
@@ -2044,7 +2044,7 @@ Templates support two placeholders:
 
 ### 8️⃣ Step 8: Advanced: Choose Your AI Assistant
 
-   TrendRadar provides two ways to use AI to meet different needs:
+   Odin-Assistant provides two ways to use AI to meet different needs:
 
    | Feature | ✨ AI Analysis Push (Step 6) | 🧠 AI Smart Analysis |
    | :--- | :--- | :--- |
@@ -2088,7 +2088,7 @@ platforms:
     # Add more platforms...
 ```
 
-> 💡 **Shortcut**: If you don't know how to read source code, you can copy from others' organized [Platform Configuration Summary](https://github.com/sansan0/TrendRadar/issues/95)
+> 💡 **Shortcut**: If you don't know how to read source code, you can copy from others' organized [Platform Configuration Summary](https://github.com/sansan0/Odin-Assistant/issues/95)
 
 > ⚠️ **Note**: More platforms is not always better, suggest choosing 10-15 core platforms. Too many platforms will cause information overload and actually reduce user experience.
 
@@ -2660,7 +2660,7 @@ Updated: 2025-01-15 12:30:15
 
 **Image Description:**
 
-TrendRadar provides two independent Docker images, deploy according to your needs:
+Odin-Assistant provides two independent Docker images, deploy according to your needs:
 
 | Image Name | Purpose | Description |
 |---------|------|------|
@@ -2679,8 +2679,8 @@ TrendRadar provides two independent Docker images, deploy according to your need
 
    ```bash
    # Clone project to local
-   git clone https://github.com/sansan0/TrendRadar.git
-   cd TrendRadar
+   git clone https://github.com/sansan0/Odin-Assistant.git
+   cd Odin-Assistant
    ```
 
    > 💡 **Note**: Key directory structure required for Docker deployment:
@@ -2737,7 +2737,7 @@ current directory/
    | `WEBSERVER_PORT` | - | `8080` | Web server port |
    | `FEISHU_WEBHOOK_URL` | `notification.channels.feishu.webhook_url` | `https://...` | Feishu Webhook (multi-account use `;` separator) |
    | `AI_ANALYSIS_ENABLED` | `ai_analysis.enabled` | `true` / `false` | Enable AI analysis (v5.0.0 new) |
-   | `AI_API_KEY` | `ai.api_key` | `sk-xxx...` | AI API Key (shared by ai_analysis and ai_translation) |
+   | `BOSS_AI_API_KEY` | `ai.api_key` | `sk-xxx...` | AI API Key (shared by ai_analysis and ai_translation) |
    | `AI_PROVIDER` | `ai.provider` | `deepseek` / `openai` / `gemini` | AI provider (v5.0.0 new) |
    | `S3_*` | `storage.remote.*` | - | Remote storage config (5 params) |
 
@@ -2801,8 +2801,8 @@ If you need custom code modifications or build your own image:
 
 ```bash
 # Clone project
-git clone https://github.com/sansan0/TrendRadar.git
-cd TrendRadar
+git clone https://github.com/sansan0/Odin-Assistant.git
+cd Odin-Assistant
 
 # Modify config files
 vim config/config.yaml
@@ -2908,7 +2908,7 @@ Generated reports and data are saved in `./output` directory by default. Data pe
 
 **📊 Web Report Access Paths**:
 
-TrendRadar generates daily summary HTML reports to two locations simultaneously:
+Odin-Assistant generates daily summary HTML reports to two locations simultaneously:
 
 | File Location | Access Method | Use Case |
 |--------------|---------------|----------|
@@ -2989,8 +2989,8 @@ Use docker compose to start both news push and MCP services:
 
 ```bash
 # Clone project (Recommended)
-git clone https://github.com/sansan0/TrendRadar.git
-cd TrendRadar/docker
+git clone https://github.com/sansan0/Odin-Assistant.git
+cd Odin-Assistant/docker
 docker compose up -d
 
 # Check running status
@@ -3207,7 +3207,7 @@ Zhihu Trending (10 items):
   ...
 
 Hacker News (5 items):
-  1. [Hacker News] Launch HN: TrendRadar...
+  1. [Hacker News] Launch HN: Odin-Assistant...
   ...
 ```
 
@@ -3447,7 +3447,7 @@ The simplest way is via environment variables (Recommended for GitHub Secrets or
 | Variable Name | Value | Description |
 |--------------|-------|-------------|
 | `AI_ANALYSIS_ENABLED` | `true` | Enable switch |
-| `AI_API_KEY` | `sk-xxxxxx` | Your API Key |
+| `BOSS_AI_API_KEY` | `sk-xxxxxx` | Your API Key |
 | `AI_MODEL` | `deepseek/deepseek-chat` | Model identifier (format: `provider/model`) |
 
 **Supported AI Providers** (Based on LiteLLM, supports 100+ providers):
@@ -3496,7 +3496,7 @@ Think the AI sounds too official? You can modify its prompt to change its style 
 
 ## ✨ AI Analysis
 
-TrendRadar v3.0.0 added **MCP (Model Context Protocol)** based AI analysis feature, allowing natural language conversations with news data for deep analysis.
+Odin-Assistant v3.0.0 added **MCP (Model Context Protocol)** based AI analysis feature, allowing natural language conversations with news data for deep analysis.
 
 
 ### ⚠️ Important Notice Before Use
@@ -3548,13 +3548,13 @@ Cherry Studio provides GUI config interface, 5-minute quick deployment, complex 
 
 ## 🔌 MCP Clients
 
-TrendRadar MCP service supports standard Model Context Protocol (MCP), can connect to various AI clients supporting MCP for smart analysis.
+Odin-Assistant MCP service supports standard Model Context Protocol (MCP), can connect to various AI clients supporting MCP for smart analysis.
 
 ### Supported Clients
 
 **Note**:
-- Replace `/path/to/TrendRadar` with your actual project path
-- Windows paths use double backslashes: `C:\\Users\\YourName\\TrendRadar`
+- Replace `/path/to/Odin-Assistant` with your actual project path
+- Windows paths use double backslashes: `C:\\Users\\YourName\\Odin-Assistant`
 - Remember to restart after saving
 
 <details>
@@ -3580,7 +3580,7 @@ TrendRadar MCP service supports standard Model Context Protocol (MCP), can conne
      "mcpServers": {
        "trendradar": {
          "url": "http://localhost:3333/mcp",
-         "description": "TrendRadar News Trending Aggregation Analysis"
+         "description": "Odin-Assistant News Trending Aggregation Analysis"
        }
      }
    }
@@ -3604,7 +3604,7 @@ Create `.cursor/mcp.json`:
       "command": "uv",
       "args": [
         "--directory",
-        "/path/to/TrendRadar",
+        "/path/to/Odin-Assistant",
         "run",
         "python",
         "-m",
@@ -3643,7 +3643,7 @@ Add in Cline's MCP settings:
     "command": "uv",
     "args": [
       "--directory",
-      "/path/to/TrendRadar",
+      "/path/to/Odin-Assistant",
       "run",
       "python",
       "-m",
@@ -3668,7 +3668,7 @@ Edit `~/.continue/config.json`:
           "command": "uv",
           "args": [
             "--directory",
-            "/path/to/TrendRadar",
+            "/path/to/Odin-Assistant",
             "run",
             "python",
             "-m",
@@ -3698,7 +3698,7 @@ MCP Inspector is the official debug tool for testing MCP connections:
 
 #### Usage Steps
 
-1. **Start TrendRadar HTTP Service**:
+1. **Start Odin-Assistant HTTP Service**:
    ```bash
    # Windows
    start-http.bat
@@ -3728,7 +3728,7 @@ MCP Inspector is the official debug tool for testing MCP connections:
 <summary><b>👉 Click to expand: Other MCP-Compatible Clients</b></summary>
 <br>
 
-Any client supporting Model Context Protocol can connect to TrendRadar:
+Any client supporting Model Context Protocol can connect to Odin-Assistant:
 
 #### HTTP Mode
 
@@ -3753,7 +3753,7 @@ Any client supporting Model Context Protocol can connect to TrendRadar:
   "command": "uv",
   "args": [
     "--directory",
-    "/path/to/TrendRadar",
+    "/path/to/Odin-Assistant",
     "run",
     "python",
     "-m",
@@ -3764,7 +3764,7 @@ Any client supporting Model Context Protocol can connect to TrendRadar:
 ```
 
 **Notes**:
-- Replace `/path/to/TrendRadar` with actual project path
+- Replace `/path/to/Odin-Assistant` with actual project path
 - Windows paths use backslash escape: `C:\\Users\\...`
 - Ensure project dependencies installed (ran setup script)
 
@@ -3879,7 +3879,7 @@ Any client supporting Model Context Protocol can connect to TrendRadar:
 - https://github.com/sansan0/bilibili-comment-analyzer
 
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sansan0/TrendRadar&type=Date)](https://www.star-history.com/#sansan0/TrendRadar&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=sansan0/Odin-Assistant&type=Date)](https://www.star-history.com/#sansan0/Odin-Assistant&Date)
 
 <br>
 

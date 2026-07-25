@@ -11,7 +11,7 @@ from trendradar.context import AppContext
 def _build_test_report_data(ctx: AppContext) -> Dict:
     now = ctx.get_time()
     time_display = now.strftime("%H:%M")
-    title = f"TrendRadar 通知测试消息（{now.strftime('%Y-%m-%d %H:%M:%S')}）"
+    title = f"Odin-Assistant 通知测试消息（{now.strftime('%Y-%m-%d %H:%M:%S')}）"
 
     return {
         "stats": [
@@ -21,8 +21,8 @@ def _build_test_report_data(ctx: AppContext) -> Dict:
                 "titles": [
                     {
                         "title": title,
-                        "source_name": "TrendRadar",
-                        "url": "https://github.com/sansan0/TrendRadar",
+                        "source_name": "Odin-Assistant",
+                        "url": "https://github.com/Ethan-TopMan/Odin-Assistant",
                         "mobile_url": "",
                         "ranks": [1],
                         "rank_threshold": ctx.rank_threshold,
@@ -48,9 +48,9 @@ def _create_test_html_file(ctx: AppContext) -> Optional[str]:
         html_path = output_dir / f"notification_test_{ctx.format_time()}.html"
         html_content = f"""<!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><title>TrendRadar 通知测试</title></head>
+<head><meta charset="UTF-8"><title>Odin-Assistant 通知测试</title></head>
 <body>
-<h2>TrendRadar 通知连通性测试</h2>
+<h2>Odin-Assistant 通知连通性测试</h2>
 <p>测试时间：{now.strftime('%Y-%m-%d %H:%M:%S')} ({ctx.timezone})</p>
 <p>这是一条测试消息，用于验证邮件渠道是否可达。</p>
 </body>

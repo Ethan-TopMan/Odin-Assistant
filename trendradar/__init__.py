@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-TrendRadar - 热点新闻聚合与分析工具
+Odin-Assistant - 热点新闻聚合与分析工具
 
 使用方式:
   python -m trendradar        # 模块执行

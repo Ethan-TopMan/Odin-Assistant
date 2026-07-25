@@ -135,7 +135,9 @@ class NotificationDispatcher:
                     title_locations.append(("rss_items", stat_idx, title_idx))
 
         # 4. RSS 新增标题（结构与 stats 一致）
-        if not skip_rss and rss_new_items and scope.get("RSS", True) and display_regions.get("RSS", True) and display_regions.get("NEW_ITEMS", True):
+        # 注意：不依赖 display_regions.NEW_ITEMS，因为 HTML 报告独立渲染 RSS 新增区域，
+        # 即使推送中不展示该区域，HTML 报告中的 RSS 新增也需要翻译
+        if not skip_rss and rss_new_items and scope.get("RSS", True) and display_regions.get("RSS", True):
             for stat_idx, stat in enumerate(rss_new_items):
                 for title_idx, title_data in enumerate(stat.get("titles", [])):
                     titles_to_translate.append(title_data.get("title", ""))

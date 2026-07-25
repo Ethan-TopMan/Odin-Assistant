@@ -1,5 +1,5 @@
 /**
- * TrendRadar 配置文件编辑器核心逻辑
+ * Odin-Assistant 配置文件编辑器核心逻辑
  * 特点：确保原始 YAML 的注释和格式 100% 保留
  */
 
@@ -122,7 +122,7 @@ const STORAGE_KEY_FREQUENCY_TIME = 'trendradar_frequency_time';
 const STORAGE_KEY_TIMELINE_TIME = 'trendradar_timeline_time';
 
 // 官网配置文件 URL（GitHub 主源）
-const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/';
+const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Ethan-TopMan/Odin-Assistant/refs/heads/master/';
 const REMOTE_VERSION_URL = GITHUB_RAW_BASE + 'version_configs';
 
 // 远程配置文件路径随当前语言切换：中文用 config.yaml，英文用 config.en.yaml 等
@@ -149,9 +149,9 @@ function remoteConfigName(type) {
 // 所有源（GitHub 主源 + CDN 备用源），按优先级排列
 const ALL_SOURCES = [
     GITHUB_RAW_BASE,
-    'https://fastly.jsdelivr.net/gh/sansan0/TrendRadar@master/',
-    'https://cdn.jsdelivr.net/gh/sansan0/TrendRadar@master/',
-    'https://gcore.jsdelivr.net/gh/sansan0/TrendRadar@master/',
+    'https://fastly.jsdelivr.net/gh/Ethan-TopMan/Odin-Assistant@master/',
+    'https://cdn.jsdelivr.net/gh/Ethan-TopMan/Odin-Assistant@master/',
+    'https://gcore.jsdelivr.net/gh/Ethan-TopMan/Odin-Assistant@master/',
 ];
 let lastOkIndex = 0;
 
@@ -606,7 +606,7 @@ window.openLoadConfigModal = function() {
             </div>
             <div class="text-xs text-gray-400 mt-3 p-2 bg-gray-50 rounded">
                 <i class="fa-solid fa-info-circle mr-1"></i>
-                ${t('loadModal.source')}<a href="https://github.com/sansan0/TrendRadar" target="_blank" class="text-blue-500 hover:underline">sansan0/TrendRadar</a>
+                ${t('loadModal.source')}<a href="https://github.com/Ethan-TopMan/Odin-Assistant" target="_blank" class="text-blue-500 hover:underline">Ethan-TopMan/Odin-Assistant</a>
             </div>
             <div class="flex justify-end gap-2 mt-4">
                 <button onclick="closeLoadConfigModal()" class="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">${t('loadModal.cancel')}</button>
@@ -913,7 +913,7 @@ function renderControls(mod) {
                         <button onclick="openPlatformModal()" class="text-xs bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700 transition-colors">
                             <i class="fa-solid fa-plus mr-1"></i>${t('ctrl.addPlatform')}
                         </button>
-                        <a href="https://github.com/sansan0/TrendRadar?tab=readme-ov-file#%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3" target="_blank" class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded hover:bg-gray-200 transition-colors border border-gray-200 flex items-center gap-1 no-underline">
+                        <a href="https://github.com/Ethan-TopMan/Odin-Assistant?tab=readme-ov-file#%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3" target="_blank" class="text-xs bg-gray-100 text-gray-600 px-3 py-1.5 rounded hover:bg-gray-200 transition-colors border border-gray-200 flex items-center gap-1 no-underline">
                             <i class="fa-solid fa-circle-question text-gray-400"></i>${t('ctrl.addOtherPlatform')}
                         </a>
                      </div>`;
@@ -1674,7 +1674,7 @@ function buildFrequencyText(data) {
 
     // 如果没有原始文本，使用默认模板
     let text = '# ═══════════════════════════════════════════════════════════════\n';
-    text += '#                    TrendRadar 频率词配置文件\n';
+    text += '#                    Odin-Assistant 频率词配置文件\n';
     text += '# ═══════════════════════════════════════════════════════════════\n\n';
 
     text += '[GLOBAL_FILTER]\n';

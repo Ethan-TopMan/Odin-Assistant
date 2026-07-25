@@ -12,7 +12,7 @@ def handle_status_commands(config: Dict) -> None:
     ctx = AppContext(config)
 
     print("=" * 60)
-    print(f"TrendRadar v{__version__} 调度状态")
+    print(f"Odin-Assistant v{__version__} 调度状态")
     print("=" * 60)
 
     try:

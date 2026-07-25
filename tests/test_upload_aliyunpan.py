@@ -127,7 +127,7 @@ class TestUploadFile:
                 tmp_path = f.name
 
             try:
-                result = upload_file("token", "drive123", tmp_path, "/TrendRadar")
+                result = upload_file("token", "drive123", tmp_path, "/Odin-Assistant")
                 # 至少不会崩溃
                 print(f"✅ test_rapid_upload 通过 (result={result})")
             finally:

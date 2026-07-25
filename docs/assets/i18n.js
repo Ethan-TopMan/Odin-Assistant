@@ -1,5 +1,5 @@
 /**
- * TrendRadar i18n - Internationalization Engine
+ * Odin-Assistant i18n - Internationalization Engine
  */
 (function () {
     'use strict';
@@ -369,7 +369,7 @@
     // ═══════════════════════════════════════
     add([
         ['sidebar.title', '支持项目', 'Support'],
-        ['sidebar.quote', '若 TrendRadar 曾为你捕捉价值，不妨为它注入动力，助其持续进化', 'If TrendRadar has been valuable to you, help fuel its growth'],
+        ['sidebar.quote', '若 Odin-Assistant 曾为你捕捉价值，不妨为它注入动力，助其持续进化', 'If Odin-Assistant has been valuable to you, help fuel its growth'],
         ['sidebar.star', '点亮 Star', 'Star Us'],
         ['sidebar.starDesc', '让更多人发现它', 'Help others discover it'],
         ['sidebar.goGithub', '前往 GitHub', 'Go to GitHub'],

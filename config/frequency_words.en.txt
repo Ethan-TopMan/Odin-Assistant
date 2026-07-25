@@ -1,9 +1,9 @@
 # ═══════════════════════════════════════════════════════════════
-#                TrendRadar Frequency-words Configuration
+#                Odin-Assistant Frequency-words Configuration
 #                         Version: 1.1.0
 # ═══════════════════════════════════════════════════════════════
 
-# Visual config editor: https://sansan0.github.io/TrendRadar/
+# Visual config editor: https://Ethan-TopMan.github.io/Odin-Assistant/
 #
 # Lines beginning with # are comments only.
 #

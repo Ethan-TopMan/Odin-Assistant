@@ -16,14 +16,14 @@ import requests
 logger = logging.getLogger(__name__)
 
 _GITHUB_RAW_PATTERN = re.compile(
-    r"^https://raw\.githubusercontent\.com/sansan0/TrendRadar/(?:refs/heads/)?master/(.+)$"
+    r"^https://raw\.githubusercontent\.com/Ethan-TopMan/Odin-Assistant/(?:refs/heads/)?master/(.+)$"
 )
 
 _ALL_SOURCES = [
-    "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/",
-    "https://fastly.jsdelivr.net/gh/sansan0/TrendRadar@master/",
-    "https://cdn.jsdelivr.net/gh/sansan0/TrendRadar@master/",
-    "https://gcore.jsdelivr.net/gh/sansan0/TrendRadar@master/",
+    "https://raw.githubusercontent.com/Ethan-TopMan/Odin-Assistant/refs/heads/master/",
+    "https://fastly.jsdelivr.net/gh/Ethan-TopMan/Odin-Assistant@master/",
+    "https://cdn.jsdelivr.net/gh/Ethan-TopMan/Odin-Assistant@master/",
+    "https://gcore.jsdelivr.net/gh/Ethan-TopMan/Odin-Assistant@master/",
 ]
 
 _SOURCE_LABELS = {

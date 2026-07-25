@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 echo ==========================================
-echo   TrendRadar MCP Setup (Windows)
+echo   Odin-Assistant MCP Setup (Windows)
 echo ==========================================
 echo:
 

@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-TrendRadar 主程序
+Odin-Assistant 主程序
 
 热点新闻聚合与分析工具
 支持: python -m trendradar
@@ -58,7 +58,7 @@ class NewsAnalyzer:
         if config is None:
             print("正在加载配置...")
             config = load_config()
-        print(f"TrendRadar v{__version__} 配置加载完成")
+        print(f"Odin-Assistant v{__version__} 配置加载完成")
         print(f"监控平台数量: {len(config['PLATFORMS'])}")
         print(f"时区: {config.get('TIMEZONE', DEFAULT_TIMEZONE)}")
 
@@ -680,9 +680,11 @@ class NewsAnalyzer:
             if ai_filter_result and ai_filter_result.success:
                 print(f"[筛选] AI 筛选完成: {ai_filter_result.total_matched} 条匹配, {len(ai_filter_result.tags)} 个标签")
                 # 转换为与关键词匹配相同的数据结构
+                feed_cat_map = self._load_rss_category_map()
                 stats, ai_rss_stats, ai_rss_new_stats = self.ctx.convert_ai_filter_to_report_data(
                     ai_filter_result, mode=mode,
                     new_titles=new_titles, rss_new_urls=rss_new_urls,
+                    feed_category_map=feed_cat_map,
                 )
                 total_titles = sum(len(titles) for titles in data_source.values())
 
@@ -758,12 +760,11 @@ class NewsAnalyzer:
                     total_before = agg_result.total_before
                     total_after = agg_result.total_after
                     print(f"[RSS聚合] 替换推送 RSS 数据: {total_before} 条 → {total_after} 条 (去重后)")
-                    # 与已有的 AI 分类 RSS 条目合并（非白名单的 AI 分类结果保留）
-                    ai_rss = [s for s in (rss_items or []) if not s.get("word", "").startswith("🔥")]
-                    rss_items = ai_rss + agg_rss_items
+                    # 聚合器已对所有原始 RSS 条目按分类去重聚合，直接替换原有结果，
+                    # 避免与关键词/AI 筛选结果重复（同一文章在两个路径中各出现一次）
+                    rss_items = agg_rss_items
                     if agg_rss_new_items:
-                        ai_rss_new = [s for s in (rss_new_items or []) if not s.get("word", "").startswith("🔥")]
-                        rss_new_items = ai_rss_new + agg_rss_new_items
+                        rss_new_items = agg_rss_new_items
 
         # ── 热榜 AI 聚合摘要（对同一标签下的新闻去重+摘要） ──
         if agg_config.get("ENABLED", False) and stats:
@@ -1681,7 +1682,7 @@ class NewsAnalyzer:
 def main():
     """主程序入口"""
     parser = argparse.ArgumentParser(
-        description="TrendRadar - 热点新闻聚合与分析工具",
+        description="Odin-Assistant - 热点新闻聚合与分析工具",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 调度状态命令:
@@ -1714,7 +1715,7 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == "serve":
         from trendradar.server import run_server
         # 解析 serve 子命令的参数
-        serve_parser = argparse.ArgumentParser(description="TrendRadar 报告服务器")
+        serve_parser = argparse.ArgumentParser(description="Odin-Assistant 报告服务器")
         serve_parser.add_argument("serve", nargs="?", help="启动报告 HTTP 服务器")
         serve_parser.add_argument("--host", default="0.0.0.0", help="监听地址 (默认: 0.0.0.0)")
         serve_parser.add_argument("--port", type=int, default=0, help="端口号 (默认: 0=自动选择)")

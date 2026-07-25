@@ -8,6 +8,7 @@
 - 🏛️  政策与大事
 - 📰  综合新闻
 feed_categories:
+  # ═══ HPC / 科技与前沿 ═══
   ornl-news-releases: HPC
   ieee-transactions-on-parallel-distributed-systems: HPC
   nvidia-technical-blog: HPC
@@ -15,6 +16,8 @@ feed_categories:
   amd-rocm-blogs: HPC
   inside-hpc-ai-news-high-performance-computing-artificial-intelligence: HPC
   hpcwire: HPC
+
+  # ═══ AI / 科技前沿 ═══
   小红书技术redtech: AI
   openai-news: AI
   karpathy: AI
@@ -27,37 +30,60 @@ feed_categories:
   theia-vogel-s-website-blog: AI
   google-deepmind-news: AI
   sebastian-raschka-phd: AI
+
+  # ═══ 个人博客（直接推送，不经过 AI 评分）═══
+  阮一峰的网络日志: 个人博客
+  bmpi: 个人博客
+  我没有三颗心脏的博客: 个人博客
+  geekplux: 个人博客
+  太隐: 个人博客
+  土木坛子: 个人博客
+  槽边往事: 个人博客
+  肖恩聊技术: 个人博客
+  月光博客: 个人博客
+  云风的-blog: 个人博客
+  hi-diygod: 个人博客
+  莫比乌斯: 个人博客
+  david-oks: 个人博客
+  martin-fowler: 个人博客
+  小道消息: 个人博客
+  daniel-miessler: 个人博客
+  tai-s-blog: 个人博客
+
+  # ═══ 新闻类博客（直接推送，不经过 AI 评分）═══
+  the-hacker-news: 新闻类博客
+  slashdot: 新闻类博客
+  ars-technica-all-content: 新闻类博客
+  the-verge: 新闻类博客
+  wired: 新闻类博客
+  mit-technology-review: 新闻类博客
+  the-new-stack: 新闻类博客
+  techcrunch: 新闻类博客
+  quanta-magazine: 新闻类博客
+  readhub: 新闻类博客
+  少数派: 新闻类博客
+  v2ex: 新闻类博客
+  gizmodo: 新闻类博客
+
+  # ═══ 综合新闻 ═══
   money-crashers: News
   this-week-in-tech-audio: News
-  阮一峰的网络日志: News
-  daniel-miessler: News
   晚点聊-latetalk: News
   财新网-最新文章: News
-  the-hacker-news: News
   global-economy: News
   yahoo-news-latest-news-headlines: News
   香港新聞rss-香港經濟日報-hket-com: News
-  bmpi: News
-  gizmodo: News
   华尔街见闻: News
-  我没有三颗心脏的博客: News
-  slashdot: News
   今日话题-雪球: News
   fox-news: News
   the-github-blog: News
   forbes-business: News
-  the-new-stack: News
-  钛媒体-引领未来商业与生活新知: News
-  geekplux: News
   us-top-news-and-analysis: News
   product-hunt-the-best-new-products-every-day: News
   venture-capital-news-techcrunch: News
   hacker-news-best: News
-  quanta-magazine: News
-  ars-technica-all-content: News
   idaily-每日环球视野: News
   all-news: News
-  techcrunch: News
   world: News
   all-articles-on-seeking-alpha: News
   online-casinos: News
@@ -65,41 +91,26 @@ feed_categories:
   虎嗅网: News
   yahoo-finance: News
   etf-trends: News
-  v2ex: News
-  肖恩聊技术: News
   playbook: News
   十大热门话题: News
-  土木坛子: News
   少数派: News
   fortune-fortune: News
-  david-oks: News
   吴晓波频道: News
   棱镜: News
-  槽边往事: News
   bloomberg-markets: News
   36氪: News
   yicai-press-releases: News
   联合早报-国际-即时: News
-  太隐: News
-  小道消息: News
   奇客solidot-传递最新科技情报: News
   虎嗅: News
   engineering-at-meta: News
   租房售房信息: News
-  莫比乌斯: News
   daily-express-news-feed: News
   breaking-news-on-seeking-alpha: News
   press-releases-u-s-department-of-the-treasury: News
   world-nation: News
-  readhub: News
-  martin-fowler: News
   the-verge: News
-  月光博客: News
-  mit-technology-review: News
-  hi-diygod: News
   marketwatch-com-top-stories: News
-  wired: News
-  云风的-blog: News
   商业-财富中文网: News
   world-news: News
   wsj-com-markets: News

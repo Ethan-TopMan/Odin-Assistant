@@ -89,7 +89,7 @@ class AIAnalyzer:
 
         # 从分析配置获取功能参数
         self.max_news = analysis_config.get("MAX_NEWS_FOR_ANALYSIS", 50)
-        self.max_age_hours = analysis_config.get("MAX_AGE_HOURS", 0)  # 0 = 不过滤
+        self.max_age_hours = analysis_config.get("MAX_AGE_HOURS", 24)  # 默认 24 小时
         self.include_rss = analysis_config.get("INCLUDE_RSS", True)
         self.include_rank_timeline = analysis_config.get("INCLUDE_RANK_TIMELINE", False)
         self.include_standalone = analysis_config.get("INCLUDE_STANDALONE", False)

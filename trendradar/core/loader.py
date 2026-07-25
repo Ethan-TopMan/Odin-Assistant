@@ -330,7 +330,7 @@ def _load_ai_config(config_data: Dict) -> Dict:
     return {
         # LiteLLM 核心配置
         "MODEL": _get_env_str("AI_MODEL") or ai_config.get("model", ""),
-        "API_KEY": _get_env_str("AI_API_KEY") or ai_config.get("api_key", ""),
+        "API_KEY": _get_env_str("BOSS_AI_API_KEY") or ai_config.get("api_key", ""),
         "API_BASE": _get_env_str("AI_API_BASE") or ai_config.get("api_base", ""),
 
         # 生成参数
@@ -357,7 +357,7 @@ def _load_ai_analysis_config(config_data: Dict) -> Dict:
         "PROMPT_FILE": ai_config.get("prompt_file", "ai_analysis_prompt.txt"),
         "MODE": ai_config.get("mode", "follow_report"),
         "MAX_NEWS_FOR_ANALYSIS": ai_config.get("max_news_for_analysis", 50),
-        "MAX_AGE_HOURS": ai_config.get("max_age_hours", 0),  # 0 = 不过滤
+        "MAX_AGE_HOURS": ai_config.get("max_age_hours", 24),  # 默认 24 小时
         "INCLUDE_RSS": ai_config.get("include_rss", True),
         "INCLUDE_RANK_TIMELINE": ai_config.get("include_rank_timeline", False),
         "INCLUDE_STANDALONE": ai_config.get("include_standalone", False),

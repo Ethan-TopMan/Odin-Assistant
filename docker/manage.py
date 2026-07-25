@@ -283,7 +283,7 @@ def show_config():
         "SLACK_WEBHOOK_URL",
         # AI 分析配置
         "AI_ANALYSIS_ENABLED",
-        "AI_API_KEY",
+        "BOSS_AI_API_KEY",
         "AI_PROVIDER",
         "AI_MODEL",
         "AI_BASE_URL",
@@ -645,7 +645,7 @@ def webserver_status():
 def show_help():
     """显示帮助信息"""
     help_text = """
-🐳 TrendRadar 容器管理工具
+🐳 Odin-Assistant 容器管理工具
 
 📋 命令列表:
   run              - 手动执行一次爬虫

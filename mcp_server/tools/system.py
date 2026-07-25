@@ -386,9 +386,9 @@ class SystemManagementTools:
         """
         检查版本更新
 
-        同时检查 TrendRadar 和 MCP Server 两个组件的版本更新。
+        同时检查 Odin-Assistant 和 MCP Server 两个组件的版本更新。
         远程版本 URL 从 config.yaml 获取：
-        - version_check_url: TrendRadar 版本
+        - version_check_url: Odin-Assistant 版本
         - mcp_version_check_url: MCP Server 版本
 
         Args:
@@ -397,7 +397,7 @@ class SystemManagementTools:
         Returns:
             版本检查结果字典，包含：
             - success: 是否成功
-            - trendradar: TrendRadar 版本检查结果
+            - trendradar: Odin-Assistant 版本检查结果
             - mcp: MCP Server 版本检查结果
             - any_update: 是否有任何组件需要更新
 
@@ -493,11 +493,11 @@ class SystemManagementTools:
             advanced_config = config_data.get("advanced", {})
             trendradar_url = advanced_config.get(
                 "version_check_url",
-                "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version"
+                "https://raw.githubusercontent.com/Ethan-TopMan/Odin-Assistant/refs/heads/master/version"
             )
             mcp_url = advanced_config.get(
                 "mcp_version_check_url",
-                "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_mcp"
+                "https://raw.githubusercontent.com/Ethan-TopMan/Odin-Assistant/refs/heads/master/version_mcp"
             )
 
             # 配置代理
@@ -514,7 +514,7 @@ class SystemManagementTools:
 
             # 检查两个版本
             trendradar_result = check_single_version(
-                "TrendRadar", trendradar_version, trendradar_url, proxies, headers
+                "Odin-Assistant", trendradar_version, trendradar_url, proxies, headers
             )
             mcp_result = check_single_version(
                 "MCP Server", mcp_version, mcp_url, proxies, headers
@@ -529,7 +529,7 @@ class SystemManagementTools:
             return {
                 "success": True,
                 "summary": {
-                    "description": "版本检查结果（TrendRadar + MCP Server）",
+                    "description": "版本检查结果（Odin-Assistant + MCP Server）",
                     "any_update": any_update
                 },
                 "data": {

@@ -1,22 +1,22 @@
 <div align="center" id="trendradar">
 
-<a href="https://github.com/sansan0/TrendRadar" title="TrendRadar">
-  <img src="/_image/banner.webp" alt="TrendRadar Banner" width="80%">
+<a href="https://github.com/sansan0/Odin-Assistant" title="Odin-Assistant">
+  <img src="/_image/banner.webp" alt="Odin-Assistant Banner" width="80%">
 </a>
 
 最快<strong>30秒</strong>部署的热点助手 —— 告别无效刷屏，只看真正关心的新闻资讯
 
-<a href="https://trendradar.sandev.cc/zh/" title="TrendRadar 官方网站"><strong>🌐 官方网站</strong></a> · <a href="https://trendradar.sandev.cc/zh/docs/quick-start/" title="TrendRadar 官网文档"><strong>📖 官网文档</strong></a>
+<a href="https://trendradar.sandev.cc/zh/" title="Odin-Assistant 官方网站"><strong>🌐 官方网站</strong></a> · <a href="https://trendradar.sandev.cc/zh/docs/quick-start/" title="Odin-Assistant 官网文档"><strong>📖 官网文档</strong></a>
 
-<a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FTrendRadar | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FOdin-Assistant | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 
-[![GitHub Stars](https://img.shields.io/github/stars/sansan0/TrendRadar?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/TrendRadar/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/sansan0/TrendRadar?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/TrendRadar/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/sansan0/Odin-Assistant?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/Odin-Assistant/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/sansan0/Odin-Assistant?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/Odin-Assistant/network/members)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/TrendRadar)
-[![MCP](https://img.shields.io/badge/MCP-v4.1.0-green.svg)](https://github.com/sansan0/TrendRadar)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar?style=flat-square&logo=docker&logoColor=white&label=TrendRadar%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar)
+[![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/Odin-Assistant)
+[![MCP](https://img.shields.io/badge/MCP-v4.1.0-green.svg)](https://github.com/sansan0/Odin-Assistant)
+[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar?style=flat-square&logo=docker&logoColor=white&label=Odin-Assistant%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar)
 [![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar-mcp?style=flat-square&logo=docker&logoColor=white&label=MCP%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar-mcp)
 [![RSS](https://img.shields.io/badge/RSS-订阅源支持-orange.svg?style=flat-square&logo=rss&logoColor=white)](#rss-订阅源支持v450-新增)
 [![AI翻译](https://img.shields.io/badge/AI-多语言推送-purple.svg?style=flat-square)](#ai-多语言翻译v520-新增)
@@ -37,7 +37,7 @@
 
 
 [![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-自动化-2088FF?style=flat-square&logo=github-actions&logoColor=white)](#-快速开始)
-[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-部署-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/TrendRadar)
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-部署-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/Odin-Assistant)
 [![Docker](https://img.shields.io/badge/Docker-部署-2496ED?style=flat-square&logo=docker&logoColor=white)](#6-docker-部署)
 [![本地部署](https://img.shields.io/badge/本地-部署-28A745?style=flat-square&logo=python&logoColor=white)](#local-deploy)
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-部署-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#cloudflare-deploy)
@@ -82,7 +82,7 @@
 > 1. **关于名单**：下方表格记录了项目起步阶段（天使轮）的支持者。因早期人工统计繁琐，**难免存在疏漏或记录不全的情况，如有遗漏，实非本意，万望海涵**。
 > 2. **未来规划**：为了将有限的精力回归代码与功能迭代，**即日起不再人工维护此名单**。
 >
-> 无论名字是否上榜，你们的每一份支持都是 TrendRadar 能够走到今天的基石。🙏
+> 无论名字是否上榜，你们的每一份支持都是 Odin-Assistant 能够走到今天的基石。🙏
 
 ### 基础设施支持
 
@@ -127,10 +127,10 @@
 |           *云          |  88  | 2025.11.13  |    好项目，感谢开源  | 
 |           *W          |  6  | 2025.11.13  |      | 
 |           *凯          |  1  | 2025.11.13  |      | 
-|           对*.          |  1  | 2025.11.13  |    Thanks for your TrendRadar  | 
+|           对*.          |  1  | 2025.11.13  |    Thanks for your Odin-Assistant  | 
 |           s*y          |  1  | 2025.11.13  |      | 
 |           **翔          |  10  | 2025.11.13  |   好项目，相见恨晚，感谢开源！     | 
-|           *韦          |  9.9  | 2025.11.13  |   TrendRadar超赞，请老师喝咖啡~     | 
+|           *韦          |  9.9  | 2025.11.13  |   Odin-Assistant超赞，请老师喝咖啡~     | 
 |           h*p          |  5  | 2025.11.12  |   支持中国开源力量，加油！     | 
 |           c*r          |  6  | 2025.11.12  |        | 
 |           a*n          |  5  | 2025.11.12  |        | 
@@ -153,7 +153,7 @@
 |           *😀           |  10  | 2025.10.16  |     点赞     |
 |           **杰           |  10  | 2025.10.16  |          |
 |           *啸           |  10  | 2025.10.16  |          |
-|           *纪           |  5  | 2025.10.14  | TrendRadar         |
+|           *纪           |  5  | 2025.10.14  | Odin-Assistant         |
 |           J*d           |  1  | 2025.10.14  | 谢谢你的工具，很好玩...          |
 |           *H           |  1  | 2025.10.14  |           |
 |           那*O           |  10  | 2025.10.13  |           |
@@ -204,7 +204,7 @@
 
 ### ❤️ 觉得好用？支持一下
 
-> 若 TrendRadar 曾为你捕捉价值，不妨为它注入动力，助其持续进化
+> 若 Odin-Assistant 曾为你捕捉价值，不妨为它注入动力，助其持续进化
 >
 > 金额随意，1 元也是对开源的鼓励。欢迎在赞赏时备注留言 (´▽`ʃ♡ƪ)
 
@@ -245,7 +245,7 @@
 
 ## 📝 更新日志
 
-> **📌 查看最新更新**：**[原仓库更新日志](https://github.com/sansan0/TrendRadar?tab=readme-ov-file#-更新日志)** ：
+> **📌 查看最新更新**：**[原仓库更新日志](https://github.com/sansan0/Odin-Assistant?tab=readme-ov-file#-更新日志)** ：
 - **提示**：建议查看【历史更新】，明确具体的【功能内容】
 
 
@@ -282,7 +282,7 @@
 
 ### 2026/05/15 - v6.7.0
 
-- **Markdown 导出**：报告导出下拉菜单新增 Markdown 格式，一键生成带链接的结构化文本，方便 LLM 二次加工和跨平台分享（[#1121](https://github.com/sansan0/TrendRadar/issues/1121)）
+- **Markdown 导出**：报告导出下拉菜单新增 Markdown 格式，一键生成带链接的结构化文本，方便 LLM 二次加工和跨平台分享（[#1121](https://github.com/sansan0/Odin-Assistant/issues/1121)）
 - **RSS guid 去重**：RSS 存储新增 guid 字段，去重优先级改为 guid > url，解决同一文章因 URL 变化导致重复入库的问题
 - **空标题防护**：解析器、渲染层、翻译回填全链路增加空标题兜底逻辑，确保无标题条目也能正常显示
 - **翻译质量增强**：翻译提示词要求保留编号顺序，空翻译结果不再覆盖原始标题
@@ -358,7 +358,7 @@
 - **RSS 增强**：`get_latest_rss` 支持多日查询（days 参数），跨日期 URL 去重
 - **正则匹配修复**：`get_trending_topics` 支持 `/pattern/` 正则语法和 `display_name`
 - **缓存优化**：新增 `make_cache_key()` 函数，参数排序+MD5 哈希确保一致性
-- **新增 check_version 工具**：支持同时检查 TrendRadar 和 MCP Server 版本更新
+- **新增 check_version 工具**：支持同时检查 Odin-Assistant 和 MCP Server 版本更新
 
 
 ### 2026/01/23 - v5.4.0
@@ -458,8 +458,8 @@
 
 **🔧 配置优化**
 
-- **频率词配置增强**：新增 `[组别名]` 语法，支持 `#` 注释行，配置更清晰（感谢 [@songge8](https://github.com/sansan0/TrendRadar/issues/752) 提出的建议）
-- **环境变量支持**：AI 分析相关配置支持环境变量覆盖（`AI_API_KEY`、`AI_PROVIDER` 等）
+- **频率词配置增强**：新增 `[组别名]` 语法，支持 `#` 注释行，配置更清晰（感谢 [@songge8](https://github.com/sansan0/Odin-Assistant/issues/752) 提出的建议）
+- **环境变量支持**：AI 分析相关配置支持环境变量覆盖（`BOSS_AI_API_KEY`、`AI_PROVIDER` 等）
 
 > 💡 详细配置教程见 [让 AI 帮我分析热点](#12-让-ai-帮我分析热点)
 
@@ -659,7 +659,7 @@
 > 📖 **详细配置教程**：[快速开始 - Bark 推送](#-快速开始)
 
 **🐛 Bug 修复**
-- 修复 `config.yaml` 中 `ntfy_server_url` 配置不生效的问题 ([#345](https://github.com/sansan0/TrendRadar/issues/345))
+- 修复 `config.yaml` 中 `ntfy_server_url` 配置不生效的问题 ([#345](https://github.com/sansan0/Odin-Assistant/issues/345))
 
 **🔧 升级说明**：
 - **GitHub Fork 用户**：更新 `main.py`、`config/config.yaml`、`.github/workflows/crawler.yml`
@@ -774,7 +774,7 @@
 
 ### 2025/10/10 - v2.4.3
 
-> 感谢 [nidaye996](https://github.com/sansan0/TrendRadar/issues/98) 发现的体验问题
+> 感谢 [nidaye996](https://github.com/sansan0/Odin-Assistant/issues/98) 发现的体验问题
 
 - **更新内容**：
     - 重构"静默推送模式"命名为"推送时间窗口控制"，提升功能理解度
@@ -816,7 +816,7 @@
 
 ### 2025/09/26 - v2.3.2
 
-- 修正了邮件通知配置检查被遗漏的问题（[#88](https://github.com/sansan0/TrendRadar/issues/88)）
+- 修正了邮件通知配置检查被遗漏的问题（[#88](https://github.com/sansan0/Odin-Assistant/issues/88)）
 
 **修复说明**：
 - 解决了即使正确配置邮件通知，系统仍提示"未配置任何webhook"的问题
@@ -919,7 +919,7 @@
 ### 2025/06/21 - v1.2.1
 
 在本版本之前的旧版本，不仅 main.py 需要复制替换， crawler.yml 也需要你复制替换
-https://github.com/sansan0/TrendRadar/blob/master/.github/workflows/crawler.yml
+https://github.com/sansan0/Odin-Assistant/blob/master/.github/workflows/crawler.yml
 
 ### 2025/06/19 - v1.2.0
 
@@ -1025,7 +1025,7 @@ frequency_words.txt 文件增加了一个【必须词】功能，使用 + 号
 
 提供基于 Web 的图形化配置界面，无需手动编辑 YAML 文件，通过表单即可完成所有配置项的修改与导出。
 
-👉 **在线体验**：[https://sansan0.github.io/TrendRadar/](https://sansan0.github.io/TrendRadar/)
+👉 **在线体验**：[https://sansan0.github.io/Odin-Assistant/](https://sansan0.github.io/Odin-Assistant/)
 
 <img src="/_image/editor.png" alt="可视化配置编辑器" width="80%">
 
@@ -1102,7 +1102,7 @@ ai_filter:
 
 ### **个性化热点算法**
 
-不再被各个平台的算法牵着走，TrendRadar 会重新整理全网热搜
+不再被各个平台的算法牵着走，Odin-Assistant 会重新整理全网热搜
 
 > 💡 三个比例可以调整，详见 [配置详解 - 热点权重调整](#4-热点权重调整)
 
@@ -1204,7 +1204,7 @@ ai_translation:
 
 > **部署方式**：点击 **Use this template** 创建仓库，可部署到 Cloudflare Pages 或 GitHub Pages 等静态托管平台。
 >
-> **💡 提示**：启用 GitHub Pages 可获得在线访问地址，进入仓库 Settings → Pages 即可开启。[效果预览](https://sansan0.github.io/TrendRadar/)
+> **💡 提示**：启用 GitHub Pages 可获得在线访问地址，进入仓库 Settings → Pages 即可开启。[效果预览](https://sansan0.github.io/Odin-Assistant/)
 >
 > ⚠️ 原 GitHub Actions 自动存储功能已下线（该方案曾导致 GitHub 服务器负载过高，影响平台稳定性）。
 
@@ -1268,7 +1268,7 @@ aliyunpan token update
 
 配置完成后，下次 GitHub Actions 运行时：
 - 热榜数据抓取 → AI 分析 → 推送通知 → **自动上传报告到阿里云盘**
-- 手机打开阿里云盘 App → 进入 **/TrendRadar** 文件夹即可查看 HTML 报告
+- 手机打开阿里云盘 App → 进入 **/Odin-Assistant** 文件夹即可查看 HTML 报告
 
 从"被算法推荐绑架"变成"主动获取自己想要的信息"
 
@@ -1286,7 +1286,7 @@ aliyunpan token update
 
 ## 🚀 快速开始
 
-> **提醒**：建议先 **[查看最新官方文档](https://github.com/sansan0/TrendRadar?tab=readme-ov-file)**，确保配置步骤是最新的。
+> **提醒**：建议先 **[查看最新官方文档](https://github.com/sansan0/Odin-Assistant?tab=readme-ov-file)**，确保配置步骤是最新的。
 
 ### 请选择适合你的部署方式
 
@@ -1323,8 +1323,8 @@ aliyunpan token update
    **2. 克隆并运行**
 
    ```bash
-   git clone https://github.com/sansan0/TrendRadar.git
-   cd TrendRadar
+   git clone https://github.com/sansan0/Odin-Assistant.git
+   cd Odin-Assistant
    uv sync          # 自动安装 Python 和项目依赖
    uv run python -m trendradar
    ```
@@ -1362,7 +1362,7 @@ aliyunpan token update
 
    > ⚠️ 提醒：
    > - 后续文档中提到的 "Fork" 均可理解为 "Use this template"
-   > - 使用 Fork 可能导致运行异常，详见 [Issue #606](https://github.com/sansan0/TrendRadar/issues/606)
+   > - 使用 Fork 可能导致运行异常，详见 [Issue #606](https://github.com/sansan0/Odin-Assistant/issues/606)
 
    <br>
 
@@ -1402,7 +1402,7 @@ aliyunpan token update
    #### 手机端设置：
    1. 打开企业微信 App → 进入目标内部群聊
    2. 点击右上角"…"按钮 → 选择"消息推送"
-   3. 点击"添加" → 名称输入"TrendRadar"
+   3. 点击"添加" → 名称输入"Odin-Assistant"
    4. 复制 Webhook 地址，点击保存，复制的内容配置到上方的 GitHub Secret 中
 
    #### PC 端设置流程类似
@@ -1467,7 +1467,7 @@ aliyunpan token update
 
    ![选择自定义机器人](_image/feishu-bot/step3-custom-bot.png)
 
-   5. 设置自定义机器人的头像、名称（如"TrendRadar 热点监控"）与描述，并点击 **添加**。
+   5. 设置自定义机器人的头像、名称（如"Odin-Assistant 热点监控"）与描述，并点击 **添加**。
 
    ![设置机器人信息](_image/feishu-bot/step4-set-name.png)
 
@@ -1614,14 +1614,14 @@ aliyunpan token update
    > **自动识别**：使用以上邮箱时，无需手动配置 `EMAIL_SMTP_SERVER` 和 `EMAIL_SMTP_PORT`，系统会自动识别。
    >
    > **反馈说明**：
-   > - 如果你使用**其他邮箱**测试成功，欢迎开 [Issues](https://github.com/sansan0/TrendRadar/issues) 告知，我会添加到支持列表
-   > - 如果上述邮箱配置有误或无法使用，也请开 [Issues](https://github.com/sansan0/TrendRadar/issues) 反馈，帮助改进项目
+   > - 如果你使用**其他邮箱**测试成功，欢迎开 [Issues](https://github.com/sansan0/Odin-Assistant/issues) 告知，我会添加到支持列表
+   > - 如果上述邮箱配置有误或无法使用，也请开 [Issues](https://github.com/sansan0/Odin-Assistant/issues) 反馈，帮助改进项目
    >
    > **特别感谢**：
-   > - 感谢 [@DYZYD](https://github.com/DYZYD) 贡献天翼邮箱（189.cn）配置并完成自发自收测试 ([#291](https://github.com/sansan0/TrendRadar/issues/291))
-   > - 感谢 [@longzhenren](https://github.com/longzhenren) 贡献阿里云邮箱（aliyun.com）配置并完成测试 ([#344](https://github.com/sansan0/TrendRadar/issues/344))
-   > - 感谢 [@ACANX](https://github.com/ACANX) 贡献 Yandex 邮箱（yandex.com）配置并完成测试 ([#663](https://github.com/sansan0/TrendRadar/issues/663))
-   > - 感谢 [@Sleepy-Tianhao](https://github.com/Sleepy-Tianhao) 贡献 iCloud 邮箱（icloud.com）配置并完成测试 ([#728](https://github.com/sansan0/TrendRadar/issues/728))
+   > - 感谢 [@DYZYD](https://github.com/DYZYD) 贡献天翼邮箱（189.cn）配置并完成自发自收测试 ([#291](https://github.com/sansan0/Odin-Assistant/issues/291))
+   > - 感谢 [@longzhenren](https://github.com/longzhenren) 贡献阿里云邮箱（aliyun.com）配置并完成测试 ([#344](https://github.com/sansan0/Odin-Assistant/issues/344))
+   > - 感谢 [@ACANX](https://github.com/ACANX) 贡献 Yandex 邮箱（yandex.com）配置并完成测试 ([#663](https://github.com/sansan0/Odin-Assistant/issues/663))
+   > - 感谢 [@Sleepy-Tianhao](https://github.com/Sleepy-Tianhao) 贡献 iCloud 邮箱（icloud.com）配置并完成测试 ([#728](https://github.com/sansan0/Odin-Assistant/issues/728))
 
    **常见邮箱设置：**
 
@@ -1724,7 +1724,7 @@ aliyunpan token update
      serve --cache-file /var/cache/ntfy/cache.db
    ```
 
-   **配置 TrendRadar**：
+   **配置 Odin-Assistant**：
    ```yaml
    NTFY_SERVER_URL: https://ntfy.yourdomain.com
    NTFY_TOPIC: trendradar-alerts  # 自托管可用简单名称
@@ -1811,7 +1811,7 @@ aliyunpan token update
      finab/bark-server
    ```
 
-   **配置 TrendRadar**：
+   **配置 Odin-Assistant**：
    ```yaml
    BARK_URL: http://your-server-ip:8080/your_device_key
    ```
@@ -1857,7 +1857,7 @@ aliyunpan token update
       - 点击 **"From scratch"**（从头开始创建）
 
    3. **填写 App 信息**：
-      - **App Name**：填写应用名称（如 `TrendRadar` 或 `热点新闻监控`）
+      - **App Name**：填写应用名称（如 `Odin-Assistant` 或 `热点新闻监控`）
       - **Workspace**：从下拉列表选择你的工作空间
       - 点击 **"Create App"** 按钮
 
@@ -1897,7 +1897,7 @@ aliyunpan token update
       - 点击 URL 右侧的 **"Copy"** 按钮
       - 或手动选中 URL 并复制
 
-   3. **配置到 TrendRadar**：
+   3. **配置到 Odin-Assistant**：
       - **GitHub Actions**：将 URL 添加到 GitHub Secrets 中的 `SLACK_WEBHOOK_URL`
       - **本地测试**：将 URL 填入 `config/config.yaml` 的 `slack_webhook_url` 字段
       - **Docker 部署**：将 URL 添加到 `docker/.env` 文件的 `SLACK_WEBHOOK_URL` 变量
@@ -1982,7 +1982,7 @@ aliyunpan token update
    {"content": "{content}"}
 
    # 自定义格式
-   {"text": "{content}", "username": "TrendRadar"}
+   {"text": "{content}", "username": "Odin-Assistant"}
    ```
 
    ---
@@ -2007,16 +2007,16 @@ aliyunpan token update
    **如何找到你的 Actions 页面**：
 
    - **方法一**：打开你 fork 的项目主页，点击顶部的 **Actions** 标签
-   - **方法二**：直接访问 `https://github.com/你的用户名/TrendRadar/actions`
+   - **方法二**：直接访问 `https://github.com/你的用户名/Odin-Assistant/actions`
 
    **示例对比**：
-   - ❌ 作者的项目：`https://github.com/sansan0/TrendRadar/actions`
-   - ✅ 你的项目：`https://github.com/你的用户名/TrendRadar/actions`
+   - ❌ 作者的项目：`https://github.com/sansan0/Odin-Assistant/actions`
+   - ✅ 你的项目：`https://github.com/你的用户名/Odin-Assistant/actions`
 
    **测试步骤**：
    1. 进入你项目的 Actions 页面
    2. 找到 **"Get Hot News"**(必须得是这个字)点进去，点击右侧的 **"Run workflow"** 按钮运行 
-      - 如果看不到该字样，参照 [#109](https://github.com/sansan0/TrendRadar/issues/109) 解决
+      - 如果看不到该字样，参照 [#109](https://github.com/sansan0/Odin-Assistant/issues/109) 解决
    3. 3 分钟左右，消息会推送到你配置的平台
 
    <br>
@@ -2130,7 +2130,7 @@ aliyunpan token update
 
    **配置方法：**
    在 GitHub Secrets (或 `.env` / `config.yaml`) 中添加：
-   - `AI_API_KEY`: 你的 API Key（支持 DeepSeek、OpenAI 等）
+   - `BOSS_AI_API_KEY`: 你的 API Key（支持 DeepSeek、OpenAI 等）
    - `AI_PROVIDER`: 服务商名称（如 `deepseek`, `openai`）
 
    就这样，无需复杂部署，下次推送时你就会看到智能分析报告了。
@@ -2139,7 +2139,7 @@ aliyunpan token update
 
 ### 7️⃣ 第七步：🎉 部署成功！
 
-   恭喜！现在你可以开始享受 TrendRadar 带来的高效信息流了。
+   恭喜！现在你可以开始享受 Odin-Assistant 带来的高效信息流了。
 
    💬 **加入社区**：欢迎关注公众号「**[硅基茶水间](#-支持项目)**」，分享你的使用心得和高级玩法。
 
@@ -2147,7 +2147,7 @@ aliyunpan token update
 
 ### 8️⃣ 第八步：进阶：选择你的 AI 助手
 
-   TrendRadar 提供了两种 AI 使用方式，满足不同需求：
+   Odin-Assistant 提供了两种 AI 使用方式，满足不同需求：
 
    | 特性 | ✨ AI 分析推送 | 🧠 AI 智能分析 |
    | :--- | :--- | :--- |
@@ -2210,7 +2210,7 @@ platforms:
     # 添加更多平台...
 ```
 
-> 💡 **快捷方式**：如果不会看源代码，可以复制他人整理好的 [平台配置汇总](https://github.com/sansan0/TrendRadar/issues/95)
+> 💡 **快捷方式**：如果不会看源代码，可以复制他人整理好的 [平台配置汇总](https://github.com/sansan0/Odin-Assistant/issues/95)
 
 > ⚠️ **注意**：平台不是越多越好，建议选择 10-15 个核心平台。过多平台会导致信息过载，反而降低使用体验。
 
@@ -2775,7 +2775,7 @@ advanced:
 
 **镜像说明：**
 
-TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
+Odin-Assistant 提供两个独立的 Docker 镜像，可根据需求选择部署：
 
 | 镜像名称 | 用途 | 说明 |
 |---------|------|------|
@@ -2796,8 +2796,8 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
 
    ```bash
    # 克隆项目到本地
-   git clone https://github.com/sansan0/TrendRadar.git
-   cd TrendRadar
+   git clone https://github.com/sansan0/Odin-Assistant.git
+   cd Odin-Assistant
    ```
 
    > 💡 **说明**：Docker 部署需要的关键目录结构如下：
@@ -2856,7 +2856,7 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
    | `WEBSERVER_PORT` | - | `8080` | Web 服务器端口 |
    | `FEISHU_WEBHOOK_URL` | `notification.channels.feishu.webhook_url` | `https://...` | 飞书 Webhook（多账号用 `;` 分隔） |
    | `AI_ANALYSIS_ENABLED` | `ai_analysis.enabled` | `true` / `false` | 是否启用 AI 分析（v5.0.0 新增） |
-   | `AI_API_KEY` | `ai.api_key` | `sk-xxx...` | AI API Key（ai_analysis 和 ai_translation 共享） |
+   | `BOSS_AI_API_KEY` | `ai.api_key` | `sk-xxx...` | AI API Key（ai_analysis 和 ai_translation 共享） |
    | `AI_PROVIDER` | `ai.provider` | `deepseek` / `openai` / `gemini` | AI 提供商 |
    | `S3_*` | `storage.remote.*` | - | 远程存储配置（5 个参数） |
 
@@ -2920,8 +2920,8 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
 
 ```bash
 # 克隆项目
-git clone https://github.com/sansan0/TrendRadar.git
-cd TrendRadar
+git clone https://github.com/sansan0/Odin-Assistant.git
+cd Odin-Assistant
 
 # 修改配置文件
 vim config/config.yaml
@@ -3027,7 +3027,7 @@ docker rm trendradar
 
 **📊 网页版报告访问路径**：
 
-TrendRadar 生成的当日汇总 HTML 报告会同时保存到两个位置：
+Odin-Assistant 生成的当日汇总 HTML 报告会同时保存到两个位置：
 
 | 文件位置 | 访问方式 | 适用场景 |
 |---------|---------|---------|
@@ -3107,7 +3107,7 @@ flowchart TB
 如果已按照 [方式一：使用 docker compose](#方式一使用-docker-compose推荐) 完成部署，只需启动 MCP 服务：
 
 ```bash
-cd TrendRadar/docker
+cd Odin-Assistant/docker
 docker compose up -d trendradar-mcp
 
 # 查看运行状态
@@ -3519,7 +3519,7 @@ app:
 | 变量名 | 填什么 | 说明 |
 |-------|-------|------|
 | `AI_ANALYSIS_ENABLED` | `true` | 开启开关 |
-| `AI_API_KEY` | `sk-xxxxxx` | 你的 API Key |
+| `BOSS_AI_API_KEY` | `sk-xxxxxx` | 你的 API Key |
 | `AI_MODEL` | `deepseek/deepseek-chat` | 模型标识（格式：`provider/model`） |
 
 **支持的 AI 提供商**（基于 LiteLLM，支持 100+ 提供商）：
@@ -3568,7 +3568,7 @@ ai_translation:
 
 ## ✨ AI 智能分析
 
-TrendRadar v3.0.0 新增了基于 **MCP (Model Context Protocol)** 的 AI 分析功能，让你可以通过自然语言与新闻数据对话，进行深度分析。
+Odin-Assistant v3.0.0 新增了基于 **MCP (Model Context Protocol)** 的 AI 分析功能，让你可以通过自然语言与新闻数据对话，进行深度分析。
 
 
 ### ⚠️ 使用前必读
@@ -3617,13 +3617,13 @@ Cherry Studio 提供 GUI 配置界面，5 分钟快速部署，复杂的部分�
 
 ## 🔌 MCP 客户端
 
-TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可以接入各种支持 MCP 的 AI 客户端进行智能分析。
+Odin-Assistant MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可以接入各种支持 MCP 的 AI 客户端进行智能分析。
 
 ### 支持的客户端
 
 **注意事项**：
-- 将 `/path/to/TrendRadar` 替换为你的项目实际路径
-- Windows 路径使用双反斜杠：`C:\\Users\\YourName\\TrendRadar`
+- 将 `/path/to/Odin-Assistant` 替换为你的项目实际路径
+- Windows 路径使用双反斜杠：`C:\\Users\\YourName\\Odin-Assistant`
 - 保存后记得重启
 
 <details>
@@ -3649,7 +3649,7 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
      "mcpServers": {
        "trendradar": {
          "url": "http://localhost:3333/mcp",
-         "description": "TrendRadar 新闻热点聚合分析"
+         "description": "Odin-Assistant 新闻热点聚合分析"
        }
      }
    }
@@ -3673,7 +3673,7 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
       "command": "uv",
       "args": [
         "--directory",
-        "/path/to/TrendRadar",
+        "/path/to/Odin-Assistant",
         "run",
         "python",
         "-m",
@@ -3712,7 +3712,7 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
     "command": "uv",
     "args": [
       "--directory",
-      "/path/to/TrendRadar",
+      "/path/to/Odin-Assistant",
       "run",
       "python",
       "-m",
@@ -3737,7 +3737,7 @@ TrendRadar MCP 服务支持标准的 Model Context Protocol (MCP) 协议，可�
           "command": "uv",
           "args": [
             "--directory",
-            "/path/to/TrendRadar",
+            "/path/to/Odin-Assistant",
             "run",
             "python",
             "-m",
@@ -3767,7 +3767,7 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 
 #### 使用步骤
 
-1. **启动 TrendRadar HTTP 服务**：
+1. **启动 Odin-Assistant HTTP 服务**：
    ```bash
    # Windows
    start-http.bat
@@ -3797,7 +3797,7 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 <summary>👉 点击展开：<b>其他支持 MCP 的客户端</b></summary>
 <br>
 
-任何支持 Model Context Protocol 的客户端都可以连接 TrendRadar：
+任何支持 Model Context Protocol 的客户端都可以连接 Odin-Assistant：
 
 #### HTTP 模式
 
@@ -3822,7 +3822,7 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
   "command": "uv",
   "args": [
     "--directory",
-    "/path/to/TrendRadar",
+    "/path/to/Odin-Assistant",
     "run",
     "python",
     "-m",
@@ -3833,7 +3833,7 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 ```
 
 **注意事项**：
-- 替换 `/path/to/TrendRadar` 为实际项目路径
+- 替换 `/path/to/Odin-Assistant` 为实际项目路径
 - Windows 路径使用反斜杠转义：`C:\\Users\\...`
 - 确保已完成项目依赖安装（运行过 setup 脚本）
 
@@ -3949,7 +3949,7 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 - https://github.com/sansan0/bilibili-comment-analyzer
 
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sansan0/TrendRadar&type=Date)](https://www.star-history.com/#sansan0/TrendRadar&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=sansan0/Odin-Assistant&type=Date)](https://www.star-history.com/#sansan0/Odin-Assistant&Date)
 
 <br>
 

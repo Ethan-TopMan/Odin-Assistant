@@ -9,7 +9,7 @@ body:
     attributes:
       value: |
         ### ⚠️ 提交前必读
-        **请确保你正在使用 TrendRadar 的最新版本。**
+        **请确保你正在使用 Odin-Assistant 的最新版本。**
         很多问题在最新代码中可能已经修复。如果你使用的是旧版本，我将无法处理，请先更新后再试。
 
         **简单的描述 + 关键截图** 是最有效的沟通方式。
@@ -20,13 +20,13 @@ body:
         | 部署方式 | 查看方法 |
         |---------|---------|
         | **Docker** | 查看容器启动日志，版本号显示在日志开头 |
-        | **GitHub Actions** | 查看 [README 文档](https://github.com/sansan0/TrendRadar) 顶部的 ![version](https://img.shields.io/badge/version-blue) 徽章 |
+        | **GitHub Actions** | 查看 [README 文档](https://github.com/Ethan-TopMan/Odin-Assistant) 顶部的 ![version](https://img.shields.io/badge/version-blue) 徽章 |
         | **本地 Python** | 查看项目根目录的 `version` 文件 |
 
   - type: input
     id: version
     attributes:
-      label: 📦 TrendRadar 版本
+      label: 📦 Odin-Assistant 版本
       description: |
         请务必提供版本号（如：v5.2.0 或 git commit id）
         💡 Docker 用户：查看容器启动日志 | GitHub Actions 用户：查看文档顶部 version 徽章

@@ -1,10 +1,10 @@
 # ═══════════════════════════════════════════════════════════════
-#                   TrendRadar Configuration
+#                   Odin-Assistant Configuration
 #                      Version: 2.4.0
 # ═══════════════════════════════════════════════════════════════
 
 
-# Visual config editor: https://sansan0.github.io/TrendRadar/
+# Visual config editor: https://Ethan-TopMan.github.io/Odin-Assistant/
 
 
 # ===============================================================
@@ -343,7 +343,7 @@ ai:
 
   model: "ollama/qwen3:8b"
 
-  api_key: ""                       # API Key (prefer using the AI_API_KEY environment variable)
+  api_key: ""                       # API Key (prefer using the BOSS_AI_API_KEY environment variable)
 
   api_base: "http://localhost:11434"  # Ollama local service URL
                                     #
@@ -440,9 +440,9 @@ advanced:
   debug: false                        # Debug mode (true=verbose logs, false=normal)
 
   # Version checks
-  version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version"
-  mcp_version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_mcp"
-  configs_version_check_url: "https://raw.githubusercontent.com/sansan0/TrendRadar/refs/heads/master/version_configs"
+  version_check_url: "https://raw.githubusercontent.com/Ethan-TopMan/Odin-Assistant/refs/heads/master/version"
+  mcp_version_check_url: "https://raw.githubusercontent.com/Ethan-TopMan/Odin-Assistant/refs/heads/master/version_mcp"
+  configs_version_check_url: "https://raw.githubusercontent.com/Ethan-TopMan/Odin-Assistant/refs/heads/master/version_configs"
 
   # Hot-list crawler technical params
   crawler:

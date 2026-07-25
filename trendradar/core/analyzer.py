@@ -721,6 +721,8 @@ RSS_CATEGORY_DISPLAY_NAMES = {
     "Politics": "🏛️  政策与大事",
     "Business": "🏢  商业与产业",
     "Science": "🔬  科技与前沿",
+    "个人博客": "📝  个人博客",
+    "新闻类博客": "📡  新闻类博客",
 }
 
 

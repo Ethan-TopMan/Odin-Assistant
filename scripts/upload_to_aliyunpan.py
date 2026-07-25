@@ -207,7 +207,7 @@ def main():
         drive_id = default_drive_id or get_file_drive_id(access_token)
     print(f"✅ 登录成功 (drive_id: {drive_id})")
 
-    remote_dir = "/TrendRadar"
+    remote_dir = "/Odin-Assistant"
     print(f"📁 目标目录: {remote_dir}")
 
     if os.path.isfile(local_path):
@@ -216,7 +216,7 @@ def main():
         success = upload_directory(access_token, drive_id, local_path, remote_dir)
 
     if success:
-        print("✅ 上传完成！请在阿里云盘 App 中查看 /TrendRadar 文件夹")
+        print("✅ 上传完成！请在阿里云盘 App 中查看 /Odin-Assistant 文件夹")
     else:
         print("⚠️ 部分文件上传失败")
         sys.exit(1)

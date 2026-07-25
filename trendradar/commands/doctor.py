@@ -59,7 +59,7 @@ def _save_report(
 def run_doctor(config_path: Optional[str] = None) -> bool:
     """运行环境体检"""
     print("=" * 60)
-    print(f"TrendRadar v{__version__} 环境体检")
+    print(f"Odin-Assistant v{__version__} 环境体检")
     print("=" * 60)
 
     results: List[Tuple[str, str, str]] = []
