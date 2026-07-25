@@ -1749,6 +1749,55 @@ def render_html_content(
             stats_html += """
                 </div>"""
 
+        # 追加没有匹配热榜关键词的 RSS 内容（纯 RSS 关键词）
+        if rss_items:
+            hotlist_words = {s.get("word", "") for s in report_data.get("stats", [])}
+            rss_only_groups = [s for s in rss_items if s.get("word", "") not in hotlist_words and s.get("titles", [])]
+            if rss_only_groups:
+                stats_html += """
+                <div class="report-category">
+                    <div class="category-header">
+                        <div class="category-icon">📡 其他 RSS</div>
+                    </div>"""
+                for rs in rss_only_groups:
+                    rss_word = rs.get("word", "")
+                    rss_titles = rs.get("titles", [])
+                    stats_html += f"""
+                <div class="word-group">
+                    <div class="word-header">
+                        <div class="word-info">
+                            <div class="word-name">{html_escape(rss_word)}</div>
+                            <div class="word-count">{len(rss_titles)} 条</div>
+                        </div>
+                    </div>"""
+                    for rss_t in rss_titles:
+                        rss_time = rss_t.get("time_display", "")
+                        rss_source = rss_t.get("source_name", "")
+                        rss_title = rss_t.get("title", "")
+                        rss_url = rss_t.get("url", "")
+                        stats_html += f"""
+                    <div class="news-item">
+                        <div class="news-number" style="background:#f0fdf4;color:#059669;">R</div>
+                        <div class="news-content">
+                            <div class="news-header">
+                                <span class="source-name">{html_escape(rss_source)}</span>
+                                <span class="time-info">{html_escape(rss_time)}</span>
+                            </div>
+                            <div class="news-title">"""
+                        escaped_rss_title = html_escape(rss_title)
+                        if rss_url:
+                            stats_html += f'<a href="{html_escape(rss_url)}" target="_blank" class="news-link">{escaped_rss_title}</a>'
+                        else:
+                            stats_html += escaped_rss_title
+                        stats_html += """
+                            </div>
+                        </div>
+                    </div>"""
+                    stats_html += """
+                </div>"""
+                stats_html += """
+                </div>"""
+
     # 给热榜统计添加外层包装
     if stats_html:
         stats_html = f"""

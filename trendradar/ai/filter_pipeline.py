@@ -567,10 +567,11 @@ class AIFilterPipeline:
                         filtered_count += 1
                         continue
 
-                if min_score > 0:
+                if min_score > 0 and source_type == "hotlist":
                     score = item.get("relevance_score", 0)
                     if score < min_score:
                         continue
+                # RSS 条目不受 min_score 限制，全量展示
 
                 first_time = item.get("first_time", "")
                 last_time = item.get("last_time", "")
