@@ -328,6 +328,27 @@ class AIFilterPipeline:
             analyzed_rss = self.storage.get_analyzed_news_ids("rss", interests_file=effective_interests_file)
             pending_rss = [n for n in fresh_rss if n["id"] not in analyzed_rss]
 
+            # RSS 每源每日上限：同一源超过 5 条时只保留最新的 5 条
+            rss_per_feed_limit = self._filter_config.get("RSS_PER_FEED_LIMIT", 5)
+            if rss_per_feed_limit > 0 and pending_rss:
+                feed_groups: Dict[str, list] = {}
+                for n in pending_rss:
+                    fid = n.get("source_id", "")
+                    feed_groups.setdefault(fid, []).append(n)
+                limited_rss = []
+                limited_count = 0
+                for fid, items in feed_groups.items():
+                    if len(items) > rss_per_feed_limit:
+                        # items 按 id 升序排列，取最后 rss_per_feed_limit 条（最新）
+                        kept = items[-rss_per_feed_limit:]
+                        limited_rss.extend(kept)
+                        limited_count += len(items) - rss_per_feed_limit
+                    else:
+                        limited_rss.extend(items)
+                if limited_count > 0:
+                    print(f"[AI筛选] RSS 每源上限 {rss_per_feed_limit} 条: 截断 {limited_count} 条")
+                pending_rss = limited_rss
+
         return pending_news, pending_rss, all_news, analyzed_hotlist, all_rss, analyzed_rss, freshness_filtered_rss
 
     def _print_pending_stats(self, all_news, analyzed_hotlist, pending_news, all_rss, analyzed_rss, pending_rss, freshness_filtered_rss):
