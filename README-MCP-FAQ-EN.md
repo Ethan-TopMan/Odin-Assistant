@@ -61,15 +61,11 @@ The following optimization strategies are adopted by default, mainly to save AI 
 
 ## 💰 AI Models
 
-Below I use the **[SiliconFlow](https://cloud.siliconflow.cn)** platform as an example, which has many large models to choose from. During the development and testing of this project, I used this platform for many functional tests and validations.
+Below I use the **[SiliconFlow](https://cloud.siliconflow.cn)** platform as an example, which has many large models to choose from.
 
-### 📊 Registration Method Comparison
-
-| Registration Method | Direct Registration Without Referral | Registration With Referral Link |
-|:-------:|:-------:|:-----------------:|
-| Registration Link | [siliconflow.cn](https://cloud.siliconflow.cn) | [Referral Link](https://cloud.siliconflow.cn/i/fqnyVaIU) |
-| Free Quota | 0 tokens | **20 million tokens** (≈$2) |
-| Extra Benefits | ❌ | ✅ Referrer also gets 20 million tokens |
+| Registration Link | [siliconflow.cn](https://cloud.siliconflow.cn) |
+|:-------:|:-------:|
+| Free Quota | 20 million tokens (≈$2) |
 
 > 💡 **Tip**: The above gift quota should allow for **200+ queries**
 

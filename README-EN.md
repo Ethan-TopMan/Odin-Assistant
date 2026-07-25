@@ -1,25 +1,16 @@
-<div align="center" id="trendradar">
+<div align="center" id="odin-assistant">
 
-<a href="https://github.com/sansan0/Odin-Assistant" title="Odin-Assistant">
+<a href="https://github.com/Ethan-TopMan/Odin-Assistant" title="Odin-Assistant">
   <img src="/_image/banner.webp" alt="Odin-Assistant Banner" width="80%">
 </a>
 
-Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only see the news you truly care about
+Hot news aggregation and analysis assistant — Say goodbye to endless scrolling, only see the news you truly care about
 
-<a href="https://trendradar.sandev.cc/en/" title="Odin-Assistant Official Website"><strong>🌐 Official Website</strong></a> · <a href="https://trendradar.sandev.cc/en/docs/quick-start/" title="Odin-Assistant Docs"><strong>📖 Documentation</strong></a>
-
-<a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FOdin-Assistant | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-
-[![GitHub Stars](https://img.shields.io/github/stars/sansan0/Odin-Assistant?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/Odin-Assistant/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/sansan0/Odin-Assistant?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/Odin-Assistant/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/Ethan-TopMan/Odin-Assistant?style=flat-square&logo=github&color=yellow)](https://github.com/Ethan-TopMan/Odin-Assistant/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/Ethan-TopMan/Odin-Assistant?style=flat-square&logo=github&color=blue)](https://github.com/Ethan-TopMan/Odin-Assistant/network/members)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/Odin-Assistant)
-[![MCP](https://img.shields.io/badge/MCP-v4.1.0-green.svg)](https://github.com/sansan0/Odin-Assistant)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar?style=flat-square&logo=docker&logoColor=white&label=Odin-Assistant%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar-mcp?style=flat-square&logo=docker&logoColor=white&label=MCP%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar-mcp)
 [![RSS](https://img.shields.io/badge/RSS-Feed_Support-orange.svg?style=flat-square&logo=rss&logoColor=white)](#rss-feed-support-v450-new)
 [![AI Translation](https://img.shields.io/badge/AI-Multi--Language-purple.svg?style=flat-square)](#ai-multi-language-translation-v520-new)
-[![MCP Support](https://img.shields.io/badge/MCP-AI_Analysis-FF6B6B?style=flat-square&logo=ai&logoColor=white)](#-mcp-clients)
 [![AI Analysis Push](https://img.shields.io/badge/AI-Analysis_Push-FF6B6B?style=flat-square&logo=openai&logoColor=white)](#ai-analysis-push-v500-new)
 [![AI Smart Filter](https://img.shields.io/badge/AI-Smart_News_Filter-9B59B6?style=flat-square&logo=openai&logoColor=white)](#ai-smart-news-filtering-v650-new)
 
@@ -34,12 +25,8 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 [![Slack](https://img.shields.io/badge/Slack-Notification-00D4AA?style=flat-square)](https://slack.com/)
 [![Generic Webhook](https://img.shields.io/badge/Generic-Webhook-607D8B?style=flat-square&logo=webhook&logoColor=white)](#)
 
-
-[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Automation-2088FF?style=flat-square&logo=github-actions&logoColor=white)](#-quick-start)
-[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-Deployment-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/Odin-Assistant)
 [![Docker](https://img.shields.io/badge/Docker-Deployment-2496ED?style=flat-square&logo=docker&logoColor=white)](#6-docker-deployment)
 [![Local Deploy](https://img.shields.io/badge/Local-Deployment-28A745?style=flat-square&logo=python&logoColor=white)](#local-deploy)
-[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-Deployment-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#cloudflare-deploy)
 
 </div>
 
@@ -49,34 +36,23 @@ Deploy in <strong>30 seconds</strong> — Say goodbye to endless scrolling, only
 
 </div>
 
-> This project is designed to be lightweight and easy to deploy
+> This repository is a personal fork of [sansan0/TrendRadar](https://github.com/sansan0/TrendRadar). Thanks to the original author for the excellent open-source project.
 
 <br>
 
 ## 📑 Quick Navigation
-
-> 💡 **Click the links below** to jump to the corresponding section. Start with "**Quick Start**" for deployment, see "**Configuration Guide**" for detailed customization
 
 <div align="center">
 
 |   |   |   |
 |:---:|:---:|:---:|
 | [🚀 **Quick Start**](#-quick-start) | [AI Analysis](#-ai-analysis) | [⚙️ **Configuration Guide**](#configuration-guide) |
-| [Docker Deployment](#6-docker-deployment) / [Local Deploy](#local-deploy) | [MCP Clients](#-mcp-clients) | [📝 **Changelog**](#-changelog) |
-| [🎯 **Core Features**](#-core-features) | [☕ **Support Project**](#-support-project) | [📚 **Related Projects**](#-related-projects) |
+| [Docker Deployment](#6-docker-deployment) / [Local Deploy](#local-deploy) | [MCP Clients](#-mcp-clients) | |
+| [🎯 **Core Features**](#-core-features) | | |
 
 </div>
 
 <br>
-
-- Thanks to **stargazers**, your stars and forks are the best support for open source 😍
-
-<details>
-<summary>👉 Click to view <strong>Acknowledgments</strong> (Angel Round Honor Roll 🔥73+🔥 supporters)</summary>
-
-### Acknowledgments to Early Supporters
-
-> 💡 **Special Note**:
 >
 > 1. **About the List**: The table below records supporters from the early stage (Angel Round) of the project. Due to the manual nature of statistics in the early days, **there may be omissions or incomplete records. If anyone was missed, it was unintentional, and we ask for your kind understanding**.
 > 2. **Future Plan**: To focus limited energy back on code development and feature iteration, **this list will no longer be manually maintained as of today**.
@@ -3853,37 +3829,7 @@ Any client supporting Model Context Protocol can connect to Odin-Assistant:
 
 <br>
 
-## 📚 Related Projects
-
-> **4 Related Articles** (Chinese):
-
-- [Comment here for mobile Q&A by project author](https://mp.weixin.qq.com/s/KYEPfTPVzZNWFclZh4am_g)
-- [Breaking 1000 stars in 2 months - My GitHub project promotion experience](https://mp.weixin.qq.com/s/jzn0vLiQFX408opcfpPPxQ)
-- [Important notes for running this project via GitHub fork](https://mp.weixin.qq.com/s/C8evK-U7onG1sTTdwdW2zg)
-- [How to write WeChat Official Account or news articles based on this project](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
-
-> **AI Development**:
-- If you have niche requirements, you can develop based on my project yourself, even with zero programming experience
-- All my open-source projects use my own **AI-assisted software** to improve development efficiency, this tool is now open-source
-- **Core Function**: Quickly filter project code to feed AI, you just need to add personal requirements
-- **Project Address**: https://github.com/sansan0/ai-code-context-helper
-
-### Other Projects
-
-> 📍 Chairman Mao's Footprint Map - Interactive dynamic display of complete trajectory 1893-1976. Welcome comrades to contribute data
-
-- https://github.com/sansan0/mao-map
-
-> Bilibili Comment Data Visualization Analysis Software
-
-- https://github.com/sansan0/bilibili-comment-analyzer
-
-
-[![Star History Chart](https://api.star-history.com/svg?repos=sansan0/Odin-Assistant&type=Date)](https://www.star-history.com/#sansan0/Odin-Assistant&Date)
-
-<br>
-
-## 📄 License
+##  License
 
 GPL-3.0 License
 
@@ -3891,6 +3837,6 @@ GPL-3.0 License
 
 <div align="center">
 
-[🔝 Back to Top](#trendradar)
+[🔝 Back to Top](#odin-assistant)
 
 </div>

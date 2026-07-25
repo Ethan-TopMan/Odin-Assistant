@@ -61,15 +61,11 @@
 
 ## 💰 AI 模型
 
-下面我以 **[硅基流动](https://cloud.siliconflow.cn)** 平台作为例子，里面有很多大模型可选择。在开发和测试本项目的过程中，我使用本平台进行了许多的功能测试和验证。
+下面我以 **[硅基流动](https://cloud.siliconflow.cn)** 平台作为例子，里面有很多大模型可选择。
 
-### 📊 注册方式对比
-
-| 注册方式 | 无邀请链接直接注册 | 含有邀请链接注册  |
-|:-------:|:-------:|:-----------------:|
-| 注册链接 | [siliconflow.cn](https://cloud.siliconflow.cn) | [邀请链接](https://cloud.siliconflow.cn/i/fqnyVaIU) |
-| 免费额度 | 0 tokens | **2000万 tokens** (≈14元) |
-| 额外福利 | ❌ | ✅ 邀请者也获得2000万tokens |
+| 注册链接 | [siliconflow.cn](https://cloud.siliconflow.cn) |
+|:-------:|:-------:|
+| 免费额度 | 2000万 tokens (≈14元) |
 
 > 💡 **提示**：上面的赠送额度，应该可以询问 **200次以上**
 
