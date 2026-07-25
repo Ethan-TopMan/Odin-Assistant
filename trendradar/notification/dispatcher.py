@@ -363,11 +363,11 @@ class NotificationDispatcher:
         ):
             results["email"] = self._send_email(report_type, html_file_path)
 
-        # 微信公众号
+        # 微信公众号（创建图文草稿）
         if self.config.get("WECHAT_MP_APPID") and self.config.get("WECHAT_MP_SECRET"):
             results["wechat_mp"] = self._send_wechat_mp(
                 report_data, report_type, update_info, proxy_url, mode, rss_items, rss_new_items,
-                ai_analysis, display_regions, standalone_data
+                ai_analysis, display_regions, standalone_data, html_file_path
             )
 
         return results
@@ -832,8 +832,9 @@ class NotificationDispatcher:
         ai_analysis: Optional[AIAnalysisResult] = None,
         display_regions: Optional[Dict] = None,
         standalone_data: Optional[Dict] = None,
+        html_file_path: Optional[str] = None,
     ) -> bool:
-        """发送到微信公众号（多账号，模板消息）"""
+        """发送到微信公众号（多账号，创建图文草稿）"""
         report_data, rss_items, rss_new_items, ai_analysis, standalone_data = self._apply_display_regions(
             report_data, display_regions, rss_items, rss_new_items, ai_analysis, standalone_data
         )
@@ -841,8 +842,7 @@ class NotificationDispatcher:
 
         app_ids = parse_multi_account_config(self.config.get("WECHAT_MP_APPID", ""))
         secrets = parse_multi_account_config(self.config.get("WECHAT_MP_SECRET", ""))
-        template_ids = parse_multi_account_config(self.config.get("WECHAT_MP_TEMPLATE_ID", ""))
-        open_ids_list = parse_multi_account_config(self.config.get("WECHAT_MP_OPENIDS", ""))
+        auto_publish = self.config.get("WECHAT_MP_AUTO_PUBLISH", False)
 
         if not app_ids or not secrets:
             return False
@@ -854,21 +854,19 @@ class NotificationDispatcher:
             if not app_id:
                 continue
             secret = secrets[i] if i < len(secrets) else (secrets[0] if secrets else "")
-            template_id = template_ids[i] if i < len(template_ids) else (template_ids[0] if template_ids else "")
-            open_ids = open_ids_list[i] if i < len(open_ids_list) else (open_ids_list[0] if open_ids_list else "")
             account_label = f"账号{i+1}" if len(app_ids) > 1 else ""
 
             result = send_to_wechat_mp(
                 app_id=app_id,
                 app_secret=secret,
-                template_id=template_id,
-                open_ids=open_ids,
                 report_data=report_data,
                 report_type=report_type,
                 update_info=update_info,
                 proxy_url=proxy_url,
                 mode=mode,
                 account_label=account_label,
+                html_file_path=html_file_path,
+                auto_publish=auto_publish,
                 batch_size=self.config.get("MESSAGE_BATCH_SIZE", 4000),
                 batch_interval=self.config.get("BATCH_SEND_INTERVAL", 1.0),
                 split_content_func=self.split_content_func,

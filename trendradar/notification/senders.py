@@ -1330,8 +1330,6 @@ def send_to_generic_webhook(
 def send_to_wechat_mp(
     app_id: str,
     app_secret: str,
-    template_id: str,
-    open_ids: str,
     report_data: Dict,
     report_type: str,
     update_info: Optional[Dict] = None,
@@ -1339,6 +1337,8 @@ def send_to_wechat_mp(
     mode: str = "daily",
     account_label: str = "",
     *,
+    html_file_path: Optional[str] = None,
+    auto_publish: bool = False,
     batch_size: int = 4000,
     batch_interval: float = 1.0,
     split_content_func: Optional[Callable] = None,
@@ -1349,8 +1349,16 @@ def send_to_wechat_mp(
     standalone_data: Optional[Dict] = None,
 ) -> bool:
     """
-    发送到微信公众号（模板消息）
-    需先在公众号后台申请模板消息权限并创建模板。
+    发布到微信公众号图文消息（草稿箱）
+    
+    将报告内容创建为公众号图文草稿，可选择自动发布。
+    草稿可在公众号后台编辑或发布。
+
+    Args:
+        app_id: 公众号 AppID
+        app_secret: 公众号 AppSecret
+        html_file_path: HTML 报告文件路径（用于读取完整内容）
+        auto_publish: 是否自动提交发布（认证服务号/订阅号可用）
     """
     log_prefix = f"公众号{account_label}" if account_label else "公众号"
     proxies = None
@@ -1367,49 +1375,123 @@ def send_to_wechat_mp(
         resp = requests.get(token_url, proxies=proxies, timeout=15)
         data = resp.json()
         if "access_token" not in data:
-            print(f"{log_prefix} 获取 access_token 失败: {data.get('errmsg', '未知错误')}")
+            print(f"{log_prefix} 获取 access_token 失败: {data.get('errmsg', '')}")
             return False
         access_token = data["access_token"]
     except Exception as e:
         print(f"{log_prefix} 获取 access_token 请求出错: {e}")
         return False
 
-    # 2. 构造消息
+    # 2. 构建文章内容
     hot_count = sum(s.get("count", 0) for s in report_data.get("stats", []))
     rss_count = sum(len(s.get("titles", [])) for s in (rss_items or []))
-    first = report_data["stats"][0] if report_data.get("stats") else None
-    first_title = first["titles"][0]["title"][:60] if first and first.get("titles") else ""
-
+    total_count = hot_count + rss_count
     from datetime import datetime
-    now_str = datetime.now().strftime("%m-%d %H:%M")
+    now_str = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    template_data = {
-        "touser": "",
-        "template_id": template_id,
-        "data": {
-            "first": {"value": f"📊 {report_type} 热点分析报告", "color": "#173177"},
-            "keyword1": {"value": f"{hot_count + rss_count} 条", "color": "#173177"},
-            "keyword2": {"value": f"热榜{hot_count} + RSS{rss_count}", "color": "#173177"},
-            "keyword3": {"value": now_str, "color": "#173177"},
-            "remark": {"value": f"热点: {first_title}", "color": "#4f46e5"},
-        }
+    # 构建文章 HTML 内容（公众号图文支持有限 HTML）
+    content_parts = [f"<p>报告生成时间：{now_str}</p><p>共 {total_count} 条热点新闻（热榜 {hot_count} + RSS {rss_count}）</p><hr/>"]
+
+    # AI 分析摘要
+    if ai_analysis and getattr(ai_analysis, "success", False):
+        ai_parts = []
+        for title, attr in [("核心热点态势", "core_trends"), ("舆论风向争议", "sentiment_controversy"),
+                           ("异动与弱信号", "signals"), ("研判策略建议", "outlook_strategy")]:
+            val = getattr(ai_analysis, attr, "")
+            if val:
+                ai_parts.append(f"<h3>{title}</h3><p>{val.replace(chr(10), '<br/>')}</p>")
+        if ai_parts:
+            content_parts.append("<h2>✨ AI 热点分析</h2>" + "".join(ai_parts))
+            content_parts.append("<hr/>")
+
+    # 关键词分组摘要
+    if report_data.get("stats"):
+        content_parts.append("<h2>📊 热点追踪</h2>")
+        for s in report_data["stats"][:5]:
+            word = s.get("word", "")
+            titles = s.get("titles", [])
+            if titles:
+                content_parts.append(f"<h4>{word}（{len(titles)}条）</h4>")
+                for t in titles[:3]:
+                    title_text = t.get("title", "")
+                    url = t.get("url", "") or t.get("mobile_url", "")
+                    if url and title_text:
+                        content_parts.append(f'<p>• <a href="{url}">{title_text[:80]}</a></p>')
+                    elif title_text:
+                        content_parts.append(f"<p>• {title_text[:80]}</p>")
+                if len(titles) > 3:
+                    content_parts.append(f"<p>……还有 {len(titles)-3} 条</p>")
+
+    # 添加 RSS 摘要
+    if rss_items:
+        content_parts.append("<hr/><h2>📡 RSS 订阅</h2>")
+        for rs in rss_items[:3]:
+            word = rs.get("word", "")
+            titles = rs.get("titles", [])
+            if titles:
+                content_parts.append(f"<h4>{word}（{len(titles)}条）</h4>")
+                for t in titles[:2]:
+                    title_text = t.get("title", "")
+                    url = t.get("url", "")
+                    if url:
+                        content_parts.append(f'<p>• <a href="{url}">{title_text[:80]}</a></p>')
+                    else:
+                        content_parts.append(f"<p>• {title_text[:80]}</p>")
+
+    # 文章链接
+    if html_file_path:
+        from pathlib import Path
+        fname = Path(html_file_path).name
+        content_parts.append(f'<hr/><p>📄 <a href="{html_file_path}">查看完整 HTML 报告</a></p>')
+
+    article_content = "".join(content_parts)
+
+    # 文章摘要（取前 120 字）
+    digest = ""
+    if ai_analysis and getattr(ai_analysis, "core_trends", ""):
+        digest = ai_analysis.core_trends[:120].replace(chr(10), "")
+    if not digest:
+        first_titles = [s["titles"][0]["title"] for s in report_data.get("stats", []) if s.get("titles")]
+        digest = ("；".join(first_titles[:3]))[:120]
+
+    # 3. 创建草稿
+    draft_data = {
+        "title": f"Odin-Assistant {report_type} - {now_str.split(' ')[0]}",
+        "author": "Odin-Assistant",
+        "content": article_content,
+        "digest": digest,
+        "need_open_comment": 0,
+        "only_fans_can_comment": 0,
     }
 
-    recipients = [oid.strip() for oid in open_ids.split(";") if oid.strip()]
-    send_url = f"https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={access_token}"
-    success_count = 0
-    for oid in recipients:
-        template_data["touser"] = oid
+    draft_url = f"https://api.weixin.qq.com/cgi-bin/draft/add?access_token={access_token}"
+    try:
+        resp = requests.post(draft_url, json=draft_data, proxies=proxies, timeout=30)
+        result = resp.json()
+        if result.get("errcode") != 0:
+            print(f"{log_prefix} 创建草稿失败: {result.get('errmsg', '')}")
+            return False
+        draft_id = result.get("media_id", "")
+        print(f"{log_prefix} 草稿创建成功 media_id={draft_id[:16]}...")
+    except Exception as e:
+        print(f"{log_prefix} 创建草稿请求出错: {e}")
+        return False
+
+    # 4. 自动发布（可选）
+    if auto_publish and draft_id:
+        publish_url = f"https://api.weixin.qq.com/cgi-bin/freepublish/submit?access_token={access_token}"
         try:
-            resp = requests.post(send_url, json=template_data, proxies=proxies, timeout=15)
+            resp = requests.post(publish_url, json={"media_id": draft_id}, proxies=proxies, timeout=30)
             result = resp.json()
             if result.get("errcode") == 0:
-                success_count += 1
+                publish_id = result.get("publish_id", "")
+                print(f"{log_prefix} 已提交发布 publish_id={publish_id} [{report_type}]")
             else:
-                print(f"{log_prefix} 发送给 {oid[:8]}... 失败: {result.get('errmsg', '未知错误')}")
+                print(f"{log_prefix} 自动发布失败: {result.get('errmsg', '')}（草稿已创建，可手动发布）")
         except Exception as e:
-            print(f"{log_prefix} 发送给 {oid[:8]}... 出错: {e}")
+            print(f"{log_prefix} 自动发布请求出错: {e}（草稿已创建，可手动发布）")
+    else:
+        print(f"{log_prefix} 草稿已创建，请在公众号后台发布 [{report_type}]")
 
-    print(f"{log_prefix} 发送完成: {success_count}/{len(recipients)} [{report_type}]")
-    return success_count > 0
+    return True
 

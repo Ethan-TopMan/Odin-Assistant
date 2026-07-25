@@ -429,8 +429,9 @@ notification:
     wechat_mp:
       app_id: ""                      # 微信公众号 AppID
       app_secret: ""                  # 微信公众号 AppSecret
-      template_id: ""                 # 模板消息 ID（需先在公众号后台配置模板）
-      open_ids: ""                    # 接收用户的 OpenID，多个用分号分隔
+      auto_publish: false             # 是否自动提交发布（true=草稿创建后自动发布，false=仅创建草稿到草稿箱）
+                                      # 自动发布需公众号有发布权限（认证订阅号/服务号）
+                                      # 个人订阅号建议 false，手动从后台发布
 
 
 # ===============================================================
