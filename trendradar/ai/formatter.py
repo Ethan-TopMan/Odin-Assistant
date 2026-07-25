@@ -311,7 +311,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
                     <div class="ai-block">
-                        <div class="ai-block-title">核心热点态势</div>
+                        <div class="ai-block-title">🔥 核心热点态势</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
 
@@ -320,7 +320,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
                     <div class="ai-block">
-                        <div class="ai-block-title">舆论风向争议</div>
+                        <div class="ai-block-title">💬 舆论风向争议</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
 
@@ -329,7 +329,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
                     <div class="ai-block">
-                        <div class="ai-block-title">异动与弱信号</div>
+                        <div class="ai-block-title">📡 异动与弱信号</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
 
@@ -338,7 +338,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
                     <div class="ai-block">
-                        <div class="ai-block-title">RSS 深度洞察</div>
+                        <div class="ai-block-title">📰 RSS 深度洞察</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
 
@@ -347,7 +347,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
         content_html = _escape_html(content).replace("\n", "<br>")
         ai_html += f"""
                     <div class="ai-block">
-                        <div class="ai-block-title">研判策略建议</div>
+                        <div class="ai-block-title">💡 研判策略建议</div>
                         <div class="ai-block-content">{content_html}</div>
                     </div>"""
 
@@ -357,7 +357,7 @@ def render_ai_analysis_html_rich(result: AIAnalysisResult) -> str:
             summaries_html = _escape_html(summaries_text).replace("\n", "<br>")
             ai_html += f"""
                     <div class="ai-block">
-                        <div class="ai-block-title">独立源点速览</div>
+                        <div class="ai-block-title">🔍 独立源点速览</div>
                         <div class="ai-block-content">{summaries_html}</div>
                     </div>"""
 

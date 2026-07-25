@@ -83,29 +83,13 @@ def render_html_content(
             .header {
                 background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
                 color: white;
-                padding: 32px 24px;
+                padding: 24px 24px;
                 text-align: center;
                 position: relative;
                 overflow: visible;
             }
 
-            .header-watermark {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: clamp(40px, 8vw, 80px);
-                font-weight: 900;
-                letter-spacing: 0.05em;
-                color: rgba(255, 255, 255, 0.15);
-                pointer-events: none;
-                z-index: 1;
-                white-space: nowrap;
-                -webkit-mask-image: radial-gradient(circle 0px at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-                mask-image: radial-gradient(circle 0px at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-                transition: -webkit-mask-image 0.3s ease, mask-image 0.3s ease;
-                user-select: none;
-            }
+
 
             .save-buttons {
                 position: absolute;
@@ -253,7 +237,7 @@ def render_html_content(
 
             .info-value {
                 font-weight: 600;
-                font-size: 16px;
+                font-size: 14px;
             }
 
             .content {
@@ -261,7 +245,7 @@ def render_html_content(
             }
 
             .word-group {
-                margin-bottom: 40px;
+                margin-bottom: 16px;
             }
 
             .word-group:first-child {
@@ -272,8 +256,8 @@ def render_html_content(
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 20px;
-                padding-bottom: 8px;
+                margin-bottom: 8px;
+                padding-bottom: 4px;
                 border-bottom: 1px solid #f0f0f0;
             }
 
@@ -284,14 +268,14 @@ def render_html_content(
             }
 
             .word-name {
-                font-size: 17px;
+                font-size: 15px;
                 font-weight: 600;
                 color: #1a1a1a;
             }
 
             .word-count {
                 color: #666;
-                font-size: 13px;
+                font-size: 12px;
                 font-weight: 500;
             }
 
@@ -300,17 +284,17 @@ def render_html_content(
 
             .word-index {
                 color: #999;
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .news-item {
-                margin-bottom: 20px;
-                padding: 16px 0;
+                margin-bottom: 6px;
+                padding: 6px 0;
                 border-bottom: 1px solid #f5f5f5;
                 position: relative;
                 display: flex;
-                gap: 12px;
-                align-items: center;
+                gap: 8px;
+                align-items: flex-start;
             }
 
             .news-item:last-child {
@@ -320,33 +304,33 @@ def render_html_content(
             .news-item.new::after {
                 content: "NEW";
                 position: absolute;
-                top: 12px;
+                top: 6px;
                 right: 0;
                 background: #fbbf24;
                 color: #92400e;
-                font-size: 9px;
+                font-size: 8px;
                 font-weight: 700;
-                padding: 3px 6px;
-                border-radius: 4px;
+                padding: 2px 5px;
+                border-radius: 3px;
                 letter-spacing: 0.5px;
             }
 
             .news-number {
                 color: #999;
-                font-size: 13px;
+                font-size: 11px;
                 font-weight: 600;
-                min-width: 20px;
+                min-width: 18px;
                 text-align: center;
                 flex-shrink: 0;
                 background: #f8f9fa;
                 border-radius: 50%;
-                width: 24px;
-                height: 24px;
+                width: 18px;
+                height: 18px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 align-self: flex-start;
-                margin-top: 8px;
+                margin-top: 4px;
                 position: relative;
                 cursor: pointer;
                 transition: background 0.15s, color 0.15s;
@@ -379,44 +363,43 @@ def render_html_content(
             .news-content {
                 flex: 1;
                 min-width: 0;
-                padding-right: 40px;
+                padding-right: 32px;
             }
 
             .news-item.new .news-content {
-                padding-right: 50px;
-            }
+                padding-right: 40px;
 
             .news-header {
                 display: flex;
                 align-items: center;
-                gap: 8px;
-                margin-bottom: 8px;
+                gap: 4px;
+                margin-bottom: 3px;
                 flex-wrap: wrap;
             }
 
             .source-name {
                 color: #666;
-                font-size: 12px;
+                font-size: 11px;
                 font-weight: 500;
             }
 
             .keyword-tag {
                 color: #2563eb;
-                font-size: 12px;
+                font-size: 10px;
                 font-weight: 500;
                 background: #eff6ff;
-                padding: 2px 6px;
-                border-radius: 4px;
+                padding: 1px 4px;
+                border-radius: 3px;
             }
 
             .rank-num {
                 color: #fff;
                 background: #6b7280;
-                font-size: 10px;
+                font-size: 9px;
                 font-weight: 700;
-                padding: 2px 6px;
-                border-radius: 10px;
-                min-width: 18px;
+                padding: 1px 5px;
+                border-radius: 8px;
+                min-width: 16px;
                 text-align: center;
             }
 
@@ -424,25 +407,25 @@ def render_html_content(
             .rank-num.high { background: #ea580c; }
 
             .trend-up, .trend-down {
-                font-size: 12px;
-                margin-left: 2px;
+                font-size: 11px;
+                margin-left: 1px;
                 vertical-align: middle;
             }
 
             .time-info {
                 color: #999;
-                font-size: 11px;
+                font-size: 10px;
             }
 
             .count-info {
                 color: #059669;
-                font-size: 11px;
+                font-size: 10px;
                 font-weight: 500;
             }
 
             .news-title {
-                font-size: 15px;
-                line-height: 1.4;
+                font-size: 13px;
+                line-height: 1.3;
                 color: #1a1a1a;
                 margin: 0;
             }
@@ -462,29 +445,29 @@ def render_html_content(
 
             /* 通用区域分割线样式 */
             .section-divider {
-                margin-top: 32px;
-                padding-top: 24px;
-                border-top: 2px solid #e5e7eb;
+                margin-top: 20px;
+                padding-top: 16px;
+                border-top: 1px solid #e5e7eb;
             }
 
             /* 板块分类头样式 */
             .report-category {
-                margin-top: 32px;
-                padding-top: 8px;
+                margin-top: 16px;
+                padding-top: 4px;
             }
             .report-category:first-child {
                 margin-top: 0;
                 padding-top: 0;
             }
             .category-header {
-                margin-bottom: 16px;
-                padding: 10px 14px;
+                margin-bottom: 8px;
+                padding: 6px 12px;
                 background: linear-gradient(135deg, #f0f4ff 0%, #eef2ff 100%);
-                border-radius: 10px;
+                border-radius: 8px;
                 border-left: 4px solid #6366f1;
             }
             .category-icon {
-                font-size: 16px;
+                font-size: 14px;
                 font-weight: 700;
                 color: #4338ca;
                 letter-spacing: 0.3px;
@@ -503,8 +486,8 @@ def render_html_content(
             }
 
             .new-section {
-                margin-top: 40px;
-                padding-top: 24px;
+                margin-top: 24px;
+                padding-top: 16px;
             }
 
             .new-section-title {
@@ -643,15 +626,15 @@ def render_html_content(
 
             @media (max-width: 480px) {
                 body { padding: 12px; }
-                .header { padding: 24px 20px; }
-                .content { padding: 20px; }
-                .footer { padding: 16px 20px; }
+                .header { padding: 20px 20px; }
+                .content { padding: 16px; }
+                .footer { padding: 10px 12px; }
                 .header-info { grid-template-columns: 1fr; gap: 12px; }
-                .news-header { gap: 6px; }
-                .news-content { padding-right: 45px; }
-                .news-item { gap: 8px; }
-                .new-item { gap: 8px; }
-                .news-number { width: 20px; height: 20px; font-size: 12px; }
+                .news-header { gap: 4px; }
+                .news-content { padding-right: 30px; }
+                .news-item { gap: 6px; }
+                .new-item { gap: 6px; }
+                .news-number { width: 16px; height: 16px; font-size: 10px; }
                 .save-buttons {
                     position: static;
                     margin-bottom: 16px;
@@ -671,8 +654,8 @@ def render_html_content(
 
             /* RSS 订阅内容样式 */
             .rss-section {
-                margin-top: 32px;
-                padding-top: 24px;
+                margin-top: 20px;
+                padding-top: 16px;
             }
 
             .rss-section-header {
@@ -783,8 +766,8 @@ def render_html_content(
 
             /* 独立展示区样式 - 复用热点词汇统计区样式 */
             .standalone-section {
-                margin-top: 32px;
-                padding-top: 24px;
+                margin-top: 20px;
+                padding-top: 16px;
             }
 
             .standalone-section-header {
@@ -923,7 +906,7 @@ def render_html_content(
             /* 宽屏模式 - 基础 */
             body.wide-mode .container { max-width: 1200px; }
             body.wide-mode .header-info { grid-template-columns: repeat(4, 1fr); }
-            body.wide-mode .content { padding: 32px 40px; }
+            body.wide-mode .content { padding: 24px 32px; }
 
             /* 宽屏模式 - RSS feed-group 两列 */
             body.wide-mode .rss-feeds-grid {
@@ -1166,8 +1149,8 @@ def render_html_content(
             .word-header.collapsible:hover {
                 background: #f9fafb;
                 border-radius: 6px;
-                margin: 0 -8px 20px -8px;
-                padding: 8px;
+                margin: 0 -8px 8px -8px;
+                padding: 6px;
             }
             .word-group.collapsed .news-item { display: none; }
             .word-group.collapsed .collapse-icon { transform: rotate(-90deg); }
@@ -1445,7 +1428,7 @@ def render_html_content(
         <div class="reading-progress"></div>
         <div class="container">
             <div class="header">
-                <div class="header-watermark">TrendRadar</div>
+
                 <div class="save-buttons">
                     <button class="toggle-wide-btn" onclick="toggleWideMode()" title="切换宽屏/窄屏">⛶</button>
                     <button class="toggle-dark-btn" onclick="toggleDarkMode()" title="切换暗色/亮色">☽</button>
@@ -1494,21 +1477,21 @@ def render_html_content(
     # 1. 报告类型
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">报告类型</span>
+                        <span class="info-label">📋 报告类型</span>
                         <span class="info-value">{mode_display}</span>
                     </div>"""
 
     # 2. 生成时间
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">生成时间</span>
+                        <span class="info-label">🕐 生成时间</span>
                         <span class="info-value">{now.strftime("%m-%d %H:%M")}</span>
                     </div>"""
 
     # 3. 热榜命中
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">热榜命中</span>
+                        <span class="info-label">🏆 热榜命中</span>
                         <span class="info-value">{hot_news_count} / {hotlist_total}</span>
                     </div>"""
 
@@ -1519,7 +1502,7 @@ def render_html_content(
         rss_value = "未启用"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">RSS 命中</span>
+                        <span class="info-label">📰 RSS 命中</span>
                         <span class="info-value">{rss_value}</span>
                     </div>"""
 
@@ -1530,7 +1513,7 @@ def render_html_content(
         platform_value = "--"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">热榜平台</span>
+                        <span class="info-label">📱 热榜平台</span>
                         <span class="info-value">{platform_value}</span>
                     </div>"""
 
@@ -1541,7 +1524,7 @@ def render_html_content(
         rss_source_value = "--"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">RSS 源</span>
+                        <span class="info-label">📡 RSS 源</span>
                         <span class="info-value">{rss_source_value}</span>
                     </div>"""
 
@@ -1551,7 +1534,7 @@ def render_html_content(
     new_value = f"{new_count} + {rss_new_count}" if total_new > 0 else "0"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">新增热点</span>
+                        <span class="info-label">🆕 新增热点</span>
                         <span class="info-value">{new_value}</span>
                     </div>"""
 
@@ -1578,7 +1561,7 @@ def render_html_content(
         ai_value = "未启用"
     html += f"""
                     <div class="info-item">
-                        <span class="info-label">AI 分析</span>
+                        <span class="info-label">🤖 AI 分析</span>
                         <span class="info-value">{ai_value}</span>
                     </div>"""
 
@@ -1791,7 +1774,7 @@ def render_html_content(
     if show_new_section and report_data["new_titles"]:
         new_titles_html += f"""
                 <div class="new-section">
-                    <div class="new-section-title">本次新增热点 (共 {report_data['total_new_count']} 条)</div>
+                    <div class="new-section-title">🔥 本次新增热点 (共 {report_data['total_new_count']} 条)</div>
                     <div class="new-sources-grid">"""
 
         for source_data in report_data["new_titles"]:
@@ -1888,7 +1871,7 @@ def render_html_content(
         rss_html = f"""
                 <div class="rss-section">
                     <div class="rss-section-header">
-                        <div class="rss-section-title">{title}</div>
+                        <div class="rss-section-title">📡 {title}</div>
                         <div class="rss-section-count">{total_count} 条</div>
                     </div>
                     <div class="rss-feeds-grid">"""
@@ -2026,7 +2009,7 @@ def render_html_content(
         standalone_html = f"""
                 <div class="standalone-section">
                     <div class="standalone-section-header">
-                        <div class="standalone-section-title">独立展示区</div>
+                        <div class="standalone-section-title">🖼️ 独立展示区</div>
                         <div class="standalone-section-count">{total_count} 条</div>
                     </div>"""
 
@@ -2207,9 +2190,10 @@ def render_html_content(
                 </div>"""
         return standalone_html
 
-    # 生成 RSS 统计和新增 HTML
+    # 生成 RSS 统计 HTML（新增条目已包含在 RSS 订阅更新中，并带有 NEW 标记，
+    # 不单独渲染 RSS 新增区域，避免同一文章在两个区域中重复展示）
     rss_stats_html = render_rss_stats_html(rss_items, "RSS 订阅更新") if rss_items else ""
-    rss_new_html = render_rss_stats_html(rss_new_items, "RSS 新增更新") if rss_new_items else ""
+    rss_new_html = ""
 
     # 生成独立展示区 HTML
     standalone_html = render_standalone_html(standalone_data)

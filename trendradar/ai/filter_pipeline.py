@@ -52,6 +52,18 @@ class AIFilterPipeline:
         # 白名单源：这些源的 RSS 条目不受 AI 分数过滤，一律推送
         self._whitelist_feeds: List[str] = rss_config.get("WHITELIST_FEEDS", []) or []
 
+        # 直接推送分类：按分类名批量绕过 AI 评分，直接进入聚合
+        direct_push_cfg = rss_config.get("DIRECT_PUSH", {}) or {}
+        self._direct_push_enabled = direct_push_cfg.get("ENABLED", False)
+        raw_categories = direct_push_cfg.get("CATEGORIES", []) or []
+        # category_name → max_age_days
+        self._direct_push_categories: Dict[str, int] = {}
+        for cat in raw_categories:
+            name = cat.get("name", "")
+            days = cat.get("max_age_days", self._default_max_age_days)
+            if name:
+                self._direct_push_categories[name] = int(days) if days is not None else self._default_max_age_days
+
     def _build_feed_max_age_map(self) -> Dict[str, int]:
         result = {}
         for feed_cfg in self._rss_feeds:
@@ -128,6 +140,19 @@ class AIFilterPipeline:
         if not active_tags:
             self.storage.end_batch()
             return AIFilterResult(success=False, error="没有可用的标签")
+
+        # 确保存在「其他资讯」标签（用于归类不匹配任何兴趣领域的新闻）
+        if not any(t.get("tag", "") == "其他资讯" for t in active_tags):
+            max_id = max((t.get("id", 0) for t in active_tags), default=0)
+            max_priority = max((t.get("priority", 0) for t in active_tags), default=0)
+            active_tags.append({
+                "id": max_id + 1,
+                "tag": "其他资讯",
+                "description": "与用户关注领域不直接相关的一般资讯、娱乐、体育、生活等",
+                "priority": max_priority + 1,
+            })
+            if self._debug:
+                print(f"[AI筛选][DEBUG] 自动添加「其他资讯」标签 (id={max_id + 1})")
 
         print(f"[AI筛选] 使用 {len(active_tags)} 个标签")
 
@@ -479,6 +504,7 @@ class AIFilterPipeline:
         mode: str = "daily",
         new_titles: Optional[Dict] = None,
         rss_new_urls: Optional[set] = None,
+        feed_category_map: Optional[Dict[str, str]] = None,
     ) -> tuple:
         """
         将 AI 筛选结果转换为与关键词匹配相同的数据结构
@@ -644,6 +670,31 @@ class AIFilterPipeline:
                         existing["count"] = len(existing["titles"])
                 rss_new_stats.extend(whitelist_new_map.values())
 
+        # ── 直接推送分类：按分类名批量绕过 AI 评分，直接进入聚合 ──
+        if self._direct_push_enabled and self._direct_push_categories and feed_category_map:
+            dp_stats, dp_new = self._get_direct_push_rss_items(mode, rss_new_urls, feed_category_map)
+            if dp_stats:
+                total_dp = sum(s['count'] for s in dp_stats)
+                print(f"[AI筛选] 直接推送分类追加 {len(dp_stats)} 个组, 共 {total_dp} 条 (绕过 AI 评分)")
+                # 合并到 rss_stats，同名 word 合并
+                dp_word_map = {s["word"]: s for s in dp_stats}
+                for existing in list(rss_stats):
+                    w = existing["word"]
+                    if w in dp_word_map:
+                        dp = dp_word_map.pop(w)
+                        existing["titles"].extend(dp["titles"])
+                        existing["count"] = len(existing["titles"])
+                rss_stats.extend(dp_word_map.values())
+            if dp_new:
+                dp_new_map = {s["word"]: s for s in dp_new}
+                for existing in list(rss_new_stats):
+                    w = existing["word"]
+                    if w in dp_new_map:
+                        dp = dp_new_map.pop(w)
+                        existing["titles"].extend(dp["titles"])
+                        existing["count"] = len(existing["titles"])
+                rss_new_stats.extend(dp_new_map.values())
+
         sort_key_priority = lambda x: (x.get("position", 9999), -x["count"], x["word"])
         sort_key_count = lambda x: (-x["count"], x.get("position", 9999), x["word"])
         sort_key = sort_key_priority if self._priority_sort_enabled else sort_key_count
@@ -738,6 +789,129 @@ class AIFilterPipeline:
         if stats:
             total = sum(s["count"] for s in stats)
             print(f"[AI筛选] 白名单源 {len(stats)} 个组, 共 {total} 条 (新鲜度 ≤{self._default_max_age_days}天)")
+
+        return stats, new_stats
+
+    def _get_direct_push_rss_items(
+        self,
+        mode: str = "daily",
+        rss_new_urls: Optional[set] = None,
+        feed_category_map: Optional[Dict[str, str]] = None,
+    ) -> Tuple[List[Dict], List[Dict]]:
+        """
+        获取直接推送分类（如个人博客、新闻类博客）的 RSS 条目。
+        这些条目绕过 AI 评分过滤，按分类各自的新鲜度阈值进行过滤，
+        直接进入后续的 AI 聚合摘要流程。
+
+        Returns:
+            (dp_stats, dp_new_stats) — 与 rss_stats/rss_new_stats 格式一致
+        """
+        if not self._direct_push_enabled or not self._direct_push_categories or not feed_category_map:
+            return [], []
+
+        try:
+            rss_data = self.storage.get_rss_data()
+        except Exception as e:
+            print(f"[AI筛选] 直接推送: 获取 RSS 数据失败: {e}")
+            return [], []
+
+        if not rss_data or not rss_data.items:
+            return [], []
+
+        # 构建 feed_id → 板块名的反向映射（使用原始分类名）
+        # 注意：feed_category_map 里存的是原始分类名（如 HPC, AI, News, 个人博客, 新闻类博客）
+        feed_to_raw_cat = feed_category_map
+
+        # 收集所有需要直接推送的 feed_id
+        direct_push_cat_set = set(self._direct_push_categories.keys())
+        dp_feed_ids = {
+            feed_id for feed_id, raw_cat in feed_to_raw_cat.items()
+            if raw_cat in direct_push_cat_set
+        }
+
+        if not dp_feed_ids:
+            return [], []
+
+        # 分类名 → 展示名 映射
+        from trendradar.core.analyzer import RSS_CATEGORY_DISPLAY_NAMES
+
+        # 按分类分组统计
+        cat_buckets: Dict[str, list] = {}  # display_cat → [title_entry, ...]
+        cat_new_buckets: Dict[str, list] = {}
+        cat_used_days: Dict[str, int] = {}
+
+        for feed_id, items in rss_data.items.items():
+            if feed_id not in dp_feed_ids:
+                continue
+
+            raw_cat = feed_to_raw_cat.get(feed_id, "")
+            if raw_cat not in direct_push_cat_set:
+                continue
+
+            display_cat = RSS_CATEGORY_DISPLAY_NAMES.get(raw_cat, raw_cat)
+            max_days = self._direct_push_categories.get(raw_cat, self._default_max_age_days)
+            cat_used_days[raw_cat] = max_days
+            feed_name = rss_data.id_to_name.get(feed_id, feed_id)
+            group_word = f"📌 {display_cat}"
+
+            cat_buckets.setdefault(group_word, [])
+            cat_new_buckets.setdefault(group_word, [])
+
+            for item in items:
+                # 按分类自己的新鲜度阈值过滤
+                if self._freshness_enabled and item.published_at:
+                    if max_days > 0 and not is_within_days(item.published_at, max_days, self._timezone):
+                        continue
+
+                published_at = item.published_at or ""
+                time_display = format_iso_time_friendly(published_at, self._timezone, include_date=True) if published_at else ""
+
+                is_new = False
+                if rss_new_urls and item.url:
+                    is_new = item.url in rss_new_urls
+
+                if mode == "incremental" and not is_new:
+                    continue
+
+                title_entry = {
+                    "title": item.title,
+                    "source_name": feed_name,
+                    "url": item.url or "",
+                    "mobile_url": "",
+                    "ranks": [],
+                    "rank_threshold": self._rank_threshold,
+                    "count": 1,
+                    "is_new": is_new,
+                    "time_display": time_display,
+                    "matched_keyword": group_word,
+                }
+                cat_buckets[group_word].append(title_entry)
+                if is_new:
+                    cat_new_buckets[group_word].append(title_entry)
+
+        stats: List[Dict] = []
+        new_stats: List[Dict] = []
+        for group_word, titles in cat_buckets.items():
+            if titles:
+                stats.append({
+                    "word": group_word,
+                    "count": len(titles),
+                    "position": 9996,  # 排在白名单之前
+                    "titles": titles,
+                })
+        for group_word, titles in cat_new_buckets.items():
+            if titles:
+                new_stats.append({
+                    "word": group_word,
+                    "count": len(titles),
+                    "position": 9996,
+                    "titles": titles,
+                })
+
+        if stats:
+            days_info = ", ".join(f"{k}={v}天" for k, v in sorted(cat_used_days.items()))
+            total = sum(s["count"] for s in stats)
+            print(f"[AI筛选] 直接推送分类 {len(stats)} 个组, 共 {total} 条 ({days_info})")
 
         return stats, new_stats
 

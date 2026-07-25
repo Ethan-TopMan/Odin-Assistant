@@ -338,10 +338,13 @@ class AIFilter:
             for t in tags
         )
 
-        # 构建新闻列表文本
+        # 构建位置→真实ID映射（AI可能重新编号，用位置索引确保匹配）
+        pos_to_id = {pos: t["id"] for pos, t in enumerate(titles, start=1)}
+
+        # 构建新闻列表文本（使用位置索引而非数据库ID，避免AI重新编号导致不匹配）
         news_list = "\n".join(
-            f"{t['id']}. [{t.get('source', '')}] {t['title']}"
-            for t in titles
+            f"{pos}. [{t.get('source', '')}] {t['title']}"
+            for pos, t in enumerate(titles, start=1)
         )
 
         # 填充模板
@@ -378,7 +381,7 @@ class AIFilter:
         try:
             response = self.client.chat(messages)
 
-            return self._parse_classify_response(response, titles, tags)
+            return self._parse_classify_response(response, titles, tags, pos_to_id)
         except Exception as e:
             print(f"[AI筛选] 分类请求失败: {type(e).__name__}: {e}")
             return None
@@ -388,6 +391,7 @@ class AIFilter:
         response: str,
         titles: List[Dict],
         tags: List[Dict],
+        pos_to_id: Dict[int, int] = None,
     ) -> List[Dict]:
         """解析分类的 AI 响应
 
@@ -422,16 +426,25 @@ class AIFilter:
         tag_id_set = {t["id"] for t in tags}
         tag_name_map = {t["id"]: t["tag"] for t in tags}
 
+        # 使用 pos_to_id 映射（AI可能返回位置索引而非真实ID）
+        pos_id_map = pos_to_id or {}
+
         # 每条新闻只保留一个最高分的 tag
         best_per_news: Dict[int, Dict] = {}  # news_id -> {"tag_id": ..., "score": ...}
         skipped_news_ids = 0
         skipped_tag_ids = 0
         skipped_empty = 0
+        mapped_from_pos = 0
 
         for item in data:
             if not isinstance(item, dict):
                 continue
-            news_id = item.get("id")
+            raw_id = item.get("id")
+            # 尝试用位置索引映射回真实ID
+            news_id = raw_id
+            if raw_id not in title_ids and raw_id in pos_id_map:
+                news_id = pos_id_map[raw_id]
+                mapped_from_pos += 1
             if news_id not in title_ids:
                 skipped_news_ids += 1
                 continue
@@ -492,8 +505,9 @@ class AIFilter:
 
         if self.debug:
             ai_returned = len(data)
+            map_info = f", 位置映射 {mapped_from_pos} 条" if mapped_from_pos > 0 else ""
             print(f"[AI筛选][DEBUG] --- 分类解析结果 ---")
-            print(f"[AI筛选][DEBUG] AI 返回 {ai_returned} 条, 有效 {len(results)} 条 (每条新闻仅保留最高分 tag)")
+            print(f"[AI筛选][DEBUG] AI 返回 {ai_returned} 条, 有效 {len(results)} 条 (每条新闻仅保留最高分 tag){map_info}")
             if skipped_empty > 0:
                 print(f"[AI筛选][DEBUG] 跳过空 tags: {skipped_empty} 条")
             if skipped_news_ids > 0:
