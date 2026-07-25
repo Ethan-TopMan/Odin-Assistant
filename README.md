@@ -52,91 +52,13 @@
 
 <br>
 
-<br>
-
-<div align="center">
-
-| 微信赞赏 | 支付宝赞赏 |
-|:---:|:---:|
-| <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F2ae0a88d98079f7e876c2b4dc85233c6-9e8025.JPG" width="240" alt="微信赞赏"> | <img src="https://cdn-1258574687.cos.ap-shanghai.myqcloud.com/img/%2F2025%2F07%2F17%2F1ed4f20ab8e35be51f8e84c94e6e239b4-fe4947.JPG" width="240" alt="支付宝赞赏"> |
-
-</div>
-
-
-### 🤝 二次开发与引用
-
-如果你在项目中使用或借鉴了本项目的思路、核心代码，**非常欢迎**在 README 或文档中注明来源并附上本仓库链接。
-
-这将有助于项目的持续维护和社区发展，感谢你的尊重与支持！❤️
-
-
 ### 💬 交流与反馈
 
 - **GitHub Issues**：遇到问题或建议欢迎提交 [Issue](https://github.com/Ethan-TopMan/Odin-Assistant/issues)。
 
 <br>
 
-## 📝 更新日志
-
-> **📌 查看最新更新**：**[GitHub 仓库](https://github.com/Ethan-TopMan/Odin-Assistant)**
-- **提示**：建议查看【历史更新】，明确具体的【功能内容】
-
-
-### 2026/06/19 - v6.10.0
-
-- **AI 翻译分批处理**：大量标题翻译时自动分批请求，避免单次请求超限导致翻译失败
-- **模块拆分重构**：拆分 context.py 和 \_\_main\_\_.py，AI 筛选流水线独立为 filter_pipeline 模块，职责更清晰、维护更方便
-- **修复飞书来源标签显示**：修复飞书卡片中来源标签和 AI 独立源点速览被 CommonMark 吞掉不显示的问题
-
-### 2026/02/09 - mcp-v4.0.0
-
-- **🔥 AI 消息直推所有渠道**：让 AI 写好的内容一键推送到飞书、钉钉、Telegram、邮件等 9 个渠道，Markdown 自动适配各平台格式，不用操心格式差异
-- **新增格式化策略指南**：新增 `get_channel_format_guide` 工具，告诉 AI 每个渠道支持什么格式、有什么限制，生成的内容排版更好看
-- **智能分批发送**：超长消息自动按各渠道字节限制拆分（飞书 30KB、钉钉 20KB 等），配置读取自 config.yaml
-- **修复渠道误检测**：ntfy 不再因为默认地址被误报为"已配置"
-- **代码复用优化**：批次处理函数直接复用 trendradar 核心模块，不重复造轮子
-
-
-<details>
-<summary>👉 点击展开：<strong>历史更新</strong></summary>
-
-### 2026/06/02 - v6.9.0
-
-- **热榜域名安全校验**：新增 `expected_domain` 配置项，校验返回数据链接的域名合法性，不匹配时自动丢弃数据并警告，有效防范链接劫持或数据篡改
-- **自定义热榜 API 地址**：支持自部署 newsnow 并配置 `api_url` 使用自己的数据源
-
-### 2026/05/23 - v6.8.0
-
-- **HTML 报告全面增强**：新增报告元数据展示（生成时间、数据来源、版本号）、暗色模式自动适配、Tab 栏交互优化、趋势箭头可视化，浏览器阅读体验大幅提升
-- **版本检查 CDN 多源回退**：版本检查接口支持 GitHub → jsDelivr → Cloudflare 等多个 CDN 源自动回退，国内网络环境也能稳定获取更新提示
-- **展示区域开关生效**：HTML 报告和邮件现在正确尊重 `display.regions.ai_analysis` 和 `display.regions.standalone` 开关，关闭即不渲染
-- **导出按钮修复**：修复导出按钮点击后下拉菜单图标消失的问题
-- **Markdown 导出修复**：修复 HTML 报告 Markdown 导出中 JS 换行符转义错误
-
-### 2026/05/15 - v6.7.0
-
-- **Markdown 导出**：报告导出下拉菜单新增 Markdown 格式，一键生成带链接的结构化文本，方便 LLM 二次加工和跨平台分享（[#1121](https://github.com/sansan0/Odin-Assistant/issues/1121)）
-- **RSS guid 去重**：RSS 存储新增 guid 字段，去重优先级改为 guid > url，解决同一文章因 URL 变化导致重复入库的问题
-- **空标题防护**：解析器、渲染层、翻译回填全链路增加空标题兜底逻辑，确保无标题条目也能正常显示
-- **翻译质量增强**：翻译提示词要求保留编号顺序，空翻译结果不再覆盖原始标题
-
-### 2026/03/28 - v6.6.0
-
-- **HTML 报告浏览器增强**：在浏览器中打开报告可自动切换宽屏布局，关键词分组和独立展区均支持 Tab 快速切换，搜索框实时过滤新闻标题，邮件客户端仍显示原始窄屏布局，零回归
-- **暗色模式**：一键切换深色主题，自动记住偏好，适合夜间阅读
-- **一键复制新闻**：鼠标悬停新闻序号即可复制标题和链接，方便快速分享
-- **导出优化**：整页截图和分段截图合并为下拉式导出按钮，截图时自动还原干净布局
-- **快捷键系统**：支持 `W` 宽屏切换、`D` 暗色模式、`/` 搜索、`?` 查看快捷键提示
-- **阅读进度条**：页面顶部实时显示阅读进度
-
-### 2026/03/12 - v6.5.0
-
-- **AI 智能筛选系统**：不用再手动设关键词！在 `ai_interests.txt` 里用日常语言写下你关注的方向（如"我想看 AI 和新能源相关新闻"），AI 会自动提取标签并对每条新闻打分，只推送真正和你相关的内容。万一 AI 筛选出了问题，会自动切回关键词匹配，推送不中断
-- **每个时段支持不同的筛选方式和关注方向**：Timeline 中的每个时间段现在可以独立设置用什么方式筛选、看什么类型的新闻。比如：早上用"科技关键词"快速过滤，晚上换成"金融 AI 兴趣描述"做深度筛选——同一个系统，不同时段看不同内容
-- **AI 分析范围独立于推送**：AI 分析的数据范围可以和推送内容不同。比如推送只发新增消息（避免重复打扰），但 AI 分析当天全部新闻（看完整趋势）。每个时段也能单独设置 AI 分析模式
-- **AI 筛选智能省钱**：已分析过的新闻不会重复消耗 token；兴趣描述修改后，AI 自动判断变化幅度——小改动只更新受影响的标签，大改动才全量重新分类
-- **多文件配置与标签隔离**：自定义关键词文件放 `config/custom/keyword/`，AI 兴趣文件放 `config/custom/ai/`，不同文件产生的标签各自独立、互不干扰
-- **AI 翻译精准控制**：可分别控制热榜、RSS、独立展示区是否翻译，没开启显示的区域自动跳过，不浪费 token
+## ✨ 核心功能
 - **远程存储批量上传**：多次写操作攒在一起统一提交云端，减少 API 调用次数
 - **每组关键词/标签展示数量限制**：通过 `max_news_per_keyword` 控制每个分组最多显示多少条新闻，避免单个热门话题占满整条推送
 - **时段冲突智能检测**：两个时间段如果有时间重叠，系统会自动报错提醒修改，避免配置冲突导致意外行为
@@ -762,7 +684,7 @@ https://github.com/sansan0/Odin-Assistant/blob/master/.github/workflows/crawler.
 
 ### 2025/06/18 - v1.1.0
 
-> **200 star⭐** 了, 继续给大伙儿助兴~近期，在我的"怂恿"下，挺多人在我公众号点赞分享推荐助力了我，我都在后台看见了具体账号的鼓励数据，很多都成了天使轮老粉（我玩公众号才一个多月，虽然注册是七八年前的事了哈哈，属于上车早，发车晚），但因为你们没有留言或私信我，所以我也无法一一回应并感谢支持，在此一并谢谢！
+> **200 star⭐** 了, 继续给大伙儿助兴~
 
 1. 重要的更新，加了权重，你现在看到的新闻都是最热点最有关注度的出现在最上面
 2. 更新文档使用，因为近期更新了很多功能，而且之前的使用文档我偷懒写的简单（见下面的 ⚙️ frequency_words.txt 配置完整教程）
@@ -1974,7 +1896,7 @@ aliyunpan token update
 
    恭喜！现在你可以开始享受 Odin-Assistant 带来的高效信息流了。
 
-   💬 **加入社区**：欢迎关注公众号「**[硅基茶水间](#-支持项目)**」，分享你的使用心得和高级玩法。
+   💬 **加入社区**：欢迎提交 [GitHub Issues](https://github.com/Ethan-TopMan/Odin-Assistant/issues) 分享你的使用心得和反馈。
 
    <br>
 
@@ -3430,7 +3352,7 @@ AI 分析功能**不是**直接查询网络实时数据，而是分析你**本�
 
 Cherry Studio 提供 GUI 配置界面，5 分钟快速部署，复杂的部分是一键安装的。
 
-**图文部署教程**：现已更新到我的[公众号](#-支持项目)，回复 "mcp" 即可
+**图文部署教程**：可参考原项目 [GitHub 文档](https://github.com/sansan0/Odin-Assistant) 或搜索相关教程。
 
 **详细部署教程**：[README-Cherry-Studio.md](README-Cherry-Studio.md)
 
@@ -3756,37 +3678,7 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 
 <br>
 
-## 📚 项目相关
-
-> **4 篇文章**：
-
-- [可在该文章下方留言，方便项目作者用手机答疑](https://mp.weixin.qq.com/s/KYEPfTPVzZNWFclZh4am_g)
-- [2个月破 1000 star，我的GitHub项目推广实战经验](https://mp.weixin.qq.com/s/jzn0vLiQFX408opcfpPPxQ)
-- [github fork 运行本项目的注意事项 ](https://mp.weixin.qq.com/s/C8evK-U7onG1sTTdwdW2zg)
-- [基于本项目，如何开展公众号或者新闻资讯类文章写作](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
-
->**AI 开发**：
-- 如果你有小众需求，完全可以基于我的项目自行开发，零编程基础的也可以试试
-- 我所有的开源项目或多或少都使用了自己写的**AI辅助软件**来提升开发效率，这款工具已开源
-- **核心功能**：迅速筛选项目代码喂给AI，你只需要补充个人需求即可
-- **项目地址**：https://github.com/sansan0/ai-code-context-helper
-
-### 其余项目
-
-> 📍 毛主席足迹地图 - 交互式动态展示1893-1976年完整轨迹。欢迎诸位同志贡献数据
-
-- https://github.com/sansan0/mao-map
-
-> 哔哩哔哩(bilibili)评论区数据可视化分析软件
-
-- https://github.com/sansan0/bilibili-comment-analyzer
-
-
-[![Star History Chart](https://api.star-history.com/svg?repos=sansan0/Odin-Assistant&type=Date)](https://www.star-history.com/#sansan0/Odin-Assistant&Date)
-
-<br>
-
-## 📄 许可证
+##  许可证
 
 GPL-3.0 License
 
@@ -3794,6 +3686,6 @@ GPL-3.0 License
 
 <div align="center">
 
-[🔝 回到顶部](#trendradar)
+[🔝 回到顶部](#odin-assistant)
 
 </div>
