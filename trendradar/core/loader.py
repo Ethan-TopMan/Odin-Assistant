@@ -479,6 +479,7 @@ def _load_webhook_config(config_data: Dict) -> Dict:
     bark = channels.get("bark", {})
     slack = channels.get("slack", {})
     generic = channels.get("generic_webhook", {})
+    wechat_mp = channels.get("wechat_mp", {})
 
     return {
         # 飞书
@@ -508,6 +509,10 @@ def _load_webhook_config(config_data: Dict) -> Dict:
         # 通用 Webhook
         "GENERIC_WEBHOOK_URL": _get_env_str("GENERIC_WEBHOOK_URL") or generic.get("webhook_url", ""),
         "GENERIC_WEBHOOK_TEMPLATE": _get_env_str("GENERIC_WEBHOOK_TEMPLATE") or generic.get("payload_template", ""),
+        # 微信公众号
+        "WECHAT_MP_APPID": _get_env_str("WECHAT_MP_APPID") or wechat_mp.get("app_id", ""),
+        "WECHAT_MP_SECRET": _get_env_str("WXAPPSECRET") or _get_env_str("WECHAT_MP_SECRET") or wechat_mp.get("app_secret", ""),
+        "WECHAT_MP_AUTO_PUBLISH": _get_env_bool("WECHAT_MP_AUTO_PUBLISH") if _get_env_bool("WECHAT_MP_AUTO_PUBLISH") is not None else wechat_mp.get("auto_publish", False),
     }
 
 
@@ -585,6 +590,11 @@ def _print_notification_sources(config: Dict) -> None:
         count = min(len(accounts), max_accounts)
         source = "环境变量" if os.environ.get("GENERIC_WEBHOOK_URL") else "配置文件"
         notification_sources.append(f"通用Webhook({source}, {count}个账号)")
+
+    if config.get("WECHAT_MP_APPID") and config.get("WECHAT_MP_SECRET"):
+        mp_source = "环境变量" if os.environ.get("WECHAT_MP_APPID") else "配置文件"
+        auto = "自动发布" if config.get("WECHAT_MP_AUTO_PUBLISH") else "仅草稿"
+        notification_sources.append(f"微信公众号({mp_source}, {auto})")
 
     if notification_sources:
         print(f"通知渠道配置来源: {', '.join(notification_sources)}")

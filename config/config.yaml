@@ -427,8 +427,8 @@ notification:
                                       # 留空则使用默认格式：{"title": "{title}", "content": "{content}"}
 
     wechat_mp:
-      app_id: ""                      # 微信公众号 AppID
-      app_secret: ""                  # 微信公众号 AppSecret
+      app_id: "wxda20b70bd74e8847"    # 微信公众号 AppID
+      app_secret: ""                  # 微信公众号 AppSecret（已配置环境变量 WXAPPSECRET）
       auto_publish: false             # 是否自动提交发布（true=草稿创建后自动发布，false=仅创建草稿到草稿箱）
                                       # 自动发布需公众号有发布权限（认证订阅号/服务号）
                                       # 个人订阅号建议 false，手动从后台发布
